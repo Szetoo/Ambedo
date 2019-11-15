@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealthController : MonoBehaviour {
+public class PlayerHealthController : MonoBehaviour
+{
 
     private float maxHP = 200;
     private float currentHp;
 
-    private bool isHealing;
+    // private bool isHealing;
     private bool invincible;
 
     private float invincibilityTime = 3;
@@ -18,15 +19,17 @@ public class PlayerHealthController : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         currentHp = maxHP;
-        isHealing = false;
+        //isHealing = false;
         invincible = false;
     }
 
     // Update is called once per frame
-    void Update() {
-       
+    void Update()
+    {
+
         if (currentHp < maxHP & canHealTime < Time.time)
         {
             amountToHeal = maxHP - currentHp;
@@ -37,10 +40,9 @@ public class PlayerHealthController : MonoBehaviour {
         {
             invincible = false;
         }
-        else if (currentHp > maxHP)
+        if (currentHp > maxHP)
         {
             currentHp = maxHP;
-
         }
 
     }
@@ -59,16 +61,10 @@ public class PlayerHealthController : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-
-
     }
 
     private void healPlayer(float amount)
     {
         currentHp += amount;
     }
-
-
-
 }
-     

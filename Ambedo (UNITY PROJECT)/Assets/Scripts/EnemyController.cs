@@ -10,13 +10,14 @@ public class EnemyController : MonoBehaviour {
 
     public GameObject enemy;
     private float speed = 2;
+    private Rigidbody2D rbdy;
 
     // Use this for initialization
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
         playerNearby = false;
-		
-	}
+        rbdy = gameObject.GetComponent<Rigidbody2D>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,20 +28,16 @@ public class EnemyController : MonoBehaviour {
         }
         else
         {
-            rest();
+            Rest();
         }
- 
 	}
-
-
-
-
 
      private void MoveToPlayer()
     {
-        
-        //move towards player
-        
+
+        //move towards and face player
+        gameObject.GetComponent<AudioSource>().enabled = true;
+
         if (transform.position.x - player.transform.position.x > 1)
         {
             transform.gameObject.GetComponent<SpriteRenderer>().flipX = false;
@@ -53,9 +50,11 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    private void rest()
+    //rest if not nearby
+    private void Rest()
     {
-
-    }
- 
+        rbdy.velocity = Vector2.zero;
+        rbdy.Sleep();
+        gameObject.GetComponent<AudioSource>().enabled = false;
+    } 
 }
