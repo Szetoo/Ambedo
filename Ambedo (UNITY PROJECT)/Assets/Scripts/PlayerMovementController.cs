@@ -16,16 +16,18 @@ public class PlayerMovementController : MonoBehaviour {
 	private bool canStartSprint;
 	private bool isInWater;
 	private float nextWaterJump;
+    private SpriteRenderer sprite;
 
 	void Start () {
 		isJumping = false;
 		lastVelocity = new Vector2(0.0f, 0.0f);
 		canStartSprint = true;
-	}
+        sprite = GetComponent<SpriteRenderer>();
+    }
 
 	void FixedUpdate () {
 		Rigidbody2D rb = GetComponent<Rigidbody2D> ();
-
+        
 		horizontalMovement (rb);
 		verticalMovement (rb);
 
@@ -35,6 +37,7 @@ public class PlayerMovementController : MonoBehaviour {
 		float momentum = xSpeed;
 
 		float moveHorizontal = Input.GetAxis ("Horizontal");
+
 		//float sprintHorizontal = Input.GetAxis ("Sprint");
 		float sprintHorizontal = 0;
 
@@ -49,10 +52,17 @@ public class PlayerMovementController : MonoBehaviour {
 		} else
 			canStartSprint = true;
 
-		if (moveHorizontal < 0) {
-			sprintHorizontal = -sprintHorizontal;
-			//momentum = -xSpeed;
-		}
+        if (moveHorizontal < 0)
+        {
+            sprintHorizontal = -sprintHorizontal;
+            sprite.flipX = false;
+            //momentum = -xSpeed;
+        }
+        else if (moveHorizontal == 0) sprite.flipX = sprite.flipX;
+        else sprite.flipX = true;
+
+        
+
 		if (!(Input.GetButton("Horizontal") && canStartSprint) || isInWater)
 			sprintHorizontal = 0;
 
@@ -70,12 +80,13 @@ public class PlayerMovementController : MonoBehaviour {
 		float acceleration = (rb.velocity.y - lastVelocity.y) / Time.fixedDeltaTime;
 		lastVelocity = rb.velocity;
 
+        
 		if (isJumping && -landingTolerance <= rb.velocity.y && rb.velocity.y <= landingTolerance) {
-
+			Debug.Log (isJumping);
 			isJumping = false;
 		}
 
-		if (Input.GetButton("Jump")){
+		else if (Input.GetButton("Jump")){
 			if (isInWater) {
 				if (Time.time > nextWaterJump) {
 					nextWaterJump = Time.time + (waterJumpFrames / 60f);
@@ -86,6 +97,7 @@ public class PlayerMovementController : MonoBehaviour {
 			} else {
 
 				if (!isJumping && -landingTolerance <= acceleration && acceleration <= landingTolerance) {
+					
 					rb.velocity = new Vector2 (rb.velocity.x, 0);
 					rb.AddForce (new Vector2 (0.0f, jumpForce));
 					isJumping = true;
@@ -97,9 +109,6 @@ public class PlayerMovementController : MonoBehaviour {
 				}
 			}
 		}
-
-			
-
 			
 }
 
