@@ -1,7 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambedo (UNITY PROJECT)", "Assembly-CSharp.csproj", "{B90B3AA8-5EE5-CFBC-36A0-C0DC3A11451C}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio for Mac
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{B90B3AA8-5EE5-CFBC-36A0-C0DC3A11451C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
