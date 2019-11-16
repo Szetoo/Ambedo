@@ -3234,6 +3234,11 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 8620948943779466616, guid: 21aa8e55bc3ddbc41a823aea2c441f24,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21aa8e55bc3ddbc41a823aea2c441f24, type: 3}
 --- !u!1 &1143853610
@@ -19835,6 +19840,12 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!4 &1557611705 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8620948943779466617, guid: 21aa8e55bc3ddbc41a823aea2c441f24,
+    type: 3}
+  m_PrefabInstance: {fileID: 1090098699}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1561466936
 GameObject:
   m_ObjectHideFlags: 0
@@ -19962,7 +19973,7 @@ Transform:
   m_Children:
   - {fileID: 970749132}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1573983551
 MonoBehaviour:
@@ -19973,10 +19984,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1573983546}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93ca9c699de46425088645ada0ae6ec5, type: 3}
+  m_Script: {fileID: 11500000, guid: 8304badd34d5a4ef895a5ec0820f6e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 1557611705}
   dampTime: 0.3
   followType: -1
   cameraCenterX: 0.5
