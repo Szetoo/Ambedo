@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
 public class PlayerMovementController : MonoBehaviour {
 
 	public float xSpeed;
@@ -18,7 +22,38 @@ public class PlayerMovementController : MonoBehaviour {
 	private float nextWaterJump;
     private SpriteRenderer sprite;
 
-	void Start () {
+    private void Awake()
+    {
+        Debug.Log(File.Exists(Application.persistentDataPath + "/gamesave.save"));
+        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            Debug.Log("Reading Save File");
+            // 2
+            // player = GameObject.FindGameObjectWithTag("Player");
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            Save save = (Save)bf.Deserialize(file);
+            file.Close();
+
+            // 3
+
+            float xPosition = save.xSpawnPosition;
+            float yPosition = save.ySpawnPosition;
+            Debug.Log(xPosition);
+            Debug.Log(yPosition);
+
+            gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
+            Debug.Log("Game Loaded");
+
+            //Unpause();
+        }
+        else
+        {
+            Debug.Log("No game saved!");
+        }
+    }
+
+    void Start () {
 		isJumping = false;
 		lastVelocity = new Vector2(0.0f, 0.0f);
 		canStartSprint = true;
@@ -126,5 +161,7 @@ public class PlayerMovementController : MonoBehaviour {
 		}
 
 	}
+
+
 
 }
