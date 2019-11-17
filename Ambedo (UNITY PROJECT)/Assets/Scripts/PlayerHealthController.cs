@@ -16,6 +16,7 @@ public class PlayerHealthController : MonoBehaviour
     private float canHealTime;
 
     private float amountToHeal;
+    public AudioSource damage;
 
 
     // Use this for initialization
@@ -24,6 +25,7 @@ public class PlayerHealthController : MonoBehaviour
         currentHp = maxHP;
         //isHealing = false;
         invincible = false;
+        //damage.Play();
     }
 
     // Update is called once per frame
@@ -39,6 +41,7 @@ public class PlayerHealthController : MonoBehaviour
         if (invincibilityExpiry < Time.time)
         {
             invincible = false;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
         }
         if (currentHp > maxHP)
         {
@@ -56,9 +59,12 @@ public class PlayerHealthController : MonoBehaviour
             invincible = true;
             invincibilityExpiry = Time.time + invincibilityTime;
             canHealTime = invincibilityExpiry + 6;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+            damage.Play();
         }
         if (currentHp < 1)
         {
+            damage.Play();
             Destroy(gameObject);
         }
     }
