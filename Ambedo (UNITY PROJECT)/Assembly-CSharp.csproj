@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BurningProperties.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
+    <Compile Include="Assets\Scripts\CheckPointController.cs" />
     <Compile Include="Assets\Scripts\CursorController.cs" />
     <Compile Include="Assets\Scripts\EnemyAggroZone.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
