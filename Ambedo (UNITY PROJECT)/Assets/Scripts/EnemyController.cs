@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour {
     private void Rest()
     {
         rbdy.velocity = Vector2.zero;
-        rbdy.Sleep();
+        //rbdy.Sleep();
         gameObject.GetComponent<AudioSource>().enabled = false;
     } 
 }
