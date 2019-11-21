@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     GameObject[] pauseObjects;
-    private Transform camera;
     float x, y, z;
 
     // Use this for initialization
