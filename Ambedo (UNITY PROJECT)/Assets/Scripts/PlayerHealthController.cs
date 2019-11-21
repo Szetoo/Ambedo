@@ -6,7 +6,7 @@ public class PlayerHealthController : MonoBehaviour
 {
 
     private float maxHP = 200;
-    private float currentHp;
+    public float currentHp;
 
     // private bool isHealing;
     private bool invincible;
