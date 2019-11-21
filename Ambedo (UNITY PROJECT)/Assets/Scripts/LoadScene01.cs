@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadSceneOnClick : MonoBehaviour
+public class LoadScene01 : MonoBehaviour
 {
     public void LoadByIndex(int sceneIndex) {
 

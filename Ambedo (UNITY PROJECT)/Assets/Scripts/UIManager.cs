@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     GameObject[] pauseObjects;
+    private Transform camera;
+    float x, y, z;
 
     // Use this for initialization
     void Start()
@@ -19,8 +21,8 @@ public class UIManager : MonoBehaviour
     void Update()
     {
 
-        //uses the p button to pause and unpause the game
-        if (Input.GetKeyDown(KeyCode.P))
+        //uses the esc button to pause and unpause the game
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (Time.timeScale == 1)
             {
