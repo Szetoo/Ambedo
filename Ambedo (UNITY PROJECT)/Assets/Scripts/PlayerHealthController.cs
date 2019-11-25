@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class PlayerHealthController : MonoBehaviour
 {
@@ -20,6 +22,36 @@ public class PlayerHealthController : MonoBehaviour
 
 
     // Use this for initialization
+    private void Awake()
+    {
+        
+        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            Debug.Log("Reading Save File");
+            // 2
+            // player = GameObject.FindGameObjectWithTag("Player");
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            Save save = (Save)bf.Deserialize(file);
+            file.Close();
+
+            // 3
+
+            float xPosition = save.xSpawnPosition;
+            float yPosition = save.ySpawnPosition;
+            Debug.Log(xPosition);
+            Debug.Log(yPosition);
+
+            gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
+            Debug.Log("Game Loaded");
+
+            //Unpause();
+        }
+        else
+        {
+            Debug.Log("No game saved!");
+        }
+    }
     void Start()
     {
         currentHp = maxHP;
@@ -31,7 +63,13 @@ public class PlayerHealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentHp < 1)
+        {
+            damage.Play();
 
+            Destroy(gameObject);
+            Initiate.Fade("Corey_Scene", Color.black, 1.0f);
+        }
         if (currentHp < maxHP & canHealTime < Time.time)
         {
             amountToHeal = maxHP - currentHp;
@@ -62,11 +100,7 @@ public class PlayerHealthController : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
             damage.Play();
         }
-        if (currentHp < 1)
-        {
-            damage.Play();
-            Destroy(gameObject);
-        }
+     
     }
 
     private void healPlayer(float amount)

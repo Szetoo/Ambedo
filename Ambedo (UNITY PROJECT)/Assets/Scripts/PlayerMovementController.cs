@@ -45,10 +45,10 @@ public class PlayerMovementController : MonoBehaviour
     {
         try
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetButtonDown("Attack"))
             {
                 string heldObjectTag = gameObject.transform.GetChild(0).name;
-                if (heldObjectTag == "Sword" && !attackDelay)
+                if ((heldObjectTag == "Sword" | heldObjectTag == "Sword2") && !attackDelay)
                 {
                     attackCoroutine = attack();
                     StartCoroutine(attackCoroutine);
