@@ -25,7 +25,7 @@ public class PickUpObjectsTestSuite {
 
     //GameObject sword = Object.Instantiate(Resources.Load<GameObject>("Prefabs/Sword"));
     [UnityTest]
-    public IEnumerator PlayerStartsNotWielding()
+    public IEnumerator TestPlayerStartsNotWielding()
     {
         //GameObject sword = Object.Instantiate(Resources.Load<GameObject>("../Prefabs/Droppable Objects/Sword"));
 
@@ -39,7 +39,7 @@ public class PickUpObjectsTestSuite {
     }
 
     [UnityTest]
-    public IEnumerator CannotPickUpIfTooFar()
+    public IEnumerator TestCannotPickUpIfTooFar()
     {
         //GameObject sword = Object.Instantiate(Resources.Load<GameObject>("../Prefabs/Droppable Objects/Sword"));
 
@@ -53,7 +53,7 @@ public class PickUpObjectsTestSuite {
     }
 
     [UnityTest]
-    public IEnumerator CanPickUpIfWithinMaxDistance()
+    public IEnumerator TestCanPickUpIfWithinMaxDistance()
     {
         //GameObject sword = Object.Instantiate(Resources.Load<GameObject>("../Prefabs/Droppable Objects/Sword"));
 
@@ -67,7 +67,7 @@ public class PickUpObjectsTestSuite {
     }
 
     [UnityTest]
-    public IEnumerator PickedUpItem()
+    public IEnumerator TestPickedUpItem()
     {
         sword.GetComponent<PickUpByPlayer>().pickUp();
         //gameObject.transform.SetParent(player.GetComponent<Transform>()
@@ -78,7 +78,7 @@ public class PickUpObjectsTestSuite {
     }
 
     [UnityTest]
-    public IEnumerator DroppedItem()
+    public IEnumerator TestDroppedItem()
     {
         sword.GetComponent<PickUpByPlayer>().drop();
         bool isHeld = false;
