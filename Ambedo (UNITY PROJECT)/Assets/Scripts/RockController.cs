@@ -5,8 +5,8 @@ using UnityEngine;
 public class RockController : MonoBehaviour
 {
     GameObject player;
-    private float activationDistance;
-    private bool hasBeenActivated;
+    public float activationDistance;
+    public bool hasBeenActivated;
 
     // Start is called before the first frame update
 
@@ -67,7 +67,7 @@ public class RockController : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player" && !hasBeenActivated) 
         {

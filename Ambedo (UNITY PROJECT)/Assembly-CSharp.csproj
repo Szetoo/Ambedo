@@ -63,30 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BurningProperties.cs" />
-    <Compile Include="Assets\Scripts\CameraMovement.cs" />
-    <Compile Include="Assets\Scripts\CheckPointController.cs" />
-    <Compile Include="Assets\Scripts\CursorController.cs" />
-    <Compile Include="Assets\Scripts\EnemyAggroZone.cs" />
-    <Compile Include="Assets\Scripts\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\FireController.cs" />
-    <Compile Include="Assets\Scripts\Game.cs" />
-    <Compile Include="Assets\Scripts\GameController.cs" />
-    <Compile Include="Assets\Scripts\GameData.cs" />
-    <Compile Include="Assets\Scripts\GameData_IO.cs" />
-    <Compile Include="Assets\Scripts\LoadSceneOnClick.cs" />
-    <Compile Include="Assets\Scripts\PickUpByPlayer.cs" />
-    <Compile Include="Assets\Scripts\PlayerHealthController.cs" />
-    <Compile Include="Assets\Scripts\PlayerMovementController.cs" />
-    <Compile Include="Assets\Scripts\Save.cs" />
-    <Compile Include="Assets\Scripts\SpawnFire.cs" />
-    <Compile Include="Assets\Scripts\SpawnWater.cs" />
-    <Compile Include="Assets\Scripts\SteamMovementController.cs" />
-    <Compile Include="Assets\Scripts\UIManager.cs" />
-    <Compile Include="Assets\Scripts\WaterObjectInteractionsController.cs" />
-    <Compile Include="Assets\Scripts\WeaponController.cs" />
-    <Compile Include="Assets\Simple Scene Fade Load System\Scripts\Fader.cs" />
-    <Compile Include="Assets\Simple Scene Fade Load System\Scripts\Initiate.cs" />
     <Compile Include="Assets\Unity Samples UI\Scripts\ActiveStateToggler.cs" />
     <Compile Include="Assets\Unity Samples UI\Scripts\ApplicationManager.cs" />
     <Compile Include="Assets\Unity Samples UI\Scripts\ChangeColor.cs" />
@@ -690,6 +666,12 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>D:/Tools/Unity Hub Installation/2019.2.12f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="NewAssembly.csproj">
+      <Project>{940BF6FB-A80E-F1AC-F4B1-06FDA8557934}</Project>
+      <Name>NewAssembly</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

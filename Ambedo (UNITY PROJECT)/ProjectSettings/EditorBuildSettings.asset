@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Corey_Scene.unity
+    guid: cd1689a5d9d39924ea45c30409ddb703
+  m_configObjects: {}

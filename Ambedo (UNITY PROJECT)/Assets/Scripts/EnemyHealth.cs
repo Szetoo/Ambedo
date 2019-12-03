@@ -6,7 +6,7 @@ public class EnemyHealth : MonoBehaviour
 {
 
     private float maxHP = 200;
-    private float currentHp;
+    public float currentHp;
 
     // private bool isHealing;
     private bool invincible;
@@ -50,20 +50,34 @@ public class EnemyHealth : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerAttackHitbox" & invincible == false)
         {
-            currentHp = currentHp - 100;
+            receiveDamage(100);
             Debug.Log(currentHp);
             invincible = true;
             invincibilityExpiry = Time.time + invincibilityTime;
             canHealTime = invincibilityExpiry + 6;
         }
+
         if (currentHp < 1)
         {
-            Destroy(gameObject);
+            EnemyDie();
         }
     }
 
-    private void healPlayer(float amount)
+
+    public void healEnemy(float amount)
     {
         currentHp += amount;
     }
+
+    public void receiveDamage(float amount)
+    {
+        currentHp -= amount;
+    }
+
+    public void EnemyDie()
+    {
+        Destroy(gameObject);
+    }
+
+
 }
