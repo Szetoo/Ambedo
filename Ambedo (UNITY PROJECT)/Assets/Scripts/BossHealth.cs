@@ -5,8 +5,8 @@ using UnityEngine;
 public class BossHealth : MonoBehaviour
 {
 
-    private float maxHP = 100;
-    private float currentHp;
+    public float maxHP = 100;
+    public float currentHp;
     public Sprite Transformation;
     private GameObject player;
 

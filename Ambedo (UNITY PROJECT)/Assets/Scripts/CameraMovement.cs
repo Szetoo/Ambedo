@@ -39,7 +39,7 @@ namespace CustomCamera
 
         // private
         Camera camera;
-        Vector3 velocity = Vector3.zero;
+        public Vector3 velocity = Vector3.zero;
         float vertExtent;
         float horzExtent;
         Vector3 tempVec = Vector3.one;

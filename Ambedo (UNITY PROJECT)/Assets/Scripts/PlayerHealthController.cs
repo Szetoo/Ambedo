@@ -11,7 +11,7 @@ public class PlayerHealthController : MonoBehaviour
     public float currentHp;
 
     // private bool isHealing;
-    private bool invincible;
+    public bool invincible;
 
     private float invincibilityTime = 3;
     private float invincibilityExpiry;

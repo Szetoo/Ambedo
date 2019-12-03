@@ -7,7 +7,7 @@ public class PickUpByPlayer : MonoBehaviour {
     public GameObject player;
     public float maxDistance;
 
-    private bool beingHeld;
+    public bool beingHeld;
 
 	// Use this for initialization
 	void Start () {
@@ -40,13 +40,13 @@ public class PickUpByPlayer : MonoBehaviour {
     }
 
 
-    void pickUp()
+    public void pickUp()
     {
-        gameObject.transform.SetParent(player.GetComponent<Transform>());
+        gameObject.transform.SetParent(GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>());
         beingHeld = true;
     }
 
-    void drop()
+    public void drop()
     {
         gameObject.transform.SetParent(null);
         beingHeld = false;

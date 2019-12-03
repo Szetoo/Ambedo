@@ -180,7 +180,7 @@ public class PlayerMovementController : MonoBehaviour
 
     }
 
-    private IEnumerator attack()
+    public IEnumerator attack()
     {
         //float timeToDespawn = Time.time + (1 / 6f);
         //while (timeToDespawn > Time.time)

@@ -20,48 +20,34 @@ public class PlayerHealthTestSuite
     public void Teardown()
     {
         //Object.Destroy(enemy);
-        Object.Destroy(player);
+        if (player != null)
+        {
+            Object.Destroy(player);
+        }
     }
 
 
-    //GameObject sword = Object.Instantiate(Resources.Load<GameObject>("Prefabs/Sword"));
     [UnityTest]
     public IEnumerator TestPlayerStartsWithCorrectHp()
     {
-        //GameObject sword = Object.Instantiate(Resources.Load<GameObject>("../Prefabs/Droppable Objects/Sword"));
 
         float expectedhealth = 200;
-
         yield return null;
-
-
         Assert.AreEqual(expectedhealth, player.GetComponent<PlayerHealthController>().currentHp);
         //yield return null;
     }
 
+    [UnityTest]
     public IEnumerator TestPlayerHealthCheckInvincibility()
     {
-        // Check that the player is invincible after taking damage
 
-        //GameObject bossObject = Object.Instantiate(Resources.Load<GameObject>("Enemy"));
-        //GameObject playerObject = Object.Instantiate(Resources.Load<GameObject>("Player"));
         enemy = Object.Instantiate(Resources.Load("Enemy", typeof(GameObject))) as GameObject;
-        player.GetComponent<Transform>().SetPositionAndRotation(new Vector3(
-                                                                       enemy.GetComponent<Transform>().position.x - 1,
-                                                                       enemy.GetComponent<Transform>().position.y),
-                                                                       Quaternion.identity);
-
-        player.GetComponent<PlayerMovementController>().attack();
-
-        float healthBefore = enemy.GetComponent<BossHealth>().currentHp;
+        player.transform.SetPositionAndRotation(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        enemy.transform.SetPositionAndRotation(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        bool expectedState = true;
         yield return new WaitForSeconds(0.8f);
-        player.GetComponent<PlayerMovementController>().attack();
-
-        float healthAfter = enemy.GetComponent<BossHealth>().currentHp;
-
-        Assert.AreEqual(healthBefore, healthAfter);
-
-        
+        Assert.AreEqual(expectedState, player.GetComponent<PlayerHealthController>().invincible);
+        Object.Destroy(enemy);
         yield return new WaitForEndOfFrame();
 
     }
@@ -69,24 +55,13 @@ public class PlayerHealthTestSuite
     [UnityTest]
     public IEnumerator TestPlayerHealthCheckTakesDamage()
     {
-        // Check that the boss takes damage upon being hit
-
-
-
-        player.GetComponent<Transform>().SetPositionAndRotation(new Vector3(
-                                                                       enemy.GetComponent<Transform>().position.x - 1,
-                                                                       enemy.GetComponent<Transform>().position.y),
-                                                                       Quaternion.identity);
-
-        float healthBefore = enemy.GetComponent<BossHealth>().currentHp;
-        player.GetComponent<PlayerMovementController>().attack();
-
-        float healthAfter = enemy.GetComponent<BossHealth>().currentHp;
-
-        Assert.Less(healthAfter, healthBefore);
-
+        enemy = Object.Instantiate(Resources.Load("Enemy", typeof(GameObject))) as GameObject;
+        player.transform.SetPositionAndRotation(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        enemy.transform.SetPositionAndRotation(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        float expectedhealth = 100;
+        yield return new WaitForSeconds(0.8f);
+        Assert.AreEqual(expectedhealth, player.GetComponent<PlayerHealthController>().currentHp);
         Object.Destroy(enemy);
-        Object.Destroy(player);
         yield return new WaitForEndOfFrame();
 
     }
@@ -94,24 +69,42 @@ public class PlayerHealthTestSuite
     [UnityTest]
     public IEnumerator TestPlayerHealthCheckHealthRegen()
     {
-        // Check that the boss regenerates health after several seconds
 
-        GameObject bossObject = Object.Instantiate(Resources.Load<GameObject>("Boss"));
-        GameObject playerObject = Object.Instantiate(Resources.Load<GameObject>("Player"));
+        enemy = Object.Instantiate(Resources.Load("Enemy", typeof(GameObject))) as GameObject;
+        player.transform.SetPositionAndRotation(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        enemy.transform.SetPositionAndRotation(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
 
-        playerObject.GetComponent<Transform>().SetPositionAndRotation(new Vector3(
-                                                                       enemy.GetComponent<Transform>().position.x - 1,
-                                                                       enemy.GetComponent<Transform>().position.y),
-                                                                       Quaternion.identity);
+        float expectedhealth = 200;
+        yield return new WaitForSeconds(10);
 
-        float healthBefore = enemy.GetComponent<BossHealth>().currentHp;
-        player.GetComponent<PlayerMovementController>().attack();
+
+        Assert.AreEqual(expectedhealth, player.GetComponent<PlayerHealthController>().currentHp);
+        Object.Destroy(enemy);
+
+
+        yield return new WaitForEndOfFrame();
+
+    }
+
+    [UnityTest]
+    public IEnumerator TestPlayerDies()
+    {
+
+        enemy = Object.Instantiate(Resources.Load("Enemy", typeof(GameObject))) as GameObject;
+        player.transform.SetPositionAndRotation(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        enemy.transform.SetPositionAndRotation(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+
+
         yield return new WaitForSeconds(5);
-        float healthAfter = enemy.GetComponent<BossHealth>().currentHp;
+        player.transform.SetPositionAndRotation(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        enemy.transform.SetPositionAndRotation(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
+        yield return new WaitForSeconds(1);
 
-        Assert.Less(healthAfter, healthBefore);
 
-     
+        Assert.IsNull(player);
+        Object.Destroy(enemy);
+
+
         yield return new WaitForEndOfFrame();
 
     }
