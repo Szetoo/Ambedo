@@ -34,7 +34,7 @@ public class EnemyAggroZoneCheck
 
         //player = Object.Instantiate(Resources.Load("Player", typeof(GameObject))) as GameObject;
         player.transform.SetPositionAndRotation(new Vector3(5,0, 0), new Quaternion(0, 0, 0, 0));
-		enemy.transform.SetPositionAndRotation(new Vector3(8,0, 0), new Quaternion(0, 0, 0, 0));
+		enemy.transform.SetPositionAndRotation(new Vector3(9,0, 0), new Quaternion(0, 0, 0, 0));
 
 		yield return null;
         //Object.Destroy(player);

@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Tests\EnemyHealthCheck.cs" />
     <Compile Include="Assets\Scripts\Tests\PickUpObjectTestSuite.cs" />
     <Compile Include="Assets\Scripts\Tests\PlayerHealthTestSuite.cs" />
+    <Compile Include="Assets\Scripts\Tests\PlayerMovementTestingSuite.cs" />
     <Compile Include="Assets\Scripts\Tests\RockControllerTestSuite.cs" />
     <None Include="Assets\Scripts\Tests\Tests.asmdef" />
     <Reference Include="UnityEngine.TestRunner">
