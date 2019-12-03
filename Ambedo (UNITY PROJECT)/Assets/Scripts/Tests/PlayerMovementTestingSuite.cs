@@ -3,7 +3,9 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 
-public class PlayerHealthTestSuite
+using System.Collections.Generic;
+
+public class PlayerMovementTestingSuite
 {
 
     private GameObject enemy;
@@ -28,8 +30,9 @@ public class PlayerHealthTestSuite
 
 
     [UnityTest]
-    public IEnumerator TestPlayerStartsWithCorrectHp()
+    public IEnumerator TestPlayerMovement()
     {
+
 
         float expectedhealth = 200;
         yield return null;
@@ -38,7 +41,7 @@ public class PlayerHealthTestSuite
     }
 
     [UnityTest]
-    public IEnumerator TestPlayerHealthCheckInvincibility()
+    public IEnumerator TestPlayerSpeed()
     {
 
         enemy = Object.Instantiate(Resources.Load("Enemy", typeof(GameObject))) as GameObject;
@@ -53,7 +56,7 @@ public class PlayerHealthTestSuite
     }
 
     [UnityTest]
-    public IEnumerator TestPlayerHealthCheckTakesDamage()
+    public IEnumerator TestPlayerJump()
     {
         enemy = Object.Instantiate(Resources.Load("Enemy", typeof(GameObject))) as GameObject;
         player.transform.SetPositionAndRotation(new Vector3(0, 0, 0), new Quaternion(0, 0, 0, 0));
@@ -67,7 +70,7 @@ public class PlayerHealthTestSuite
     }
 
     [UnityTest]
-    public IEnumerator TestPlayerHealthCheckHealthRegen()
+    public IEnumerator TestPlayerCannotJump()
     {
 
         enemy = Object.Instantiate(Resources.Load("Enemy", typeof(GameObject))) as GameObject;
@@ -87,7 +90,7 @@ public class PlayerHealthTestSuite
     }
 
     [UnityTest]
-    public IEnumerator TestPlayerDies()
+    public IEnumerator TestPlayerFall()
     {
 
         enemy = Object.Instantiate(Resources.Load("Enemy", typeof(GameObject))) as GameObject;
