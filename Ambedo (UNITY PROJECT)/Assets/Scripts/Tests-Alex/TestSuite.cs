@@ -16,10 +16,10 @@ public class TestSuite
     [UnityTest]
     public IEnumerator MainMenuToGame()
     {
-        //GameObject sceneObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Scenes/Main Menu"));
-        EditorSceneManager.LoadScene("Assets/Scenes/Main Menu.unity");
-        
-        scene = EditorSceneManager.GetActiveScene();
+        SceneManager.LoadScene("Main Menu");
+        yield return new WaitForSeconds(4);
+        scene = SceneManager.GetSceneByName("Main Menu");
+        SceneManager.SetActiveScene(scene);
         Debug.Log(message: "-Debug Current Scene-");
         Debug.Log(scene.name);
         Assert.True(scene.name == "Main Menu");
@@ -36,20 +36,26 @@ public class TestSuite
 
         yield return new WaitForEndOfFrame();
 
-        scene = EditorSceneManager.GetActiveScene();
+        SceneManager.UnloadSceneAsync(scene);
+        SceneManager.LoadScene("Corey_Scene");
+        yield return new WaitForSeconds(4);
+        scene = SceneManager.GetSceneByName("Corey_Scene");
+        SceneManager.SetActiveScene(scene);
+
         Debug.Log(message: "-Debug Current Scene-");
         Debug.Log(scene.name);
         Assert.True(scene.name == "Corey_Scene");
     }
-
+    
     // 2
     [UnityTest]
     public IEnumerator GameToMainMenu()
     {
         // Test 'Quit to Main Menu' button changes scene from pause menu to game
-        EditorSceneManager.LoadScene("Assets/Scenes/Corey_Scene.unity");
-
-        scene = EditorSceneManager.GetActiveScene();
+        SceneManager.LoadScene("Corey_Scene");
+        yield return new WaitForSeconds(4);
+        scene = SceneManager.GetSceneByName("Corey_Scene");
+        SceneManager.SetActiveScene(scene);
         Debug.Log(message: "-Debug Current Scene-");
         Debug.Log(scene.name);
         Assert.True(scene.name == "Corey_Scene");
@@ -66,10 +72,16 @@ public class TestSuite
 
         yield return new WaitForEndOfFrame();
 
-        scene = EditorSceneManager.GetActiveScene();
+        SceneManager.UnloadSceneAsync(scene);
+        SceneManager.LoadScene("Main Menu");
+        yield return new WaitForSeconds(4);
+        scene = SceneManager.GetSceneByName("Main Menu");
+        SceneManager.SetActiveScene(scene);
+
         Debug.Log(message: "-Debug Current Scene-");
         Debug.Log(scene.name);
         Assert.True(scene.name == "Main Menu");
+        
     }
 
     private void Clicked()
