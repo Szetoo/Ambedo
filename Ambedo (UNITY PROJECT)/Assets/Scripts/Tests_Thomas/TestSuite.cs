@@ -3,13 +3,99 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using NUnit.Framework;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.UI;
 
 public class TestSuite
 {
     //private Game game;
+
+    private Scene scene;
+    bool clicked;
+    GameObject buttonObject;
     
+    [UnityTest]
+    public IEnumerator MainMenuToGame()
+    {
+        SceneManager.LoadScene("Main Menu");
+        yield return new WaitForSeconds(4);
+        scene = SceneManager.GetSceneByName("Main Menu");
+        SceneManager.SetActiveScene(scene);
+        //EditorSceneManager.LoadScene("Assets/Scenes/Main Menu.unity");
+
+
+        Debug.Log(message: "-Debug Current Scene-");
+        Debug.Log(scene.name);
+        Assert.True(scene.name == "Main Menu");
+
+        buttonObject = GameObject.Find("Continue");
+        Debug.Log(message: "-Debug Current Button-");
+        Debug.Log(buttonObject);
+        Button setupButton = buttonObject.GetComponent<Button>();
+        Assert.NotNull(setupButton);
+        clicked = false;
+        setupButton.onClick.AddListener(Clicked);
+        setupButton.onClick.Invoke();
+        Assert.True(clicked);
+
+        yield return new WaitForSeconds(4);
+        scene = SceneManager.GetActiveScene();
+        /*
+        SceneManager.UnloadSceneAsync(scene);
+        SceneManager.LoadScene("Corey_Scene");
+        yield return new WaitForSeconds(4);
+        scene = SceneManager.GetSceneByName("Corey_Scene");
+        SceneManager.SetActiveScene(scene);
+        */
+        Debug.Log(message: "-Debug Current Scene-");
+        Debug.Log(scene.name);
+        Assert.True(scene.name == "Corey_Scene");
+    }
+
+    [UnityTest]
+    public IEnumerator GameToMainMenu()
+    {
+        // Test 'Quit to Main Menu' button changes scene from pause menu to game
+        SceneManager.LoadScene("Corey_Scene");
+        yield return new WaitForSeconds(4);
+        scene = SceneManager.GetSceneByName("Corey_Scene");
+        SceneManager.SetActiveScene(scene);
+        Debug.Log(message: "-Debug Current Scene-");
+        Debug.Log(scene.name);
+        Assert.True(scene.name == "Corey_Scene");
+
+        buttonObject = GameObject.Find("Quit To Main Menu");
+        Debug.Log(message: "-Debug Current Button-");
+        Debug.Log(buttonObject);
+        Button setupButton = buttonObject.GetComponent<Button>();
+        Assert.NotNull(setupButton);
+        clicked = false;
+        setupButton.onClick.AddListener(Clicked);
+        setupButton.onClick.Invoke();
+        Assert.True(clicked);
+
+        yield return new WaitForEndOfFrame();
+
+        SceneManager.UnloadSceneAsync(scene);
+        SceneManager.LoadScene("Main Menu");
+        yield return new WaitForSeconds(4);
+        scene = SceneManager.GetSceneByName("Main Menu");
+        SceneManager.SetActiveScene(scene);
+
+        Debug.Log(message: "-Debug Current Scene-");
+        Debug.Log(scene.name);
+        Assert.True(scene.name == "Main Menu");
+
+    }
+    
+    private void Clicked()
+    {
+        clicked = true;
+    }
+
     [UnityTest]
     public IEnumerator TestSaveCheckRespawnPosition()
     {
@@ -392,5 +478,204 @@ public class TestSuite
         yield return new WaitForEndOfFrame();
 
     }
+
+    [UnityTest]
+    public IEnumerator TestPlayerMovementCheckFalling()
+    {
+        GameObject playerObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"));
+        GameObject testingPlatform = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/stationary_platform"));
+
+        //Spawn player slightly above platform
+        testingPlatform.GetComponent<Transform>().position = Vector2.zero;
+        playerObject.GetComponent<Transform>().position = new Vector2(0f, 5f);
+
+        Vector2 posBefore = playerObject.GetComponent<Transform>().position;
+
+        yield return new WaitForSeconds(2);
+
+        Vector2 posAfter = playerObject.GetComponent<Transform>().position;
+
+        Assert.Less(posAfter.y, posBefore.y);
+
+        Object.Destroy(testingPlatform);
+        Object.Destroy(playerObject);
+        yield return new WaitForEndOfFrame();
+
+    }
+
+    [UnityTest]
+    public IEnumerator TestPlayerMovementCheckMovementLeft()
+    {
+        GameObject playerObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"));
+        GameObject testingPlatform = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/stationary_platform"));
+
+        Rigidbody2D rb = playerObject.GetComponent<Rigidbody2D>();
+
+        //Spawn player slightly above platform
+        testingPlatform.GetComponent<Transform>().position = Vector2.zero;
+        playerObject.GetComponent<Transform>().position = new Vector2(0f, 5f);
+        
+        yield return new WaitForSeconds(2);
+
+        Vector2 posBefore = playerObject.GetComponent<Transform>().position;
+
+        for (int i = 0; i < 30; i++)
+        {
+            playerObject.GetComponent<PlayerMovementController>().horizontalMovement(rb, -1);
+            //yield return new WaitForEndOfFrame();
+        }
+
+        Vector2 posAfter = playerObject.GetComponent<Transform>().position;
+
+        Assert.Less(posAfter.x, posBefore.x);
+
+        Object.Destroy(testingPlatform);
+        Object.Destroy(playerObject);
+        yield return new WaitForEndOfFrame();
+
+    }
+
+    [UnityTest]
+    public IEnumerator TestPlayerMovementCheckMovementRight()
+    {
+        GameObject playerObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"));
+        GameObject testingPlatform = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/stationary_platform"));
+
+        Rigidbody2D rb = playerObject.GetComponent<Rigidbody2D>();
+
+        //Spawn player slightly above platform
+        testingPlatform.GetComponent<Transform>().position = Vector2.zero;
+        playerObject.GetComponent<Transform>().position = new Vector2(0f, 5f);
+
+        yield return new WaitForSeconds(2);
+
+        Vector2 posBefore = playerObject.GetComponent<Transform>().position;
+
+        for (int i = 0; i < 30; i++)
+        {
+            playerObject.GetComponent<PlayerMovementController>().horizontalMovement(rb, 1);
+            yield return new WaitForEndOfFrame();
+        }
+
+        Vector2 posAfter = playerObject.GetComponent<Transform>().position;
+
+        Assert.Greater(posAfter.x, posBefore.x);
+
+        Object.Destroy(testingPlatform);
+        Object.Destroy(playerObject);
+        yield return new WaitForEndOfFrame();
+
+    }
+
+    [UnityTest]
+    public IEnumerator TestPlayerMovementCheckShortJump()
+    {
+        GameObject playerObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"));
+        GameObject testingPlatform = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/stationary_platform"));
+
+        Rigidbody2D rb = playerObject.GetComponent<Rigidbody2D>();
+
+        //Spawn player slightly above platform
+        testingPlatform.GetComponent<Transform>().position = Vector2.zero;
+        playerObject.GetComponent<Transform>().position = new Vector2(0f, 5f);
+
+        yield return new WaitForSeconds(2);
+
+        float initialY = playerObject.GetComponent<Transform>().position.y; 
+        float maxY = playerObject.GetComponent<Transform>().position.y;
+
+        //Get highest point of short jump 
+        playerObject.GetComponent<PlayerMovementController>().jump(rb, true);
+        for (int i = 0; i < 60; i++)
+        {
+            if (playerObject.GetComponent<Transform>().position.y > maxY) {
+                maxY = playerObject.GetComponent<Transform>().position.y;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+
+        Assert.Less(initialY, maxY);
+
+        Object.Destroy(testingPlatform);
+        Object.Destroy(playerObject);
+        yield return new WaitForEndOfFrame();
+
+    }
+
+    [UnityTest]
+    public IEnumerator TestPlayerMovementCheckTallJump()
+    {
+        GameObject playerObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"));
+        GameObject testingPlatform = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/stationary_platform"));
+
+        Rigidbody2D rb = playerObject.GetComponent<Rigidbody2D>();
+
+        //Spawn player slightly above platform
+        testingPlatform.GetComponent<Transform>().position = Vector2.zero;
+        playerObject.GetComponent<Transform>().position = new Vector2(0f, 5f);
+
+        yield return new WaitForSeconds(2);
+
+        float initialY = playerObject.GetComponent<Transform>().position.y;
+        float maxYShort = playerObject.GetComponent<Transform>().position.y;
+        float maxYTall = playerObject.GetComponent<Transform>().position.y;
+
+        //Get highest point of short jump
+        playerObject.GetComponent<PlayerMovementController>().jump(rb, true);
+        for (int i = 0; i < 60; i++)
+        {
+            if (playerObject.GetComponent<Transform>().position.y > maxYShort)
+            {
+                maxYShort = playerObject.GetComponent<Transform>().position.y;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+
+        //Get highest point of tall jump
+        for (int i = 0; i < 60; i++)
+        {
+            playerObject.GetComponent<PlayerMovementController>().jump(rb, true); 
+            if (playerObject.GetComponent<Transform>().position.y > maxYTall)
+            {
+                maxYTall = playerObject.GetComponent<Transform>().position.y;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+
+        Assert.Less(initialY, maxYShort);
+        Assert.Less(maxYShort, maxYTall);
+
+        Object.Destroy(testingPlatform);
+        Object.Destroy(playerObject);
+        yield return new WaitForEndOfFrame();
+
+    }
+
+    [UnityTest]
+    public IEnumerator TestPlayerMovementCheckAttack()
+    {
+        GameObject playerObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Player"));
+        GameObject testingPlatform = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/stationary_platform"));
+
+        Rigidbody2D rb = playerObject.GetComponent<Rigidbody2D>();
+
+        //Spawn player slightly above platform
+        testingPlatform.GetComponent<Transform>().position = Vector2.zero;
+        playerObject.GetComponent<Transform>().position = new Vector2(0f, 5f);
+
+        yield return new WaitForSeconds(2);
+
+        playerObject.GetComponent<PlayerMovementController>().attack();
+        Transform attackHitbox = playerObject.GetComponentInChildren<Transform>();
+        Assert.IsNotNull(attackHitbox);
+        yield return new WaitForSeconds(0.5f);
+        attackHitbox = playerObject.GetComponentInChildren<Transform>();
+        Assert.IsNull(attackHitbox);
+
+        Object.Destroy(testingPlatform);
+        Object.Destroy(playerObject);
+        yield return new WaitForEndOfFrame();
+    }
+    
 
 }
