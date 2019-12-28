@@ -74,7 +74,7 @@ public class PlayerMovementController : MonoBehaviour
             //If attack button is pressed, run attack coroutine
             if (Input.GetMouseButtonDown(0))
             {
-                string heldObjectTag = gameObject.transform.GetChild(0).name;
+                string heldObjectTag = gameObject.transform.GetChild(0).tag;
                 if (heldObjectTag == "Sword" && !attackDelay)
                 {
                     attackCoroutine = attack();

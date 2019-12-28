@@ -58,7 +58,7 @@ public class Game : MonoBehaviour
 
     public void SaveGame()
     {
-        // 1
+        //Create save object
         Save save = CreateSaveGameObject();
 
         // 2
@@ -85,31 +85,5 @@ public class Game : MonoBehaviour
         save.ySpawnPosition = player.GetComponent<Transform>().position.y;
 
         return save;
-    }
-    /*public void NewGame()
-    {
-        hits = 0;
-        shots = 0;
-        shotsText.text = "Shots: " + shots;
-        hitsText.text = "Hits: " + hits;
-
-        ClearRobots();
-        ClearBullets();
-        RefreshRobots();
-
-        Unpause();
-    }*/
-
-
-
-
-    public void LoadGame()
-    {
-
-    }
-
-    public void SaveAsJSON()
-    {
-
     }
 }

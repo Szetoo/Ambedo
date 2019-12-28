@@ -42,7 +42,7 @@ public class EnemyHealth : MonoBehaviour
         }
         if (currentHp < 1)
         {
-            StartCoroutine(killEnemy());
+            StartCoroutine(KillEnemy());
         }
 
     }
@@ -61,7 +61,7 @@ public class EnemyHealth : MonoBehaviour
     }
 
     //On death, play animation then get destroyed after 1 second
-    public IEnumerator killEnemy()
+    public IEnumerator KillEnemy()
     {
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
         yield return new WaitForSeconds(1);

@@ -49,6 +49,10 @@ public class BossHealth : MonoBehaviour
         {
             currentHp = maxHP;
         }
+        if (currentHp < 1)
+        {
+            StartCoroutine(KillBoss());
+        }
 
     }
 
@@ -62,16 +66,14 @@ public class BossHealth : MonoBehaviour
             invincibilityExpiry = Time.time + invincibilityTime;
             canHealTime = invincibilityExpiry + 6;
         }
-        if (currentHp < 1)
-        {
-            Destroy(gameObject);
-            player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<SpriteRenderer>().sprite = Transformation;
-        }
     }
 
-    private void healPlayer(float amount)
+    public IEnumerator KillBoss()
     {
-        currentHp += amount;
+        gameObject.GetComponent<Animator>().SetBool("Alive", false);
+        yield return new WaitForSeconds(1);
+        player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        Destroy(gameObject);
     }
 }
