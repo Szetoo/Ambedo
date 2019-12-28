@@ -24,7 +24,6 @@ public class BossHealth : MonoBehaviour
     void Start()
     {
         currentHp = maxHP;
-        //isHealing = false;
         invincible = false;
 
     }
@@ -32,16 +31,20 @@ public class BossHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //Conditions for healing
         if (currentHp < maxHP & canHealTime < Time.time)
         {
             amountToHeal = maxHP - currentHp;
             Debug.Log(currentHp);
         }
+
+        //If invincibility has expired, set to false
         if (invincibilityExpiry < Time.time)
         {
             invincible = false;
         }
+
+        //If healing puts health over max, set back to max Hp
         if (currentHp > maxHP)
         {
             currentHp = maxHP;

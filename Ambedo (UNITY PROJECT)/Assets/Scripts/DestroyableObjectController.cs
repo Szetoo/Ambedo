@@ -16,6 +16,7 @@ public class DestroyableObjectController : MonoBehaviour
         
     }
 
+    //If player attack hitbox touches gameobject, destroy the object
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "PlayerAttackHitbox")

@@ -5,10 +5,8 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
 
-    private float maxHP = 200;
+    private float maxHP = 100;
     private float currentHp;
-
-    // private bool isHealing;
     private bool invincible;
 
     private float invincibilityTime = 3;
@@ -18,12 +16,11 @@ public class EnemyHealth : MonoBehaviour
     private float amountToHeal;
 
 
-    // Use this for initialization
     void Start()
     {
         currentHp = maxHP;
-        //isHealing = false;
         invincible = false;
+        gameObject.GetComponent<Animator>().SetBool("Alive", true);
     }
 
     // Update is called once per frame
@@ -43,11 +40,16 @@ public class EnemyHealth : MonoBehaviour
         {
             currentHp = maxHP;
         }
+        if (currentHp < 1)
+        {
+            StartCoroutine(killEnemy());
+        }
 
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        //If enemy touches player attack hit box, take damage
         if (other.gameObject.tag == "PlayerAttackHitbox" & invincible == false)
         {
             currentHp = currentHp - 100;
@@ -55,15 +57,14 @@ public class EnemyHealth : MonoBehaviour
             invincible = true;
             invincibilityExpiry = Time.time + invincibilityTime;
             canHealTime = invincibilityExpiry + 6;
-        }
-        if (currentHp < 1)
-        {
-            Destroy(gameObject);
-        }
+        }       
     }
 
-    private void healPlayer(float amount)
+    //On death, play animation then get destroyed after 1 second
+    public IEnumerator killEnemy()
     {
-        currentHp += amount;
+        gameObject.GetComponent<Animator>().SetBool("Alive", false);
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
     }
 }

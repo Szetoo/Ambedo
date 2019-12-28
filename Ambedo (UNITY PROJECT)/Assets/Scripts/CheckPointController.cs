@@ -16,6 +16,8 @@ public class CheckPointController : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
+
+        //Enabled on load with position of checkpoint being tracked
         enabled = true;
         xCheckPointPosition = gameObject.GetComponent<Transform>().position.x;
         yCheckPointPosition = gameObject.GetComponent<Transform>().position.y;
@@ -30,6 +32,8 @@ public class CheckPointController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+
+    //If player touches the enabled checkpoint, save to file and disable the checkpoint
     if (other.gameObject.tag == "Player" & enabled == true)
     {
             Debug.Log("Checkpoint status: " + enabled);
@@ -41,7 +45,6 @@ public class CheckPointController : MonoBehaviour {
 
             Save save = CreateSaveGameObject();
 
-            // 2
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
             bf.Serialize(file, save);
@@ -51,12 +54,10 @@ public class CheckPointController : MonoBehaviour {
 
     private Save CreateSaveGameObject()
     {
+        //Write to save file the x, y position of checkpoint
         Save save = new Save();
-        //player = GameObject.FindGameObjectWithTag("Player");
-
         save.xSpawnPosition = xCheckPointPosition;
         save.ySpawnPosition = yCheckPointPosition;
-
         return save;
     }
 }

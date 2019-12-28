@@ -88,17 +88,25 @@ public class PlayerHealthController : MonoBehaviour
 
     }
 
+    private void playerTakesDamage(int damageTaken)
+    {
+        currentHp = currentHp - damageTaken;
+        Debug.Log(currentHp);
+        invincible = true;
+        invincibilityExpiry = Time.time + invincibilityTime;
+        canHealTime = invincibilityExpiry + 6;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+        damage.Play();
+
+
+
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Enemy" & invincible == false)
+        if (other.gameObject.tag == "Enemy" & gameObject.tag == "Player" & invincible == false)
         {
-            currentHp = currentHp - 100;
-            Debug.Log(currentHp);
-            invincible = true;
-            invincibilityExpiry = Time.time + invincibilityTime;
-            canHealTime = invincibilityExpiry + 6;
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
-            damage.Play();
+            playerTakesDamage(100);
         }
      
     }

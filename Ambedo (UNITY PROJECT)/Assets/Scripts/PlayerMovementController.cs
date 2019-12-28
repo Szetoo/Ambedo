@@ -71,6 +71,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         try
         {
+            //If attack button is pressed, run attack coroutine
             if (Input.GetMouseButtonDown(0))
             {
                 string heldObjectTag = gameObject.transform.GetChild(0).name;
@@ -123,7 +124,7 @@ public class PlayerMovementController : MonoBehaviour
             //momentum = -xSpeed;
         }
 
-        //Stationary (I'm particularly worried that this won't work, but I can't test it)
+        //Stationary 
         else if (moveHorizontal == 0)
         {
             sprite.flipX = sprite.flipX;
@@ -202,32 +203,8 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Water")
-        {
-
-            isInWater = true;
-        }
-
-    }
-
-    public void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == "Water")
-        {
-            isInWater = false;
-        }
-
-    }
-
     public IEnumerator attack()
     {
-        //float timeToDespawn = Time.time + (1 / 6f);
-        //while (timeToDespawn > Time.time)
-        // {
-
-        // }
         Debug.Log("Attack Starts");
         attackDelay = true;
         GameObject tempHitbox = Instantiate(hitbox, gameObject.GetComponent<Transform>());
