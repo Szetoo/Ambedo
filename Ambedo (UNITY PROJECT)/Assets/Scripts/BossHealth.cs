@@ -71,6 +71,11 @@ public class BossHealth : MonoBehaviour
     public IEnumerator KillBoss()
     {
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
+        BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].enabled = false;
+        }
         yield return new WaitForSeconds(1);
         player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<SpriteRenderer>().sprite = Transformation;
