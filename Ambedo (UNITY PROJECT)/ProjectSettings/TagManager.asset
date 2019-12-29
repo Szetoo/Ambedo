@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - DeadZone
+  - CheckPoint
+  - DestroyableObject
+  - PlayerAttackHitbox
+  - ShowOnPause
+  - Enemy Aggro
+  - Enemy
+  - DroppableObject
+  - Sword
   layers:
   - Default
   - TransparentFX
@@ -13,8 +22,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - PlayerAttack
+  - AggroZone
   - 
   - 
   - 
