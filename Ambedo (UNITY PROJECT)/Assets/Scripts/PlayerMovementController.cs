@@ -233,11 +233,11 @@ public class PlayerMovementController : MonoBehaviour
         GameObject tempHitbox = Instantiate(hitbox, gameObject.GetComponent<Transform>());
         if (sprite.flipX)
         {
-            tempHitbox.transform.localPosition = new Vector2(1 / 3f, 0.04f);
+            tempHitbox.transform.localPosition = new Vector2(1/3f, 0.04f);
         }
         else
         {
-            tempHitbox.transform.localPosition = new Vector2(-1 / 3f, 0.04f);
+            tempHitbox.transform.localPosition = new Vector2(-1/3f, 0.04f);
         }
 
         yield return new WaitForSeconds(0.4f);

@@ -8,18 +8,18 @@ public class PlayerHealthController : MonoBehaviour
 {
 
     private float maxHP = 200;
-    public float currentHp;
+    public float currentHP;
 
     // private bool isHealing;
     private bool invincible;
-
-    private float invincibilityTime = 3;
+    
     private float invincibilityExpiry;
     private float canHealTime;
 
     private float amountToHeal;
     public AudioSource damage;
 
+    private bool inLight;
 
     // Use this for initialization
     private void Awake()
@@ -54,7 +54,7 @@ public class PlayerHealthController : MonoBehaviour
     }
     void Start()
     {
-        currentHp = maxHP;
+        currentHP = maxHP;
         //isHealing = false;
         invincible = false;
         //damage.Play();
@@ -63,48 +63,103 @@ public class PlayerHealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentHp < 1)
+        if (currentHP < maxHP & canHealTime < Time.time)
         {
-            damage.Play();
-
-            Destroy(gameObject);
-            Initiate.Fade("Corey_Scene", Color.black, 1.0f);
-        }
-        if (currentHp < maxHP & canHealTime < Time.time)
-        {
-            amountToHeal = maxHP - currentHp;
-            healPlayer(amountToHeal);
-            Debug.Log(currentHp);
+            healPlayer(2);
+            canHealTime = Time.time + 0.1f;
+            Debug.Log(currentHP);
         }
         if (invincibilityExpiry < Time.time)
         {
             invincible = false;
             gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
         }
-        if (currentHp > maxHP)
+        if (inLight & !invincible)
         {
-            currentHp = maxHP;
+            damagePlayer(5, 0.2f);
         }
 
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.tag == "PlayerAttackHitbox")
+        {
+            return;
+        }
+
         if (other.gameObject.tag == "Enemy" & invincible == false)
         {
-            currentHp = currentHp - 100;
-            Debug.Log(currentHp);
-            invincible = true;
-            invincibilityExpiry = Time.time + invincibilityTime;
-            canHealTime = invincibilityExpiry + 6;
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
-            damage.Play();
+            Debug.Log(gameObject.tag);
+            damagePlayer(100);
+            Debug.Log(currentHP);
+           
         }
-     
+
+        if (other.tag == "LightZone")
+        {
+            inLight = true;
+            Debug.Log("In Light");
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "LightZone")
+        {
+            inLight = false;
+            Debug.Log("Exit Light");
+        }
     }
 
     private void healPlayer(float amount)
     {
-        currentHp += amount;
+        currentHP += amount;
+        if (currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
+    }
+
+    private void damagePlayer(float amount)
+    {
+        currentHP -= amount;
+        if (currentHP <= 0)
+        {
+            killPlayer();
+            return;
+        }
+        goInvincible(3);
+        canHealTime = Time.time + 6f;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+        damage.Play();
+    }
+
+    private void damagePlayer(float amount, float invincibility)
+    {
+        currentHP -= amount;
+        if (currentHP <= 0)
+        {
+            killPlayer();
+            return;
+        }
+        goInvincible(invincibility);
+        canHealTime = Time.time + 6f;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+        damage.Play();
+    }
+
+    private void goInvincible(float invincibilityTime)
+    {
+        invincible = true;
+        invincibilityExpiry = Time.time + invincibilityTime;
+    }
+
+    private void killPlayer()
+    {
+        damage.Play();
+        Destroy(gameObject);
+        Initiate.Fade("Corey_Scene", Color.black, 1.0f);
     }
 }

@@ -86,7 +86,7 @@ public class RockController : MonoBehaviour
         }
         else if (other.gameObject.tag == "Player" && hasBeenActivated)
         {
-            other.gameObject.GetComponent<PlayerHealthController>().currentHp = -100;
+            other.gameObject.GetComponent<PlayerHealthController>().currentHP = -100;
         }
 
 

@@ -1490,7 +1490,7 @@ GameObject:
   - component: {fileID: 222778183}
   - component: {fileID: 222778182}
   - component: {fileID: 222778181}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_7_addlayer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5346,7 +5346,7 @@ GameObject:
   - component: {fileID: 270375025}
   - component: {fileID: 270375024}
   - component: {fileID: 270375027}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6373,7 +6373,7 @@ GameObject:
   - component: {fileID: 315685455}
   - component: {fileID: 315685454}
   - component: {fileID: 315685452}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6933,7 +6933,7 @@ GameObject:
   - component: {fileID: 331093827}
   - component: {fileID: 331093829}
   - component: {fileID: 331093828}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Boss_map_background _addlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8706,7 +8706,7 @@ GameObject:
   - component: {fileID: 530694875}
   - component: {fileID: 530694874}
   - component: {fileID: 530694876}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9711,7 +9711,7 @@ GameObject:
   - component: {fileID: 597827527}
   - component: {fileID: 597827529}
   - component: {fileID: 597827528}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Boss_map_background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19236,7 +19236,7 @@ GameObject:
   - component: {fileID: 780740372}
   - component: {fileID: 780740370}
   - component: {fileID: 780740371}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Destroyable Wall
   m_TagString: DestroyableObject
   m_Icon: {fileID: 0}
@@ -32142,7 +32142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 855481754}
   - component: {fileID: 855481753}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32204,7 +32204,7 @@ GameObject:
   - component: {fileID: 865081012}
   - component: {fileID: 865081011}
   - component: {fileID: 865081009}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33588,7 +33588,7 @@ GameObject:
   - component: {fileID: 970430197}
   - component: {fileID: 970430196}
   - component: {fileID: 970430195}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_7_addlayer2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51855,7 +51855,7 @@ GameObject:
   - component: {fileID: 1177399675}
   - component: {fileID: 1177399674}
   - component: {fileID: 1177399673}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57234,7 +57234,7 @@ GameObject:
   - component: {fileID: 1207139224}
   - component: {fileID: 1207139223}
   - component: {fileID: 1207139226}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61765,11 +61765,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4674652508464170, guid: 340b4c3969b8842c8824df86583e2b14, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 88.31
+      value: -4.85
       objectReference: {fileID: 0}
     - target: {fileID: 4674652508464170, guid: 340b4c3969b8842c8824df86583e2b14, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -29.1
+      value: -3.48
       objectReference: {fileID: 0}
     - target: {fileID: 4674652508464170, guid: 340b4c3969b8842c8824df86583e2b14, type: 3}
       propertyPath: m_LocalPosition.z
@@ -61823,16 +61823,6 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3302080188661474529, guid: 340b4c3969b8842c8824df86583e2b14,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 435074252}
-    - target: {fileID: 3302080188661474529, guid: 340b4c3969b8842c8824df86583e2b14,
-        type: 3}
-      propertyPath: maxDistance
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 50234734702740116, guid: 340b4c3969b8842c8824df86583e2b14,
         type: 3}
       propertyPath: m_BodyType
@@ -61841,6 +61831,16 @@ PrefabInstance:
     - target: {fileID: 61569207875722222, guid: 340b4c3969b8842c8824df86583e2b14,
         type: 3}
       propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302080188661474529, guid: 340b4c3969b8842c8824df86583e2b14,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 435074252}
+    - target: {fileID: 3302080188661474529, guid: 340b4c3969b8842c8824df86583e2b14,
+        type: 3}
+      propertyPath: maxDistance
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -61858,7 +61858,7 @@ GameObject:
   - component: {fileID: 1319417526}
   - component: {fileID: 1319417525}
   - component: {fileID: 1319417523}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65022,11 +65022,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8620948943779466623, guid: 21aa8e55bc3ddbc41a823aea2c441f24,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8620948943779466597, guid: 21aa8e55bc3ddbc41a823aea2c441f24,
         type: 3}
       propertyPath: hitbox
       value: 
-      objectReference: {fileID: 1234670334}
+      objectReference: {fileID: 1844369646227184, guid: b90e8bd6acf37c14d97a2353bd4cd42e,
+        type: 3}
     m_RemovedComponents:
     - {fileID: 8620948943779466622, guid: 21aa8e55bc3ddbc41a823aea2c441f24, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 21aa8e55bc3ddbc41a823aea2c441f24, type: 3}
@@ -66096,7 +66102,7 @@ GameObject:
   - component: {fileID: 1809049974}
   - component: {fileID: 1809049973}
   - component: {fileID: 1809049972}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_9 RD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77723,7 +77729,7 @@ GameObject:
   - component: {fileID: 1845353700}
   - component: {fileID: 1845353702}
   - component: {fileID: 1845353699}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_9 LD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89220,7 +89226,7 @@ GameObject:
   - component: {fileID: 1871323130}
   - component: {fileID: 1871323129}
   - component: {fileID: 1871323128}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91035,7 +91041,7 @@ GameObject:
   - component: {fileID: 1994055868}
   - component: {fileID: 1994055867}
   - component: {fileID: 1994055866}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ramp-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97397,7 +97403,7 @@ GameObject:
   - component: {fileID: 2023537793}
   - component: {fileID: 2023537792}
   - component: {fileID: 2023537795}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: platform_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122395,7 +122401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4674652508464170, guid: 340b4c3969b8842c8824df86583e2b14, type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4674652508464170, guid: 340b4c3969b8842c8824df86583e2b14, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -122425,16 +122431,6 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3302080188661474529, guid: 340b4c3969b8842c8824df86583e2b14,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 435074252}
-    - target: {fileID: 3302080188661474529, guid: 340b4c3969b8842c8824df86583e2b14,
-        type: 3}
-      propertyPath: maxDistance
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 50234734702740116, guid: 340b4c3969b8842c8824df86583e2b14,
         type: 3}
       propertyPath: m_BodyType
@@ -122443,6 +122439,16 @@ PrefabInstance:
     - target: {fileID: 61569207875722222, guid: 340b4c3969b8842c8824df86583e2b14,
         type: 3}
       propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302080188661474529, guid: 340b4c3969b8842c8824df86583e2b14,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 435074252}
+    - target: {fileID: 3302080188661474529, guid: 340b4c3969b8842c8824df86583e2b14,
+        type: 3}
+      propertyPath: maxDistance
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -122716,7 +122722,7 @@ Transform:
   m_Children:
   - {fileID: 1722371487}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2076589443
 MonoBehaviour:

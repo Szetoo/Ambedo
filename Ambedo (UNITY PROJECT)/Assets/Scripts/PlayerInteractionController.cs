@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathZoneController : MonoBehaviour
+public class PlayerInteractionController : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,13 +14,5 @@ public class DeathZoneController : MonoBehaviour
     void Update()
     {
         
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-       
-            other.gameObject.GetComponent<PlayerHealthController>().currentHP = -100;
-        
-            
     }
 }

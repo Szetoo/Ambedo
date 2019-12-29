@@ -3,7 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Platform
+  - Fire
+  - Water
+  - DroppableObject
+  - Enemy
+  - Enemy Aggro
+  - EnemyAggro
+  - DeadZone
+  - CheckPoint
+  - DestroyableObject
+  - PlayerAttackHitbox
+  - ShowOnPause
+  - Sword
+  - LightZone
   layers:
   - Default
   - TransparentFX
@@ -13,9 +27,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - DroppableObjects
+  - Grid
+  - Weapon
   - 
   - 
   - 

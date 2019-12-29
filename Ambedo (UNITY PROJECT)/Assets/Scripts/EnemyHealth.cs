@@ -48,10 +48,11 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("OnTriggerEnterCall from EnemyHealth");
         if (other.gameObject.tag == "PlayerAttackHitbox" & invincible == false)
         {
             currentHp = currentHp - 100;
-            Debug.Log(currentHp);
+            Debug.Log("Enemy Health: " + currentHp.ToString());
             invincible = true;
             invincibilityExpiry = Time.time + invincibilityTime;
             canHealTime = invincibilityExpiry + 6;

@@ -6,8 +6,10 @@ public class PickUpByPlayer : MonoBehaviour {
 
     public GameObject player;
     public float maxDistance;
+    public float offset;
 
     private bool beingHeld;
+    private SpriteRenderer sprite;
 
 	// Use this for initialization
 	void Start () {
@@ -35,7 +37,8 @@ public class PickUpByPlayer : MonoBehaviour {
         }
 
         if (beingHeld) {
-            gameObject.transform.localPosition = new Vector2(0, 0);
+            gameObject.transform.localPosition = new Vector2(0.2f * (System.Convert.ToSingle(sprite.flipX) - 0.5f), 0.1f);
+            
         }
     }
 
@@ -44,6 +47,8 @@ public class PickUpByPlayer : MonoBehaviour {
     {
         gameObject.transform.SetParent(player.GetComponent<Transform>());
         beingHeld = true;
+        sprite = player.GetComponent<SpriteRenderer>();
+        Debug.Log(sprite);
     }
 
     void drop()

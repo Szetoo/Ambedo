@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 276895038855095303}
   - component: {fileID: 276895038855095305}
   - component: {fileID: 276895038855095299}
+  - component: {fileID: -1629310256936792698}
   m_Layer: 0
   m_Name: spider_enemy_general_concept
   m_TagString: Enemy
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e07292c02a687154e8d26cde0ebe0bc0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3ea01f71c2c2b45cda6780e37519a522, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -264,11 +265,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 276895038855095304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e08bf7dc21ba7645b5e986a57905597, type: 3}
+  m_Script: {fileID: 11500000, guid: 99463d5a8feba4c588b5ab230a10daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   territory: {fileID: 0}
   enemy: {fileID: 0}
+--- !u!114 &-1629310256936792698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276895038855095304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c135da2f1a398142adc8a2344f68b9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &276895039066850276
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +323,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 276895039066850276}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a19349b4081afd74cb7e424953a6c195, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c6789b69e1d74976a247b1bf6ac1d73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerNearby: 0
