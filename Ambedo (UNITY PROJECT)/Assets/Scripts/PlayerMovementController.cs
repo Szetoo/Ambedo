@@ -81,7 +81,7 @@ public class PlayerMovementController : MonoBehaviour
                 }
             }
         }
-        catch (UnityException e)
+        catch (UnityException)
         {
             Debug.Log("Not holding an object");
         }

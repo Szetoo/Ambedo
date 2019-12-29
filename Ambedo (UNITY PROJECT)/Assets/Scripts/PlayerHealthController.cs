@@ -7,19 +7,24 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class PlayerHealthController : MonoBehaviour
 {
 
-    private float maxHP = 200;
-    public float currentHP;
-
-    // private bool isHealing;
-    private bool invincible;
+    public int maxHP;
+    public int lightDamage;
+    public int healAmount;
+    public float invDuration;
+    public float lightInvDuration;
     
-    private float invincibilityExpiry;
-    private float canHealTime;
-
-    private float amountToHeal;
     public AudioSource damage;
 
+    [HideInInspector]
+    public float currentHP;
+
+    private const float healRate = 0.1f;
+    private float invincibilityExpiry;
+    private float canHealTime;
+    private float amountToHeal;
+
     private bool inLight;
+    private bool invincible;
 
     // Use this for initialization
     private void Awake()
@@ -55,9 +60,7 @@ public class PlayerHealthController : MonoBehaviour
     void Start()
     {
         currentHP = maxHP;
-        //isHealing = false;
         invincible = false;
-        //damage.Play();
     }
 
     // Update is called once per frame
@@ -65,9 +68,8 @@ public class PlayerHealthController : MonoBehaviour
     {
         if (currentHP < maxHP & canHealTime < Time.time)
         {
-            healPlayer(2);
-            canHealTime = Time.time + 0.1f;
-            Debug.Log(currentHP);
+            healPlayer(healAmount);
+            canHealTime = Time.time + healRate;
         }
         if (invincibilityExpiry < Time.time)
         {
@@ -76,7 +78,7 @@ public class PlayerHealthController : MonoBehaviour
         }
         if (inLight & !invincible)
         {
-            damagePlayer(5, 0.2f);
+            damagePlayer(lightDamage, lightInvDuration);
         }
 
     }
@@ -88,10 +90,10 @@ public class PlayerHealthController : MonoBehaviour
             return;
         }
 
-        if (other.gameObject.tag == "Enemy" & invincible == false)
+        if ((other.gameObject.tag == "Enemy" | other.gameObject.tag == "Boss") & invincible == false)
         {
             Debug.Log(gameObject.tag);
-            damagePlayer(100);
+            damagePlayer(100);  //Constant 100 for now, will change depending on which enemy is doing damage
             Debug.Log(currentHP);
            
         }
@@ -99,7 +101,7 @@ public class PlayerHealthController : MonoBehaviour
         if (other.tag == "LightZone")
         {
             inLight = true;
-            Debug.Log("In Light");
+            Debug.Log("Enter Light");
         }
 
     }
@@ -130,13 +132,13 @@ public class PlayerHealthController : MonoBehaviour
             killPlayer();
             return;
         }
-        goInvincible(3);
+        goInvincible(invDuration);
         canHealTime = Time.time + 6f;
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
         damage.Play();
     }
 
-    private void damagePlayer(float amount, float invincibility)
+    private void damagePlayer(float amount, float invDuration)
     {
         currentHP -= amount;
         if (currentHP <= 0)
@@ -144,16 +146,16 @@ public class PlayerHealthController : MonoBehaviour
             killPlayer();
             return;
         }
-        goInvincible(invincibility);
+        goInvincible(invDuration);
         canHealTime = Time.time + 6f;
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
         damage.Play();
     }
 
-    private void goInvincible(float invincibilityTime)
+    private void goInvincible(float duration)
     {
         invincible = true;
-        invincibilityExpiry = Time.time + invincibilityTime;
+        invincibilityExpiry = Time.time + duration;
     }
 
     private void killPlayer()

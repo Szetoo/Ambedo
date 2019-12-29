@@ -5,24 +5,25 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
 
-    private float maxHP = 200;
-    private float currentHp;
+    public int maxHP;
+    public int enemyDamageFromPlayer;
+    public int healAmount;
+    public float invDuration;
+    public float timeUntilHeal;
+    
+    [HideInInspector]
+    public float currentHP;
 
-    // private bool isHealing;
     private bool invincible;
-
-    private float invincibilityTime = 3;
     private float invincibilityExpiry;
     private float canHealTime;
 
-    private float amountToHeal;
-
-
+    private const float healRate = 0.1f;
+    
     // Use this for initialization
     void Start()
     {
-        currentHp = maxHP;
-        //isHealing = false;
+        currentHP = maxHP;
         invincible = false;
     }
 
@@ -30,19 +31,17 @@ public class EnemyHealth : MonoBehaviour
     void Update()
     {
 
-        if (currentHp < maxHP & canHealTime < Time.time)
+        if (currentHP < maxHP & canHealTime < Time.time)
         {
-            amountToHeal = maxHP - currentHp;
-            Debug.Log(currentHp);
+            healEnemy(healAmount);
+            canHealTime = Time.time + healRate;
         }
         if (invincibilityExpiry < Time.time)
         {
             invincible = false;
-        }
-        if (currentHp > maxHP)
-        {
-            currentHp = maxHP;
-        }
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
+
+        } 
 
     }
 
@@ -51,20 +50,41 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("OnTriggerEnterCall from EnemyHealth");
         if (other.gameObject.tag == "PlayerAttackHitbox" & invincible == false)
         {
-            currentHp = currentHp - 100;
-            Debug.Log("Enemy Health: " + currentHp.ToString());
-            invincible = true;
-            invincibilityExpiry = Time.time + invincibilityTime;
-            canHealTime = invincibilityExpiry + 6;
+            damageEnemy(enemyDamageFromPlayer);
         }
-        if (currentHp < 1)
+
+    }
+
+    private void healEnemy(float amount)
+    {
+        currentHP += amount;
+        if (currentHP > maxHP)
         {
-            Destroy(gameObject);
+            currentHP = maxHP;
         }
     }
 
-    private void healPlayer(float amount)
+    private void damageEnemy(float amount)
     {
-        currentHp += amount;
+        currentHP -= amount;
+        if (currentHP <= 0)
+        {
+            killEnemy();
+            return;
+        }
+        goInvincible(invDuration);
+        canHealTime = Time.time + timeUntilHeal;
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+    }
+
+    private void killEnemy()
+    {
+        Destroy(gameObject);
+    }
+
+    private void goInvincible(float duration)
+    {
+        invincible = true;
+        invincibilityExpiry = Time.time + duration;
     }
 }
