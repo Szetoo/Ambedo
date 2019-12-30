@@ -173,6 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99463d5a8feba4c588b5ab230a10daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  territory: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!82 &7323035559272345798
 AudioSource:
   m_ObjectHideFlags: 0
@@ -312,7 +314,7 @@ GameObject:
   - component: {fileID: 7323035559718551589}
   - component: {fileID: 7323035559718551579}
   - component: {fileID: 7323035559718551578}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemyAggroZone
   m_TagString: Enemy Aggro
   m_Icon: {fileID: 0}

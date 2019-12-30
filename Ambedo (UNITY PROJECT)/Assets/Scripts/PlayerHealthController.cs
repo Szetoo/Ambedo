@@ -27,6 +27,7 @@ public class PlayerHealthController : MonoBehaviour
     private bool invincible;
 
     // Use this for initialization
+    /*
     private void Awake()
     {
         
@@ -56,7 +57,7 @@ public class PlayerHealthController : MonoBehaviour
         {
             Debug.Log("No game saved!");
         }
-    }
+    }*/
     void Start()
     {
         currentHP = maxHP;
