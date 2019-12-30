@@ -25,6 +25,7 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHP = maxHP;
         invincible = false;
+        gameObject.GetComponent<Animator>().SetBool("Alive", true);
     }
 
     // Update is called once per frame
@@ -69,7 +70,7 @@ public class EnemyHealth : MonoBehaviour
         currentHP -= amount;
         if (currentHP <= 0)
         {
-            killEnemy();
+            StartCoroutine(killEnemy());
             return;
         }
         goInvincible(invDuration);
@@ -77,8 +78,16 @@ public class EnemyHealth : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
     }
 
-    private void killEnemy()
+    public IEnumerator killEnemy()
     {
+        gameObject.GetComponent<Animator>().SetBool("Alive", false);
+        BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].enabled = false;
+        }
+
+        yield return new WaitForSeconds(1);
         Destroy(gameObject);
     }
 

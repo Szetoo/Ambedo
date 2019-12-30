@@ -18,8 +18,8 @@ public class DeathZoneController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-       
-            other.gameObject.GetComponent<PlayerHealthController>().currentHP = -100;
+
+        other.gameObject.GetComponent<PlayerHealthController>().damagePlayer(300);
         
             
     }

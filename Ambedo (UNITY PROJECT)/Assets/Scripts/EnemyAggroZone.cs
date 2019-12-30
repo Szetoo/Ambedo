@@ -20,6 +20,7 @@ public class EnemyAggroZone : MonoBehaviour {
         if (other.gameObject.tag == "Player")
         {
             playerNearby = true;
+            gameObject.GetComponentInParent<Animator>().SetBool("Moving", true);
         }
     }
 
@@ -37,6 +38,7 @@ public class EnemyAggroZone : MonoBehaviour {
         if (other.gameObject.tag == "Player")
         {
             playerNearby = false;
+            gameObject.GetComponentInParent<Animator>().SetBool("Moving", false);
         }
     }
 }

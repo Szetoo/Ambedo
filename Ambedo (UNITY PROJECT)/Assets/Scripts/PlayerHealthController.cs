@@ -124,7 +124,7 @@ public class PlayerHealthController : MonoBehaviour
         }
     }
 
-    private void damagePlayer(float amount)
+    public void damagePlayer(float amount)
     {
         currentHP -= amount;
         if (currentHP <= 0)
@@ -138,7 +138,7 @@ public class PlayerHealthController : MonoBehaviour
         damage.Play();
     }
 
-    private void damagePlayer(float amount, float invDuration)
+    public void damagePlayer(float amount, float invDuration)
     {
         currentHP -= amount;
         if (currentHP <= 0)
@@ -162,6 +162,6 @@ public class PlayerHealthController : MonoBehaviour
     {
         damage.Play();
         Destroy(gameObject);
-        Initiate.Fade("Corey_Scene", Color.black, 1.0f);
+        Initiate.Fade("Level1-alex", Color.black, 1.0f);
     }
 }

@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour {
     private bool playerNearby;
 
     public GameObject enemy;
-    private float speed = 3;
+    private float speed = 2;
     private Rigidbody2D rbdy;
 
     // Use this for initialization
@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
         player = GameObject.FindGameObjectWithTag("Player");
         playerNearby = transform.GetChild(0).GetComponent<EnemyAggroZone>().playerNearby;
-        if (playerNearby & player != null)
+        if (playerNearby & player != null & gameObject.GetComponent<Animator>().GetBool("Alive") == true)
         {
             MoveToPlayer();
         }

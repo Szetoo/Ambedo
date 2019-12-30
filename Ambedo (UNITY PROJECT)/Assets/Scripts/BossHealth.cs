@@ -26,6 +26,8 @@ public class BossHealth : MonoBehaviour
         currentHp = maxHP;
         //isHealing = false;
         invincible = false;
+        gameObject.GetComponent<Animator>().SetBool("Alive", true);
+
 
     }
 
@@ -46,6 +48,10 @@ public class BossHealth : MonoBehaviour
         {
             currentHp = maxHP;
         }
+        if (currentHp < 1)
+        {
+            StartCoroutine(killBoss());
+        }
 
     }
 
@@ -59,16 +65,24 @@ public class BossHealth : MonoBehaviour
             invincibilityExpiry = Time.time + invincibilityTime;
             canHealTime = invincibilityExpiry + 6;
         }
-        if (currentHp < 1)
-        {
-            Destroy(gameObject);
-            player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<SpriteRenderer>().sprite = Transformation;
-        }
     }
 
     private void healPlayer(float amount)
     {
         currentHp += amount;
+    }
+
+    public IEnumerator killBoss()
+    {
+        gameObject.GetComponent<Animator>().SetBool("Alive", false);
+        BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].enabled = false;
+        }
+        yield return new WaitForSeconds(1);
+        player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        Destroy(gameObject);
     }
 }
