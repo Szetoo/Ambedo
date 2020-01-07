@@ -40,12 +40,12 @@ public class EnemyController : MonoBehaviour {
         //move towards and face player
         gameObject.GetComponent<AudioSource>().enabled = true;
 
-        if (transform.position.x - player.transform.position.x > 1)
+        if (transform.position.x - player.transform.position.x > 2)
         {
             transform.gameObject.GetComponent<SpriteRenderer>().flipX = false;
             transform.Translate(new Vector2(-1*speed * Time.deltaTime, 0));
         }
-        if (transform.position.x - player.transform.position.x < -1)
+        if (transform.position.x - player.transform.position.x < -2)
         {
             transform.gameObject.GetComponent<SpriteRenderer>().flipX = true;
             transform.Translate(new Vector2(speed * Time.deltaTime, 0));

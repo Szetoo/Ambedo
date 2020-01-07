@@ -1,0 +1,583 @@
+fileFormatVersion: 2
+guid: 827c231809185497ab61f9c0ef0f4a58
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9203194414517335261
+    second: wooden_stairs-ns_0
+  - first:
+      213: -3110963706598572718
+    second: wooden_stairs-ns_1
+  - first:
+      213: -8538690661699956934
+    second: wooden_stairs-ns_2
+  - first:
+      213: 5651560451384578286
+    second: wooden_stairs-ns_3
+  - first:
+      213: -7254472166959944462
+    second: wooden_stairs-ns_4
+  - first:
+      213: -8392778886516944149
+    second: wooden_stairs-ns_5
+  - first:
+      213: 7969189682318691313
+    second: wooden_stairs-ns_6
+  - first:
+      213: 432477617602642490
+    second: wooden_stairs-ns_7
+  - first:
+      213: -4182972320229906119
+    second: wooden_stairs-ns_8
+  - first:
+      213: -583209333037831953
+    second: wooden_stairs-ns_9
+  - first:
+      213: -7371830920858175832
+    second: wooden_stairs-ns_10
+  - first:
+      213: 3700001383331328841
+    second: wooden_stairs-ns_11
+  - first:
+      213: 914124395474828606
+    second: wooden_stairs-ns_12
+  - first:
+      213: -4464722614640378900
+    second: wooden_stairs-ns_13
+  - first:
+      213: 6367831701778548747
+    second: wooden_stairs-ns_14
+  - first:
+      213: -8373086801704346614
+    second: wooden_stairs-ns_15
+  - first:
+      213: -7539043475119454435
+    second: wooden_stairs-ns_16
+  - first:
+      213: -8763733410738596042
+    second: wooden_stairs-ns_17
+  - first:
+      213: 544568195615324719
+    second: wooden_stairs-ns_18
+  - first:
+      213: 7466409912635052213
+    second: wooden_stairs-ns_19
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 89, y: 390, z: 91, w: 8}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: wooden_stairs-ns_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 393
+        width: 37
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54ff57bbca298469185a9d78414daeba
+      internalID: 9203194414517335261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_1
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 441
+        width: 5
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ce3190ca80624e52b154addd8510c8d
+      internalID: -3110963706598572718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_2
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 393
+        width: 42
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9b6ac4e029c74008931dfc61b6d2f45
+      internalID: -8538690661699956934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_3
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 441
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b70935d1a34a546aaaee95fa9213d0b1
+      internalID: 5651560451384578286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 297
+        width: 37
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 905409c926b9b401ca08fc37f0e3641c
+      internalID: -7254472166959944462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_5
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 345
+        width: 5
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47345465341ad4302b6b4abfa65af5a3
+      internalID: -8392778886516944149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_6
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 297
+        width: 42
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97bd6be54cd54465b820b9b32b53a144
+      internalID: 7969189682318691313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_7
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 345
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 458d8f762cb3c4fd3b112971a8fa4d62
+      internalID: 432477617602642490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 201
+        width: 37
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 739130f35e61b48ecbac6be9dbc14db1
+      internalID: -4182972320229906119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_9
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 249
+        width: 5
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbd22206c334e4e7782ab2a844bdce57
+      internalID: -583209333037831953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_10
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 201
+        width: 42
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19b1f30ce1d1d41ac9757b1b6e8ad0e0
+      internalID: -7371830920858175832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_11
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 249
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d6a3695789b94c4f961dade3254ea61
+      internalID: 3700001383331328841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 105
+        width: 37
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48ee953169756459282d76ac10b46910
+      internalID: 914124395474828606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_13
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 153
+        width: 5
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 570b641915f4241488298cbd31fffaac
+      internalID: -4464722614640378900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_14
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 105
+        width: 42
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9deee6ce8a3444c51bb52718cd8e1bfb
+      internalID: 6367831701778548747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_15
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 153
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae7b52796b48a4b189144473395493d0
+      internalID: -8373086801704346614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 9
+        width: 37
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c435d6f4918c745f6aaec2110c0fcf6c
+      internalID: -7539043475119454435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_17
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 57
+        width: 5
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0374353e093b7403d9ce8f613e5148a8
+      internalID: -8763733410738596042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_18
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 9
+        width: 42
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40af787747fda49d3adc44070860440e
+      internalID: 544568195615324719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wooden_stairs-ns_19
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 57
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dec815a0ee85b4bec93fea3c162b89a3
+      internalID: 7466409912635052213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
