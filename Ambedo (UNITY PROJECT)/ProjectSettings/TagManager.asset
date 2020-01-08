@@ -18,6 +18,7 @@ TagManager:
   - ShowOnPause
   - Sword
   - LightZone
+  - Ladder
   layers:
   - Default
   - TransparentFX

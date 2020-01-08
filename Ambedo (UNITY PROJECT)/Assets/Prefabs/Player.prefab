@@ -16,8 +16,9 @@ GameObject:
   - component: {fileID: 4531184265981533032}
   - component: {fileID: 5278715150182161686}
   - component: {fileID: 5278715150182161672}
+  - component: {fileID: -4156331813256980353}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +152,6 @@ MonoBehaviour:
   landingTolerance: 0.2
   sprintMultiplier: 2.5
   waterJumpFrames: 0
-  hitbox: {fileID: 0}
 --- !u!61 &4531184265981533032
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -286,5 +286,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 140bb784b24214d35b0d679c25c77ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHp: 0
+  maxHP: 200
+  lightDamage: 5
+  healAmount: 2
+  invDuration: 4
+  lightInvDuration: 0.25
   damage: {fileID: 5278715150182161686}
+  currentHP: 0
+--- !u!114 &-4156331813256980353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4531184265981533043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c6cda7bf8688747942c5f5086634c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitbox: {fileID: 1844369646227184, guid: b90e8bd6acf37c14d97a2353bd4cd42e, type: 3}

@@ -10,23 +10,23 @@ public class PlayerMovementController : MonoBehaviour
     public float accelSlowdown;
     public float landingTolerance;
     public float sprintMultiplier;
+    public float climbSpeed;
     public int waterJumpFrames;
-
-    public GameObject hitbox;
-
+    
     private bool isJumping;
     private Vector2 lastVelocity;
     private bool canStartSprint;
     private bool isInWater;
+    private bool isTouchingLadder;
+    private bool isClimbing;
     private float nextWaterJump;
     private SpriteRenderer sprite;
-    private bool attackDelay;
-
-    private IEnumerator attackCoroutine;
+    
 
     void Start()
     {
         isJumping = false;
+        isClimbing = false;
         lastVelocity = new Vector2(0.0f, 0.0f);
         canStartSprint = true;
         sprite = GetComponent<SpriteRenderer>();
@@ -37,7 +37,10 @@ public class PlayerMovementController : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
         float horizontalAxis = Input.GetAxis("Horizontal");
+        float verticalAxis = Input.GetAxis("Vertical");
         bool jumpButton = Input.GetButton("Jump");
+
+
 
         //Runs when pressing a button that moves left or right
         if (horizontalAxis != 0)
@@ -51,41 +54,33 @@ public class PlayerMovementController : MonoBehaviour
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
+        
 
         //Falling physics of player. MUST RUN BEFORE JUMP CALL.
-        if (!jumpButton)
+        if (!jumpButton & !isClimbing)
         {
-            verticalMovement(rb);
+        verticalMovement(rb, verticalAxis);
 
         }
 
         //Runs only when the jump button is being pressed/held
-        else
+        else if (verticalAxis != 0)
         {
-            jump(rb, jumpButton);
-
-        }
-    }
-
-    private void LateUpdate()
-    {
-        try
-        {
-            if (Input.GetMouseButtonDown(0))
+            Debug.Log(verticalAxis);
+            if (isTouchingLadder)
             {
-                string heldObjectTag = gameObject.transform.GetChild(0).tag;
-                if (heldObjectTag == "Sword" && !attackDelay)
-                {
-                    attackCoroutine = attack();
-                    StartCoroutine(attackCoroutine);
-                }
+                ladderMovement(rb, verticalAxis);
             }
-        }
-        catch (UnityException)
-        {
-            Debug.Log("Not holding an object");
+            else
+            {
+                jump(rb, jumpButton);
+
+            }
+
         }
     }
+
+    
 
     public void horizontalMovement(Rigidbody2D rb, float moveHorizontal)
     {
@@ -151,9 +146,8 @@ public class PlayerMovementController : MonoBehaviour
 
     }
 
-    public void verticalMovement(Rigidbody2D rb)
+    public void verticalMovement(Rigidbody2D rb, float moveVertical)
     {
-
         float acceleration = (rb.velocity.y - lastVelocity.y) / Time.fixedDeltaTime;
         lastVelocity = rb.velocity;
 
@@ -161,8 +155,6 @@ public class PlayerMovementController : MonoBehaviour
         {
             isJumping = false;
         }
-
-
     }
 
     public void jump(Rigidbody2D rb, bool jump)
@@ -185,9 +177,8 @@ public class PlayerMovementController : MonoBehaviour
         else
         {
             //Executes if player is eligible to jump
-            if (!isJumping && -landingTolerance <= acceleration && acceleration <= landingTolerance)
+            if (!isJumping & !isTouchingLadder & -landingTolerance <= acceleration & acceleration <= landingTolerance)
             {
-                Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(new Vector2(0.0f, jumpForce));
                 isJumping = true;
@@ -197,9 +188,15 @@ public class PlayerMovementController : MonoBehaviour
             else if (isJumping && acceleration < 0 && rb.velocity.y > 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * (1 + accelSlowdown));
-                Debug.Log("Holding Jump");
             }
         }
+    }
+
+    public void ladderMovement(Rigidbody2D rb, float verticalAxis)
+    {
+        Vector2 movement = new Vector2(rb.position.x, rb.position.y + (climbSpeed * verticalAxis));
+
+        rb.transform.position = movement;
     }
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -210,6 +207,24 @@ public class PlayerMovementController : MonoBehaviour
             isInWater = true;
         }
 
+        if (other.tag == "Ladder")
+        {
+            isTouchingLadder = true;
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+        }
+        
+    }
+
+    
+
+    public void OnTriggerStay2D(Collider2D other)
+    {
+        if (!isClimbing & other.tag == "Ladder" & Input.GetAxis("Vertical") != 0)
+        {
+            isClimbing = true;
+            Debug.Log("Climbing Ladder");
+        }
     }
 
     public void OnTriggerExit2D(Collider2D other)
@@ -219,33 +234,18 @@ public class PlayerMovementController : MonoBehaviour
             isInWater = false;
         }
 
-    }
-
-    public IEnumerator attack()
-    {
-        //float timeToDespawn = Time.time + (1 / 6f);
-        //while (timeToDespawn > Time.time)
-        // {
-
-        // }
-        Debug.Log("Attack Starts");
-        attackDelay = true;
-        GameObject tempHitbox = Instantiate(hitbox, gameObject.GetComponent<Transform>());
-        if (sprite.flipX)
+        else if (other.tag == "Ladder")
         {
-            tempHitbox.transform.localPosition = new Vector2(1/3f, 0.04f);
-        }
-        else
-        {
-            tempHitbox.transform.localPosition = new Vector2(-1/3f, 0.04f);
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            isClimbing = false;
+            isTouchingLadder = false;
+            Debug.Log("Stopped climbing ladder");
         }
 
-        yield return new WaitForSeconds(0.4f);
-        Destroy(tempHitbox);
-
-        yield return new WaitForSeconds(0.4f);
-        attackDelay = false;
-        Debug.Log("Attack Ends");
     }
 
 }
