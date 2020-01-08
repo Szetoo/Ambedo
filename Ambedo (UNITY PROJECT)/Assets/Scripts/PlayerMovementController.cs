@@ -53,18 +53,28 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         //Falling physics of player. MUST RUN BEFORE JUMP CALL.
+       
+       if (gameObject.GetComponent<Rigidbody2D>().velocity.y < -10)
+        {
+            jumpForce = 300;
+        }
+        else
+        {
+            jumpForce = 180;
+        }
+
         if (!jumpButton)
         {
             verticalMovement(rb);
 
         }
-
         //Runs only when the jump button is being pressed/held
         else
         {
             jump(rb, jumpButton);
 
         }
+       
     }
 
     private void LateUpdate()
@@ -161,6 +171,7 @@ public class PlayerMovementController : MonoBehaviour
         if (isJumping && -landingTolerance <= rb.velocity.y && rb.velocity.y <= landingTolerance)
         {
             isJumping = false;
+            jumpForce = 180;
         }
 
 
@@ -192,6 +203,10 @@ public class PlayerMovementController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(new Vector2(0.0f, jumpForce));
                 isJumping = true;
+                if (gameObject.GetComponent<Rigidbody2D>().velocity.y < 5)
+                {
+                    jumpForce = 400;
+                }
             }
 
             //Executes if player is already jumping

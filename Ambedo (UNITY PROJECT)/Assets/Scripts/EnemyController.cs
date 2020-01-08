@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour {
     private bool playerNearby;
 
 
-    private float speed = 2;
+    private float speed = 2.5f;
     private Rigidbody2D rbdy;
 
     void Start () {
@@ -34,26 +34,28 @@ public class EnemyController : MonoBehaviour {
 
      private void MoveToPlayer()
     {
+        rbdy.velocity = new Vector2(0, rbdy.velocity.y);
 
         //Move towards and face (by flipping sprite) player
         gameObject.GetComponent<AudioSource>().enabled = true;
 
-        if (transform.position.x - player.transform.position.x > 1)
+        if (transform.position.x - player.transform.position.x > 2)
         {
             transform.gameObject.GetComponent<SpriteRenderer>().flipX = false;
             transform.Translate(new Vector2(-1*speed * Time.deltaTime, 0));
         }
-        if (transform.position.x - player.transform.position.x < -1)
+        if (transform.position.x - player.transform.position.x < -2)
         {
             transform.gameObject.GetComponent<SpriteRenderer>().flipX = true;
             transform.Translate(new Vector2(speed * Time.deltaTime, 0));
         }
+        //yield return new WaitForSeconds(0f);
     }
 
     //Rest if not nearby
     private void Rest()
     {
-        rbdy.velocity = Vector2.zero;
+        rbdy.velocity = new Vector2(0, rbdy.velocity.y);
         gameObject.GetComponent<AudioSource>().enabled = false;
     } 
 }

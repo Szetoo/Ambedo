@@ -21,6 +21,10 @@ public class LoadScene : MonoBehaviour
             pauseObject.SetActive(false);
             Initiate.Fade(name, Color.black, 1.0f);
         }
+        else if (Time.timeScale == 1 & name == "Introduction")
+        {
+            Initiate.Fade(name, Color.black, 0.7f);
+        }
         else if (Time.timeScale == 1)
         {
             Initiate.Fade(name, Color.black, 1.0f);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -19,6 +20,10 @@ public class PlayerHealthController : MonoBehaviour
 
     private float amountToHeal;
     public AudioSource damage;
+    public AudioSource healthGain;
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
 
 
     // Use this for initialization
@@ -58,11 +63,37 @@ public class PlayerHealthController : MonoBehaviour
         //isHealing = false;
         invincible = false;
         //damage.Play();
+        CalculateHPCanvas();
+    }
+
+    private void CalculateHPCanvas()
+    {
+        for (int i =0; i < hearts.Length; i++)
+        {
+            if (i < currentHp / 100)
+            {
+                hearts[i].sprite = fullHeart;
+            } else
+            {
+                hearts[i].sprite = emptyHeart;
+            }
+
+
+            if (i < maxHP / 100)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (currentHp < 1)
         {
             damage.Play();
@@ -107,12 +138,25 @@ public class PlayerHealthController : MonoBehaviour
         if (other.gameObject.tag == "Enemy" & gameObject.tag == "Player" & invincible == false)
         {
             playerTakesDamage(100);
+            CalculateHPCanvas();
         }
      
     }
 
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Enemy" & gameObject.tag == "Player" & invincible == false)
+        {
+            playerTakesDamage(100);
+            CalculateHPCanvas();
+        }
+
+    }
+
     private void healPlayer(float amount)
     {
+        healthGain.Play();
         currentHp += amount;
+        CalculateHPCanvas();
     }
 }

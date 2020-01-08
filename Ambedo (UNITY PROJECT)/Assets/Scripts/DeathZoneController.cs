@@ -19,9 +19,10 @@ public class DeathZoneController : MonoBehaviour
     //If player touches deathzone, kill player by setting player's HP to -1
     private void OnTriggerEnter2D(Collider2D other)
     {
-       
+        if (other.tag == "Player")
+        {
             other.gameObject.GetComponent<PlayerHealthController>().currentHp = -1;
-        
+        }
             
     }
 }
