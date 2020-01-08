@@ -1690,7 +1690,7 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 69.06666666666666
+    m_Start: 72.34375
     m_ClipIn: 0
     m_Asset: {fileID: 8173567309703281762}
     m_Duration: 64.17916666666599
@@ -2849,7 +2849,7 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 69.25
+    m_Start: 72.34375
     m_ClipIn: 0
     m_Asset: {fileID: 2677754185110154526}
     m_Duration: 64.17916666666599

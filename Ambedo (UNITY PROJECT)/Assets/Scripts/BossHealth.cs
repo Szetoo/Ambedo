@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class BossHealth : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class BossHealth : MonoBehaviour
     private float currentHp;
     public Sprite Transformation;
     private GameObject player;
+    private GameObject cutscene;
 
     // private bool isHealing;
     private bool invincible;
@@ -25,6 +27,7 @@ public class BossHealth : MonoBehaviour
     {
         currentHp = maxHP;
         invincible = false;
+        cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
 
     }
 
@@ -72,6 +75,11 @@ public class BossHealth : MonoBehaviour
     {
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
         BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        Debug.Log("Play Boss Death Cutscene");
+        cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
+        cutscene.GetComponent<PlayableDirector>().Play();
+        
         for (int i = 0; i < colliders.Length; i++)
         {
             colliders[i].enabled = false;
