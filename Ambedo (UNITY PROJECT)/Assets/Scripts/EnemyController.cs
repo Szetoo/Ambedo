@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         playerNearby = false;
         rbdy = gameObject.GetComponent<Rigidbody2D>();
+       // curHeight = transform.position.y;
         //rbdy.velocity = Vector2.zero;
     }
 	
@@ -24,7 +25,7 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
         player = GameObject.FindGameObjectWithTag("Player");
         playerNearby = transform.GetChild(0).GetComponent<EnemyAggroZone>().playerNearby;
-        if (playerNearby & player != null & gameObject.GetComponent<Animator>().GetBool("Alive") == true)
+        if (playerNearby & player != null & gameObject.GetComponent<Animator>().GetBool("Alive") == true )
         {
             MoveToPlayer();
         }
@@ -55,7 +56,7 @@ public class EnemyController : MonoBehaviour {
     //rest if not nearby
     private void Rest()
     {
-        rbdy.velocity = Vector2.zero;
+        rbdy.velocity = new Vector2(0, rbdy.velocity.y);
        // rbdy.Sleep();
         gameObject.GetComponent<AudioSource>().enabled = false;
     } 
