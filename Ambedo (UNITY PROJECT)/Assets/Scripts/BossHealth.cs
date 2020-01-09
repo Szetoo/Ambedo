@@ -73,10 +73,11 @@ public class BossHealth : MonoBehaviour
 
     public IEnumerator KillBoss()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
         BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        Debug.Log("Play Boss Death Cutscene");
+        Debug.Log("Play Boss Death and Player Transformation Cutscene");
         cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
         cutscene.GetComponent<PlayableDirector>().Play();
         
@@ -84,9 +85,10 @@ public class BossHealth : MonoBehaviour
         {
             colliders[i].enabled = false;
         }
-        yield return new WaitForSeconds(1);
-        player = GameObject.FindGameObjectWithTag("Player");
+        yield return new WaitForSeconds(9);
         player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        player.GetComponent<PlayerHealthController>().maxHP += 100;
+        //player.GetComponent<PlayerHealthController>().currentHp += 100;
         Destroy(gameObject);
     }
 }

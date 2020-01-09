@@ -8,7 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class PlayerHealthController : MonoBehaviour
 {
 
-    private float maxHP = 200;
+    public float maxHP = 200;
     public float currentHp;
 
     // private bool isHealing;
