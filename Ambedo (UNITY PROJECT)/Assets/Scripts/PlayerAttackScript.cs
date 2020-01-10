@@ -23,12 +23,16 @@ public class PlayerAttackScript : MonoBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
-                string heldObjectTag = gameObject.transform.GetChild(0).tag;
-                if (heldObjectTag == "Sword" && !attackDelay)
-                {
-                    attackCoroutine = attack();
-                    StartCoroutine(attackCoroutine);
+                for (int i = 0; i < gameObject.GetComponent<Transform>().childCount; i++) {
+                    string heldObjectTag = gameObject.transform.GetChild(i).tag;
+                    if (heldObjectTag == "Sword" && !attackDelay)
+                    {
+                        attackCoroutine = attack();
+                        StartCoroutine(attackCoroutine);
+                        return;
+                    }
                 }
+                
             }
         }
         catch (UnityException)
