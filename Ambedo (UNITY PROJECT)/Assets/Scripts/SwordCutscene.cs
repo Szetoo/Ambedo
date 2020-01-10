@@ -25,6 +25,7 @@ public class SwordCutscene : MonoBehaviour {
         if (other.gameObject.tag == "Player")
         {
             gameObject.GetComponent<PlayableDirector>().Play();
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }

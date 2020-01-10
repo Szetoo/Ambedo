@@ -13,6 +13,7 @@ public class PickUpByPlayer : MonoBehaviour {
 	void Start () {
         beingHeld = false;
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        pickUp();
 
     }
 
@@ -40,7 +41,7 @@ public class PickUpByPlayer : MonoBehaviour {
     }
 
 
-    void pickUp()
+    public void pickUp()
     {
         gameObject.transform.SetParent(player.GetComponent<Transform>());
         beingHeld = true;
