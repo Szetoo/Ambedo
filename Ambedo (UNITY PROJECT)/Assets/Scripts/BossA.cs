@@ -16,11 +16,25 @@ public class BossA : MonoBehaviour
     private float playerY;
     private float speed = 20;
     private Vector3 playerPos;
+    private Vector3 bossPos;
+    private bool dash1 = false;
+    private bool dash2 = true;
+    private Vector3[] bossPositions = new Vector3[3];
+
+    private Vector3 pos1 = new Vector3(289, -18, 0);
+    private Vector3 pos2 = new Vector3(316, -24, 0);
+    private Vector3 pos3 = new Vector3(309, -10, 0);
+    int index;
 
     public float ChargeTime = 2f;
 
     void Start()
     {
+        bossPos = transform.position;
+        bossPositions[0] = bossPos;
+        bossPositions[1] = pos1;
+        bossPositions[2] = pos2;
+        bossPositions[3] = pos3;
         player = GameObject.FindGameObjectWithTag("Player");
         //playerNearby = false;
         //rbdy = gameObject.GetComponent<Rigidbody2D>();
@@ -33,15 +47,13 @@ public class BossA : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
 
-
+        //<charging>
         if (!chargeComplete & StartCharge)
         {
             charge();
             StartCharge = false;
-           // Debug.Log("11111111111");
-           // playerX = player.transform.position.x;
-          //  playerY = player.transform.position.y;
             playerPos = player.transform.position;
+            index = Random.Range(0, bossPositions.Length);
         }
 
         if (ChargeTime <= 0)
@@ -53,23 +65,43 @@ public class BossA : MonoBehaviour
             ChargeTime -= Time.deltaTime;
 
         }
-
+        //</charging>
 
         if (chargeComplete)
         {
-
-            actionComplete = Dash(playerPos);
-            //Debug.Log(actionComplete);
-            //Debug.Log("player:" +playerPos.x);
-          //  Debug.Log("Boss:" + transform.position.x);
-            if (actionComplete )
+            if (dash1)
             {
-                chargeComplete = false;
-                StartCharge = true;
-                ChargeTime = 1f;
+
+                actionComplete = Dash(bossPositions[index]);
+                if (actionComplete)
+                {
+                    chargeComplete = false;
+                    StartCharge = true;
+                    ChargeTime = 4f;
+                    dash1 = false;
+                    dash2 = true;
+                }
+            }
+
+            if (dash2)
+            {
+                actionComplete = Dash(playerPos);
+
+                if (actionComplete)
+                {
+                    chargeComplete = false;
+                    StartCharge = true;
+                    ChargeTime = 10f;
+                    dash1 = true;
+                    dash2 = false;
+                }
             }
 
         }
+        
+
+
+
     }
 
 
@@ -78,6 +110,15 @@ public class BossA : MonoBehaviour
         //bool complete = false;
 
         Vector3 dir = playerPosition - transform.position;
+        if(playerPosition.x - transform.position.x > 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        if (playerPosition.x - transform.position.x < 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
         float distanceThisFrame = speed * Time.deltaTime;
         
         transform.Translate(dir.normalized *distanceThisFrame, Space.World);
