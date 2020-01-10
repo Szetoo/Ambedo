@@ -26,7 +26,7 @@ public class BossA : MonoBehaviour
     private Vector3 pos3 = new Vector3(309, -10, 0);
     int index;
 
-    public float ChargeTime = 2f;
+    public float ChargeTime = 4f;
 
     void Start()
     {
@@ -36,6 +36,7 @@ public class BossA : MonoBehaviour
         bossPositions[2] = pos2;
         bossPositions[3] = pos3;
         player = GameObject.FindGameObjectWithTag("Player");
+        ChargeTime = 6f;
         //playerNearby = false;
         //rbdy = gameObject.GetComponent<Rigidbody2D>();
         // curHeight = transform.position.y;
@@ -77,7 +78,7 @@ public class BossA : MonoBehaviour
                 {
                     chargeComplete = false;
                     StartCharge = true;
-                    ChargeTime = 4f;
+                    ChargeTime = 3f;
                     dash1 = false;
                     dash2 = true;
                 }
@@ -91,7 +92,7 @@ public class BossA : MonoBehaviour
                 {
                     chargeComplete = false;
                     StartCharge = true;
-                    ChargeTime = 10f;
+                    ChargeTime = 5f;
                     dash1 = true;
                     dash2 = false;
                 }
