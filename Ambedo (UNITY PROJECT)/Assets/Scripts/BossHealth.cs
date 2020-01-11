@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class BossHealth : MonoBehaviour
 {
 
     private float maxHP = 100;
-    private float currentHp;
+    public float currentHp;
     public Sprite Transformation;
     private GameObject player;
+    private GameObject cutscene;
+    public Camera cam;
 
     // private bool isHealing;
     private bool invincible;
@@ -27,6 +30,7 @@ public class BossHealth : MonoBehaviour
         //isHealing = false;
         invincible = false;
         gameObject.GetComponent<Animator>().SetBool("Alive", true);
+        cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
 
 
     }
@@ -76,13 +80,24 @@ public class BossHealth : MonoBehaviour
     {
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
         BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
+        
+      //  Debug.Log("Play Boss Death and Player Transformation Cutscene");
+       // cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
         for (int i = 0; i < colliders.Length; i++)
         {
             colliders[i].enabled = false;
         }
+       // Destroy(gameObject);
         yield return new WaitForSeconds(1);
         player = GameObject.FindGameObjectWithTag("Player");
+        
         player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        player.GetComponent<PlayerHealthController>().maxHP += 100;
+
+        Debug.Log("Play Boss Death and Player Transformation Cutscene");
+        cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
+        cam.transform.localPosition = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
+        cutscene.GetComponent<PlayableDirector>().Play();
         Destroy(gameObject);
     }
 }

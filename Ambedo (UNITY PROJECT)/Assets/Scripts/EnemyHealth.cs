@@ -82,11 +82,13 @@ public class EnemyHealth : MonoBehaviour
     {
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
         BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
+        //gameObject.GetComponent<Rigidbody2D>().enabled = false;
+       // gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         for (int i = 0; i < colliders.Length; i++)
         {
             colliders[i].enabled = false;
         }
-
+        gameObject.GetComponent<Rigidbody2D>().Sleep();
         yield return new WaitForSeconds(1);
         Destroy(gameObject);
     }

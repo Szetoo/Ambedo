@@ -163,6 +163,6 @@ public class PlayerHealthController : MonoBehaviour
     {
         damage.Play();
         Destroy(gameObject);
-        Initiate.Fade("Level1-alex", Color.black, 1.0f);
+        Initiate.Fade("Level-alex-tim", Color.black, 1.0f);
     }
 }

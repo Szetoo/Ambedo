@@ -25,6 +25,7 @@ public class BossA : MonoBehaviour
     private Vector3 pos2 = new Vector3(316, -24, 0);
     private Vector3 pos3 = new Vector3(309, -10, 0);
     int index;
+    private float currentHP;
 
     public float ChargeTime = 4f;
 
@@ -47,61 +48,62 @@ public class BossA : MonoBehaviour
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-
-        //<charging>
-        if (!chargeComplete & StartCharge)
-        {
-            charge();
-            StartCharge = false;
-            playerPos = player.transform.position;
-            index = Random.Range(0, bossPositions.Length);
-        }
-
-        if (ChargeTime <= 0)
-        {
-            chargeComplete = true;
-        }
-        else
-        {
-            ChargeTime -= Time.deltaTime;
-
-        }
-        //</charging>
-
-        if (chargeComplete)
-        {
-            if (dash1)
+        currentHP = gameObject.GetComponent<BossHealth>().currentHp;
+        if (currentHP > 0) {
+            //<charging>
+            if (!chargeComplete & StartCharge)
             {
-
-                actionComplete = Dash(bossPositions[index]);
-                if (actionComplete)
-                {
-                    chargeComplete = false;
-                    StartCharge = true;
-                    ChargeTime = 3f;
-                    dash1 = false;
-                    dash2 = true;
-                }
+                charge();
+                StartCharge = false;
+                playerPos = player.transform.position;
+                index = Random.Range(0, bossPositions.Length);
             }
 
-            if (dash2)
+            if (ChargeTime <= 0)
             {
-                actionComplete = Dash(playerPos);
+                chargeComplete = true;
+            }
+            else
+            {
+                ChargeTime -= Time.deltaTime;
 
-                if (actionComplete)
+            }
+            //</charging>
+
+            if (chargeComplete)
+            {
+                if (dash1)
                 {
-                    chargeComplete = false;
-                    StartCharge = true;
-                    ChargeTime = 5f;
-                    dash1 = true;
-                    dash2 = false;
+
+                    actionComplete = Dash(bossPositions[index]);
+                    if (actionComplete)
+                    {
+                        chargeComplete = false;
+                        StartCharge = true;
+                        ChargeTime = 3f;
+                        dash1 = false;
+                        dash2 = true;
+                    }
                 }
+
+                if (dash2)
+                {
+                    actionComplete = Dash(playerPos);
+
+                    if (actionComplete)
+                    {
+                        chargeComplete = false;
+                        StartCharge = true;
+                        ChargeTime = 5f;
+                        dash1 = true;
+                        dash2 = false;
+                    }
+                }
+
             }
 
+
         }
-        
-
-
 
     }
 
