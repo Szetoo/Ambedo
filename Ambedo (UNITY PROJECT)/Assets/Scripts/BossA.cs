@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossA : MonoBehaviour
 {
     GameObject player;
+    public GameObject chargeEffect;
     private float leftBoundX = 277.6f;
     private float rightBoundX = 324.2f;
     private float TopBoundY = 5;
@@ -38,6 +39,7 @@ public class BossA : MonoBehaviour
         bossPositions[3] = pos3;
         player = GameObject.FindGameObjectWithTag("Player");
         ChargeTime = 6f;
+    
         //playerNearby = false;
         //rbdy = gameObject.GetComponent<Rigidbody2D>();
         // curHeight = transform.position.y;
@@ -49,6 +51,15 @@ public class BossA : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         currentHP = gameObject.GetComponent<BossHealth>().currentHp;
+        if (player.transform.position.x - transform.position.x > 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        if (player.transform.position.x - transform.position.x < 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
         if (currentHP > 0) {
             //<charging>
             if (!chargeComplete & StartCharge)
@@ -62,6 +73,8 @@ public class BossA : MonoBehaviour
             if (ChargeTime <= 0)
             {
                 chargeComplete = true;
+                chargeEffect.SetActive(false);
+
             }
             else
             {
@@ -113,15 +126,7 @@ public class BossA : MonoBehaviour
         //bool complete = false;
 
         Vector3 dir = playerPosition - transform.position;
-        if(playerPosition.x - transform.position.x > 0)
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
-        }
-        if (playerPosition.x - transform.position.x < 0)
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
-        }
-
+     
         float distanceThisFrame = speed * Time.deltaTime;
         
         transform.Translate(dir.normalized *distanceThisFrame, Space.World);
@@ -155,6 +160,6 @@ public class BossA : MonoBehaviour
     private void charge()
     {
         //Debug.Log("Charge again");
-
+        chargeEffect.SetActive(true);
     }
 }

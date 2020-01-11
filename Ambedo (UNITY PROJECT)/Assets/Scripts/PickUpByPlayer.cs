@@ -7,6 +7,7 @@ public class PickUpByPlayer : MonoBehaviour {
     public GameObject player;
     public float maxDistance;
     public float offset;
+    public GameObject ImpactEffect;
 
     private bool beingHeld;
     private SpriteRenderer sprite;
@@ -47,16 +48,21 @@ public class PickUpByPlayer : MonoBehaviour {
 
         if (horizontalAxis > 0 && swing == false)
         {
-            swordXPos = 0.1f;
-            swordYPos = -0.076f;
+            swordXPos = 0.098f;
+            swordYPos = -0.08f;
             swordZRotate = -50f;
+
+            ImpactEffect.transform.localPosition = new Vector2(0.601f, 0.249f);
+            ImpactEffect.transform.eulerAngles = new Vector3(0f, 180f, 0f);
         }
 
         if (horizontalAxis < 0 && swing == false)
         {
-            swordXPos = -0.1f;
-            swordYPos = -0.07f;
+            swordXPos = -0.102f;
+            swordYPos = -0.077f;
             swordZRotate = 50f;
+            ImpactEffect.transform.localPosition = new Vector2(-0.652f, 0.223f);
+            ImpactEffect.transform.eulerAngles = new Vector3(0f, 0f, 0f);
 
         }
 
@@ -68,7 +74,10 @@ public class PickUpByPlayer : MonoBehaviour {
                 swordZRotate = 0;
                 direction = swordXPos;
                 //Debug.Log("direction : "+ direction);
-
+                // GameObject effectIns = (GameObject)Instantiate(ImpactEffect, new Vector3(swordXPos, swordYPos), transform.rotation);
+                // effectIns.transform.localPosition = new Vector2(swordXPos, swordYPos);
+                //Destroy(effectIns, 1f);
+                ImpactEffect.SetActive(true);
             }
         }
 
@@ -78,6 +87,7 @@ public class PickUpByPlayer : MonoBehaviour {
 
             if (direction > 0)
             {
+
                 swordZRotate = swordZRotate - 3;
             }
             if(direction < 0)
@@ -89,6 +99,7 @@ public class PickUpByPlayer : MonoBehaviour {
             {
 
                 swing = false;
+                ImpactEffect.SetActive(false);
             }
 
 

@@ -7,6 +7,7 @@ public class BossRoomZone : MonoBehaviour
     public bool playerNearby;
     public GameObject boss;
     public Camera cam;
+    public GameObject map;
 
     // Use this for initialization
 
@@ -27,6 +28,7 @@ public class BossRoomZone : MonoBehaviour
         {
             playerNearby = true;
             boss.SetActive(true);
+             map.transform.localScale = new Vector3(4.687737f, 5.408163f, 1f);
             cam.orthographicSize = 15.0f;
          
             cam.GetComponent<CustomCamera.CameraMovement>().lowerDeadBound = 12f;
