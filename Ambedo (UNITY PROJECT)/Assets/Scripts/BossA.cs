@@ -51,6 +51,9 @@ public class BossA : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         currentHP = gameObject.GetComponent<BossHealth>().currentHp;
+
+
+
         if (player.transform.position.x - transform.position.x > 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
@@ -115,6 +118,11 @@ public class BossA : MonoBehaviour
 
             }
 
+
+        }
+        else{
+
+            chargeEffect.SetActive(false);
 
         }
 

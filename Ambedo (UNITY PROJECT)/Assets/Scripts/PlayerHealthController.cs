@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine.UI;
 
 public class PlayerHealthController : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class PlayerHealthController : MonoBehaviour
     public float lightInvDuration;
     
     public AudioSource damage;
+    public AudioSource healthGain;
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
 
     [HideInInspector]
     public float currentHP;
@@ -62,6 +67,7 @@ public class PlayerHealthController : MonoBehaviour
     {
         currentHP = maxHP;
         invincible = false;
+        CalculateHPCanvas();
     }
 
     // Update is called once per frame
@@ -84,6 +90,31 @@ public class PlayerHealthController : MonoBehaviour
 
     }
 
+    private void CalculateHPCanvas()
+    {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < currentHP / 100)
+            {
+                hearts[i].sprite = fullHeart;
+            }
+            else
+            {
+                hearts[i].sprite = emptyHeart;
+            }
+
+
+            if (i < maxHP / 100)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "PlayerAttackHitbox")
@@ -96,13 +127,16 @@ public class PlayerHealthController : MonoBehaviour
             Debug.Log(gameObject.tag);
             damagePlayer(100);  //Constant 100 for now, will change depending on which enemy is doing damage
             Debug.Log(currentHP);
-           
+            CalculateHPCanvas();
+
+
         }
 
         if (other.tag == "LightZone")
         {
             inLight = true;
             Debug.Log("Enter Light");
+            CalculateHPCanvas();
         }
 
     }
@@ -118,11 +152,13 @@ public class PlayerHealthController : MonoBehaviour
 
     private void healPlayer(float amount)
     {
+
         currentHP += amount;
         if (currentHP > maxHP)
         {
             currentHP = maxHP;
         }
+        CalculateHPCanvas();
     }
 
     public void damagePlayer(float amount)
@@ -137,6 +173,7 @@ public class PlayerHealthController : MonoBehaviour
         canHealTime = Time.time + 6f;
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
         damage.Play();
+        CalculateHPCanvas();
     }
 
     public void damagePlayer(float amount, float invDuration)
@@ -151,6 +188,7 @@ public class PlayerHealthController : MonoBehaviour
         canHealTime = Time.time + 6f;
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
         damage.Play();
+        CalculateHPCanvas();
     }
 
     private void goInvincible(float duration)

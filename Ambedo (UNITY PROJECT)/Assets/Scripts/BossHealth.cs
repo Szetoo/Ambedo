@@ -6,11 +6,13 @@ using UnityEngine.Playables;
 public class BossHealth : MonoBehaviour
 {
 
-    private float maxHP = 100;
+    private float maxHP = 300;
     public float currentHp;
     public Sprite Transformation;
+    public Sprite Transformation2;
     private GameObject player;
     private GameObject cutscene;
+    private GameObject room;
     public Camera cam;
 
     // private bool isHealing;
@@ -31,6 +33,7 @@ public class BossHealth : MonoBehaviour
         invincible = false;
         gameObject.GetComponent<Animator>().SetBool("Alive", true);
         cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
+        room = GameObject.FindGameObjectWithTag("BossRoom");
 
 
     }
@@ -71,15 +74,13 @@ public class BossHealth : MonoBehaviour
         }
     }
 
-    private void healPlayer(float amount)
-    {
-        currentHp += amount;
-    }
+   
 
     public IEnumerator killBoss()
     {
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
         BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
+        EdgeCollider2D collider2 = gameObject.GetComponent<EdgeCollider2D>();
         
       //  Debug.Log("Play Boss Death and Player Transformation Cutscene");
        // cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
@@ -87,17 +88,51 @@ public class BossHealth : MonoBehaviour
         {
             colliders[i].enabled = false;
         }
-       // Destroy(gameObject);
+        // Destroy(gameObject);
+        collider2.enabled = false;
         yield return new WaitForSeconds(1);
-        player = GameObject.FindGameObjectWithTag("Player");
-        
-        player.GetComponent<SpriteRenderer>().sprite = Transformation;
-        player.GetComponent<PlayerHealthController>().maxHP += 100;
+
 
         Debug.Log("Play Boss Death and Player Transformation Cutscene");
         cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
+        player = GameObject.FindGameObjectWithTag("Player");
+        cam.GetComponent<CustomCamera.CameraMovement>().lowerDeadBound = 5f;
         cam.transform.localPosition = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
         cutscene.GetComponent<PlayableDirector>().Play();
+      
+        yield return new WaitForSeconds(4);
+
+        player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        yield return new WaitForSecondsRealtime(0.1f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
+        yield return new WaitForSecondsRealtime(0.5f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        yield return new WaitForSecondsRealtime(0.2f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
+        yield return new WaitForSecondsRealtime(0.5f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        yield return new WaitForSecondsRealtime(0.3f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
+        yield return new WaitForSecondsRealtime(0.5f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        yield return new WaitForSecondsRealtime(0.1f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
+        yield return new WaitForSecondsRealtime(0.1f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        yield return new WaitForSecondsRealtime(0.1f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
+        yield return new WaitForSecondsRealtime(0.1f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        yield return new WaitForSecondsRealtime(0.1f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
+        yield return new WaitForSecondsRealtime(0.2f);
+        player.GetComponent<SpriteRenderer>().sprite = Transformation;
+
+        player.GetComponent<PlayerHealthController>().maxHP = 300;
+        player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        room.GetComponent<AudioSource>().enabled = false;
+        cam.GetComponent<AudioSource>().enabled = true;
+        
         Destroy(gameObject);
     }
 }

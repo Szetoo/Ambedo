@@ -108,7 +108,7 @@ public class PickUpByPlayer : MonoBehaviour {
 
         if (beingHeld)
         {
-            Debug.Log(swordZRotate);
+            //Debug.Log(swordZRotate);
             beinghold(swordXPos,  swordYPos, swordZRotate);
 
 
