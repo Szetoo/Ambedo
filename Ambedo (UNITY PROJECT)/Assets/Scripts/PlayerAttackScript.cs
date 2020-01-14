@@ -8,6 +8,7 @@ public class PlayerAttackScript : MonoBehaviour {
     private bool attackDelay;
     private IEnumerator attackCoroutine;
     private SpriteRenderer sprite;
+    public AudioSource attackSound;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class PlayerAttackScript : MonoBehaviour {
     {
         try
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) & gameObject.GetComponent<PlayerMovementController>().isWielding)
             {
                 for (int i = 0; i < gameObject.GetComponent<Transform>().childCount; i++) {
                     string heldObjectTag = gameObject.transform.GetChild(i).tag;
@@ -29,6 +30,7 @@ public class PlayerAttackScript : MonoBehaviour {
                     {
                         attackCoroutine = attack();
                         StartCoroutine(attackCoroutine);
+                        attackSound.Play();
                         return;
                     }
                 }

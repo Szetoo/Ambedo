@@ -135,6 +135,34 @@ public class PlayerHealthController : MonoBehaviour
 
         if (other.tag == "LightZone")
         {
+            damage.Play();
+            inLight = true;
+            Debug.Log("Enter Light");
+            CalculateHPCanvas();
+        }
+
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "PlayerAttackHitbox")
+        {
+            return;
+        }
+
+        if ((other.gameObject.tag == "Enemy" | other.gameObject.tag == "Boss") & invincible == false)
+        {
+            Debug.Log(gameObject.tag);
+            damagePlayer(100);  //Constant 100 for now, will change depending on which enemy is doing damage
+            Debug.Log(currentHP);
+            CalculateHPCanvas();
+
+
+        }
+
+        if (other.tag == "LightZone")
+        {
+            damage.Play();
             inLight = true;
             Debug.Log("Enter Light");
             CalculateHPCanvas();

@@ -9,12 +9,14 @@ public class BossRoomZone : MonoBehaviour
     public Camera cam;
     public GameObject map;
     public AudioSource bossMusic;
+    private bool hasBeenTriggered;
 
     // Use this for initialization
 
     void Start()
     {
         playerNearby = false;
+        hasBeenTriggered = true;
     }
 
     // Update is called once per frame

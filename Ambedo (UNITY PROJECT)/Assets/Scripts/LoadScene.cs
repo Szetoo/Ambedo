@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class LoadScene : MonoBehaviour
 {
@@ -23,7 +25,16 @@ public class LoadScene : MonoBehaviour
         }
         else if (Time.timeScale == 1)
         {
-            Initiate.Fade(name, Color.black, 1.0f);
+            if (name == "Introduction")
+            {
+                File.Delete(Application.persistentDataPath + "/gamesave.save");
+                Initiate.Fade(name, Color.black, 1.0f);
+            }
+            else
+            {
+                Initiate.Fade(name, Color.black, 1.0f);
+            }
         }
     }
+
 }

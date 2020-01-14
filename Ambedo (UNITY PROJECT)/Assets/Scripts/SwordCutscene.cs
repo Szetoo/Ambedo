@@ -10,6 +10,7 @@ public class SwordCutscene : MonoBehaviour {
     GameObject player;
     private float xCheckPointPosition;
     private float yCheckPointPosition;
+    private bool hasBeenTriggered;
 
 
     // Start is called before the first frame update
@@ -18,6 +19,8 @@ public class SwordCutscene : MonoBehaviour {
         player =  GameObject.FindGameObjectWithTag("Player");
         xCheckPointPosition = gameObject.GetComponent<Transform>().position.x;
         yCheckPointPosition = gameObject.GetComponent<Transform>().position.y;
+        hasBeenTriggered = false;
+
     }
 
     // Update is called once per frame
@@ -28,7 +31,7 @@ public class SwordCutscene : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" & !hasBeenTriggered)
         {
             gameObject.GetComponent<PlayableDirector>().Play();
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
@@ -40,6 +43,7 @@ public class SwordCutscene : MonoBehaviour {
             FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
             bf.Serialize(file, save);
             file.Close();
+            hasBeenTriggered = true;
 
         }
     }
