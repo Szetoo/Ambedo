@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ExitLevel : MonoBehaviour
-{
+{/*
+    
     public bool playerNearby;
     public Camera cam;
     public GameObject map;
     public LoadScene LoadScene;
-    public ExitLevel
+    
 
     // Use this for initialization
 
@@ -37,5 +38,5 @@ public class ExitLevel : MonoBehaviour
             // objectWithOtherScript.GetComponent.< CameraMovement > ().lowerDeadBound = someNumber;
         }
     }
-
+    */
 }

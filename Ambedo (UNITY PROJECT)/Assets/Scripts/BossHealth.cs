@@ -50,6 +50,7 @@ public class BossHealth : MonoBehaviour
         if (invincibilityExpiry < Time.time)
         {
             invincible = false;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
         }
         if (currentHp > maxHP)
         {
@@ -66,7 +67,17 @@ public class BossHealth : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerAttackHitbox" & invincible == false)
         {
+            if (gameObject.transform.position.x > other.gameObject.transform.position.x)
+            {
+                gameObject.transform.localPosition = new Vector3(gameObject.transform.position.x + 1, gameObject.transform.position.y, 0f);
+            }
+
+            if (gameObject.transform.position.x <= other.gameObject.transform.position.x)
+            {
+                gameObject.transform.localPosition = new Vector3(gameObject.transform.position.x - 1, gameObject.transform.position.y, 0f);
+            }
             currentHp = currentHp - 100;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
             Debug.Log(currentHp);
             invincible = true;
             invincibilityExpiry = Time.time + invincibilityTime;
@@ -74,7 +85,7 @@ public class BossHealth : MonoBehaviour
         }
     }
 
-   
+
 
     public IEnumerator killBoss()
     {

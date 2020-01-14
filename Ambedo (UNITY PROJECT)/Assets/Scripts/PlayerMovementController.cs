@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -21,10 +23,48 @@ public class PlayerMovementController : MonoBehaviour
     private bool isClimbing;
     private float nextWaterJump;
     private SpriteRenderer sprite;
+    public bool isWielding;
     
+    void Awake()
+    {
+        /*
+        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            Debug.Log("Reading Save File");
+            // 2
+            // player = GameObject.FindGameObjectWithTag("Player");
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            Save save = (Save)bf.Deserialize(file);
+            file.Close();
+
+            // 3
+
+            float xPosition = save.xSpawnPosition;
+            float yPosition = save.ySpawnPosition;
+            isWielding = save.isWielding;
+
+            Debug.Log(xPosition);
+            Debug.Log(yPosition);
+
+            gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
+            Debug.Log("Game Loaded");
+
+            //Unpause();
+        }
+        else
+        {
+            Debug.Log("No game saved!");
+        }
+        if (isWielding)
+        {
+            gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        }*/
+    }
 
     void Start()
     {
+       
         isJumping = false;
         isClimbing = false;
         lastVelocity = new Vector2(0.0f, 0.0f);

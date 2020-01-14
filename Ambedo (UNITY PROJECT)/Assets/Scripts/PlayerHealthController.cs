@@ -32,10 +32,10 @@ public class PlayerHealthController : MonoBehaviour
     private bool invincible;
 
     // Use this for initialization
-    /*
+    
     private void Awake()
     {
-        
+        /*
         if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
         {
             Debug.Log("Reading Save File");
@@ -61,8 +61,9 @@ public class PlayerHealthController : MonoBehaviour
         else
         {
             Debug.Log("No game saved!");
-        }
-    }*/
+        }*/
+        
+    }
     void Start()
     {
         currentHP = maxHP;

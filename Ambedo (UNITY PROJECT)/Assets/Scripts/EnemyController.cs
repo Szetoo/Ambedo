@@ -42,16 +42,27 @@ public class EnemyController : MonoBehaviour
         //Move towards and face (by flipping sprite) player
         gameObject.GetComponent<AudioSource>().enabled = true;
 
-        if (transform.position.x - player.transform.position.x > 2)
+        if (transform.position.x - player.transform.position.x > 1)
         {
             transform.gameObject.GetComponent<SpriteRenderer>().flipX = false;
             transform.Translate(new Vector2(-1 * speed * Time.deltaTime, 0));
         }
-        if (transform.position.x - player.transform.position.x < -2)
+        else if (transform.position.x - player.transform.position.x < -1)
         {
             transform.gameObject.GetComponent<SpriteRenderer>().flipX = true;
             transform.Translate(new Vector2(speed * Time.deltaTime, 0));
         }
+        /*
+        if (transform.position.x - player.transform.position.x > 1)
+        {
+           
+            transform.Translate(new Vector2(-1 * speed * Time.deltaTime, 0));
+        }
+        else if (transform.position.x - player.transform.position.x < -1)
+        {
+            
+            transform.Translate(new Vector2(speed * Time.deltaTime, 0));
+        }*/
         //yield return new WaitForSeconds(0f);
     }
 

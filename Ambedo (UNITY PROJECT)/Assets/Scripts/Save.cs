@@ -11,4 +11,5 @@ public class Save
 
     public float xSpawnPosition;
     public float ySpawnPosition;
+    public bool isWielding;
 }

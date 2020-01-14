@@ -19,6 +19,7 @@ public class CheckPointController : MonoBehaviour {
         enabled = true;
         xCheckPointPosition = gameObject.GetComponent<Transform>().position.x;
         yCheckPointPosition = gameObject.GetComponent<Transform>().position.y;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -56,6 +57,7 @@ public class CheckPointController : MonoBehaviour {
 
         save.xSpawnPosition = xCheckPointPosition;
         save.ySpawnPosition = yCheckPointPosition;
+        save.isWielding = player.GetComponent<PlayerMovementController>().isWielding;
 
         return save;
     }
