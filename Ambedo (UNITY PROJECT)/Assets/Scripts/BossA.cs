@@ -4,24 +4,48 @@ using UnityEngine;
 
 public class BossA : MonoBehaviour
 {
+
     GameObject player;
+
+
+    // charge and dash control
+
+    // charge effect game object
     public GameObject chargeEffect;
-    public GameObject fireBall;
-    public Transform firePosition;
-    private float leftBoundX = 277.6f;
-    private float rightBoundX = 324.2f;
-    private float TopBoundY = 5;
-    private float BottomBoundY = -24.3f;
+    public Transform chargePosition;
+    private GameObject ChargeObject;
+
+    // charge bool value
     private bool chargeComplete = false;
     private bool StartCharge = true;
     private bool actionComplete = false;
-    private float playerX;
-    private float playerY;
-    private float speed = 20;
-    private Vector3 playerPos;
-    private Vector3 bossPos;
+
+    // dash turn
     private bool dash1 = false;
     private bool dash2 = true;
+    public bool firstDash = true;
+
+    // dashTo position
+    public Vector3 dashTo;
+
+    // charge speed
+    private float speed = 20;
+
+    // charge time
+    public float ChargeTime = 2f;
+
+
+    // fire ball
+    // fire ball animation
+    public GameObject fireBall;
+    // fire ball position at the starting point
+    public Transform firePosition;
+
+
+    // player position
+    private Vector3 playerPos;
+
+    // dash 2 turn boss positions
     private Vector3[] bossPositions = new Vector3[5];
 
     private Vector3 pos1 = new Vector3(278.4f, -26.63f, 0);
@@ -29,49 +53,45 @@ public class BossA : MonoBehaviour
     private Vector3 pos3 = new Vector3(277.48f, -12.32f, 0);
     private Vector3 pos4 = new Vector3(325.85f, -6.11f, 0);
     private Vector3 pos5 = new Vector3(281.16f, 3.06f, 0);
+
+
+    // boss position index selection
     int index;
+
+    // boss current HP
     private float currentHP;
 
-    public float ChargeTime ;
 
-
+    //line rendenrer
     public GameObject linePrefab;
     public GameObject currentLine;
     public LineRenderer lineRenderer;
-    //public EdgeCollider2D edgeCollider;
-    public List<Vector2> fingerPositions;
-    public bool run1 = true;
-    public Vector3 dashTo;
+
+    
+    
     void Start()
     {
-        bossPos = transform.position;
-       // bossPositions[0] = bossPos;
         bossPositions[0] = pos1;
         bossPositions[1] = pos2;
         bossPositions[2] = pos3;
         bossPositions[3] = pos4;
         bossPositions[4] = pos5;
-
-
-        player = GameObject.FindGameObjectWithTag("Player");
-        ChargeTime = 2f;
-        currentLine = Instantiate(linePrefab, player.transform.position, Quaternion.identity);
-        //playerNearby = false;
-        //rbdy = gameObject.GetComponent<Rigidbody2D>();
-        // curHeight = transform.position.y;
-        //rbdy.velocity = Vector2.zero;
     }
-
 
     // Update is called once per frame
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+
         currentHP = gameObject.GetComponent<BossHealth>().currentHp;
-        if (run1) { 
-              currentLine = Instantiate(linePrefab, player.transform.position, Quaternion.identity);
-            run1 = false;
-            }
+
+        // draw lines in first dash
+
+        if (firstDash) {
+            currentLine = Instantiate(linePrefab, player.transform.position, Quaternion.identity);
+            firstDash = false;
+        }
+
         // turning
         if (player.transform.position.x - transform.position.x > 0)
         {
@@ -87,7 +107,7 @@ public class BossA : MonoBehaviour
             //<charging>
             if (!chargeComplete & StartCharge)
             {
-                charge();
+                charge(ChargeTime);
                 StartCharge = false;
                 playerPos = player.transform.position;
                 
@@ -95,7 +115,6 @@ public class BossA : MonoBehaviour
                 {
                     index = Random.Range(0, bossPositions.Length);
                     dashTo = bossPositions[index];
-                    //spell();
                 }
                 else if (dash2)
                 {
@@ -108,13 +127,15 @@ public class BossA : MonoBehaviour
             if (ChargeTime <= 0)
             {
                 chargeComplete = true;
-                chargeEffect.SetActive(false);
+                
 
             }
             else
             {
                 ChargeTime -= Time.deltaTime;
+                ChargeObject.transform.position = chargePosition.position;
                 CreateLine(dashTo);
+
 
             }
             //</charging>
@@ -155,45 +176,30 @@ public class BossA : MonoBehaviour
         }
         else{
 
-            chargeEffect.SetActive(false);
-
         }
 
     }
     void CreateLine(Vector3 pos)
     {
         
-        lineRenderer = currentLine.GetComponent<LineRenderer>();
-        //edgeCollider = currentLine.GetComponent<EdgeCollider2D>();
-        fingerPositions.Clear();
-        fingerPositions.Add(gameObject.transform.position);
-        fingerPositions.Add(pos);
-        lineRenderer.SetPosition(0, fingerPositions[0]);
-        lineRenderer.SetPosition(1, fingerPositions[1]);
-        //edgeCollider.points = fingerPositions.ToArray();
+        lineRenderer = currentLine.GetComponent<LineRenderer>();      
+        lineRenderer.SetPosition(0, gameObject.transform.position);
+        lineRenderer.SetPosition(1, pos);
     }
 
 
     private bool Dash( Vector3 playerPosition)
     {
-        //bool complete = false;
-
         Vector3 dir = playerPosition - transform.position;
      
         float distanceThisFrame = speed * Time.deltaTime;
         
-        transform.Translate(dir.normalized *distanceThisFrame, Space.World);
-        // transform.LookAt(player.transform);
+        transform.Translate(dir.normalized * distanceThisFrame, Space.World);
 
-        Debug.Log("mag:" + dir.magnitude);
-        Debug.Log("distanceThisFrame:" + distanceThisFrame);
         if (dir.magnitude <= distanceThisFrame )
-       // if (Mathf.Abs(Mathf.Abs(playerPosition.x) - Mathf.Abs(transform.position.x ))<= distanceThisFrame*1.5)
         {
-
             return true;
         }
-
 
         return false;
     }
@@ -206,8 +212,9 @@ public class BossA : MonoBehaviour
 
     private void spell()
     {
-        Vector3 rot ;
-           if (index == 1 || index == 3)
+        Vector3 rot;
+
+        if (index == 1 || index == 3)
         {
            rot = new Vector3(0, 0, 270f);
         }
@@ -215,15 +222,16 @@ public class BossA : MonoBehaviour
         {
             rot = new Vector3(0, 0, 90f);
         }
-       // rot = new Vector3(0, 0, 90f);
+
         Instantiate(fireBall, firePosition.position, Quaternion.Euler(rot));
-        Debug.Log("Spell");
+
     }
 
 
-    private void charge()
+    private void charge( float destoryTime)
     {
-        //Debug.Log("Charge again");
-        chargeEffect.SetActive(true);
+        ChargeObject = Instantiate(chargeEffect, chargePosition.position, chargePosition.rotation);
+        Destroy(ChargeObject, destoryTime);
+    
     }
 }

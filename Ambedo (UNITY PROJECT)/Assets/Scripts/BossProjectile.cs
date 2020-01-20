@@ -27,8 +27,10 @@ public class BossProjectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
-        {        
-            Destroy(gameObject);    
+        {
+            collision.gameObject.GetComponent<PlayerHealthController>().damagePlayer(100);
+            Destroy(gameObject); 
+            
         }
         
     }

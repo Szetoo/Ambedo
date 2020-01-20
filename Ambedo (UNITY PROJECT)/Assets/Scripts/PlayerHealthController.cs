@@ -192,17 +192,25 @@ public class PlayerHealthController : MonoBehaviour
 
     public void damagePlayer(float amount)
     {
-        currentHP -= amount;
+        if (!invincible)
+        {
+            currentHP = currentHP - amount;
+            canHealTime = Time.time + 6f;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+            goInvincible(invDuration);
+            damage.Play();
+            
+        }
+    
+        
         if (currentHP <= 0)
         {
             killPlayer();
             return;
         }
-        goInvincible(invDuration);
-        canHealTime = Time.time + 6f;
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
-        damage.Play();
         CalculateHPCanvas();
+
+
     }
 
     public void damagePlayer(float amount, float invDuration)

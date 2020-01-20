@@ -65,7 +65,7 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    private void damageEnemy(float amount)
+    public void damageEnemy(float amount)
     {
         currentHP -= amount;
         if (currentHP <= 0)

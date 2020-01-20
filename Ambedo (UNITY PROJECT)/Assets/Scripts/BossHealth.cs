@@ -18,7 +18,7 @@ public class BossHealth : MonoBehaviour
     // private bool isHealing;
     private bool invincible;
 
-    private float invincibilityTime = 3;
+    private float invincibilityTime = 0.3f;
     private float invincibilityExpiry;
     private float canHealTime;
 
@@ -67,15 +67,11 @@ public class BossHealth : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerAttackHitbox" & invincible == false)
         {
-            if (gameObject.transform.position.x > other.gameObject.transform.position.x)
-            {
-                gameObject.transform.localPosition = new Vector3(gameObject.transform.position.x + 1, gameObject.transform.position.y, 0f);
-            }
 
-            if (gameObject.transform.position.x <= other.gameObject.transform.position.x)
-            {
-                gameObject.transform.localPosition = new Vector3(gameObject.transform.position.x - 1, gameObject.transform.position.y, 0f);
-            }
+
+            knockBack(other);
+
+
             currentHp = currentHp - 100;
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
             Debug.Log(currentHp);
@@ -86,6 +82,24 @@ public class BossHealth : MonoBehaviour
     }
 
 
+
+    public void knockBack(Collider2D other)
+    {
+
+        if (gameObject.transform.position.x > other.gameObject.transform.position.x)
+        {
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x + 1, gameObject.transform.position.y, 0f);
+
+        }
+
+        if (gameObject.transform.position.x <= other.gameObject.transform.position.x)
+        {
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x - 1, gameObject.transform.position.y, 0f);
+        }
+
+
+     
+    }
 
     public IEnumerator killBoss()
     {
