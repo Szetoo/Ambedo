@@ -28,8 +28,16 @@ public class BossA : MonoBehaviour
     int index;
     private float currentHP;
 
-    public float ChargeTime = 4f;
+    public float ChargeTime ;
 
+
+    public GameObject linePrefab;
+    public GameObject currentLine;
+    public LineRenderer lineRenderer;
+    //public EdgeCollider2D edgeCollider;
+    public List<Vector2> fingerPositions;
+    public bool run1 = true;
+    public Vector3 dashTo;
     void Start()
     {
         bossPos = transform.position;
@@ -39,21 +47,24 @@ public class BossA : MonoBehaviour
         bossPositions[3] = pos3;
         player = GameObject.FindGameObjectWithTag("Player");
         ChargeTime = 6f;
-    
+        currentLine = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
         //playerNearby = false;
         //rbdy = gameObject.GetComponent<Rigidbody2D>();
         // curHeight = transform.position.y;
         //rbdy.velocity = Vector2.zero;
     }
 
+
     // Update is called once per frame
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         currentHP = gameObject.GetComponent<BossHealth>().currentHp;
-
-
-
+        if (run1) { 
+              currentLine = Instantiate(linePrefab, Vector3.zero, Quaternion.identity);
+            run1 = false;
+            }
+        // turning
         if (player.transform.position.x - transform.position.x > 0)
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
@@ -63,6 +74,7 @@ public class BossA : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
 
+
         if (currentHP > 0) {
             //<charging>
             if (!chargeComplete & StartCharge)
@@ -71,6 +83,14 @@ public class BossA : MonoBehaviour
                 StartCharge = false;
                 playerPos = player.transform.position;
                 index = Random.Range(0, bossPositions.Length);
+                if (dash1)
+                {
+                    dashTo = bossPositions[index];
+                }
+                else if (dash2)
+                {
+                    dashTo = playerPos;
+                }
             }
 
             if (ChargeTime <= 0)
@@ -82,10 +102,11 @@ public class BossA : MonoBehaviour
             else
             {
                 ChargeTime -= Time.deltaTime;
+                CreateLine(dashTo);
 
             }
             //</charging>
-
+            
             if (chargeComplete)
             {
                 if (dash1)
@@ -127,7 +148,26 @@ public class BossA : MonoBehaviour
         }
 
     }
+    void CreateLine(Vector3 pos)
+    {
+        
+        lineRenderer = currentLine.GetComponent<LineRenderer>();
+        //edgeCollider = currentLine.GetComponent<EdgeCollider2D>();
+        fingerPositions.Clear();
+        fingerPositions.Add(gameObject.transform.position);
+        fingerPositions.Add(player.transform.position);
+        lineRenderer.SetPosition(0, fingerPositions[0]);
+        lineRenderer.SetPosition(1, pos);
+        //edgeCollider.points = fingerPositions.ToArray();
+    }
 
+    void UpdateLine(Vector2 newFingerPos)
+    {
+       // fingerPositions.Add(newFingerPos);
+      //  lineRenderer.positionCount++;
+     //   lineRenderer.SetPosition(lineRenderer.positionCount - 1, newFingerPos);
+        //edgeCollider.points = fingerPositions.ToArray();
+    }
 
     private bool Dash( Vector3 playerPosition)
     {
