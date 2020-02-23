@@ -6,6 +6,7 @@ public class BossA : MonoBehaviour
 {
 
     GameObject player;
+    GameObject camera;
 
 
     // charge and dash control
@@ -62,13 +63,23 @@ public class BossA : MonoBehaviour
     private float currentHP;
 
 
-    //line rendenrer
+    // line rendenrer
     public GameObject linePrefab;
     public GameObject currentLine;
     public LineRenderer lineRenderer;
 
-    
-    
+    // Zone position
+    public float zone1y = -22;
+    public float zone2y = -15;
+    public float zone3y = -8;
+    public float zone4y = -2;
+    public int zoneNum = 1;
+
+    // Camera Position
+    public Vector3 camPos;
+    public float camX = 16;
+    public float camY = 9;
+
     void Start()
     {
         bossPositions[0] = pos1;
@@ -87,7 +98,8 @@ public class BossA : MonoBehaviour
 
         // draw lines in first dash
 
-        if (firstDash) {
+        if (firstDash)
+        {
             currentLine = Instantiate(linePrefab, player.transform.position, Quaternion.identity);
             firstDash = false;
         }
@@ -103,14 +115,15 @@ public class BossA : MonoBehaviour
         }
 
 
-        if (currentHP > 0) {
+        if (currentHP > 0)
+        {
             //<charging>
             if (!chargeComplete & StartCharge)
             {
                 charge(ChargeTime);
                 StartCharge = false;
                 playerPos = player.transform.position;
-                
+
                 if (dash1)
                 {
                     index = Random.Range(0, bossPositions.Length);
@@ -118,7 +131,7 @@ public class BossA : MonoBehaviour
                 }
                 else if (dash2)
                 {
-                    
+
                     dashTo = playerPos;
                     spell();
                 }
@@ -127,7 +140,7 @@ public class BossA : MonoBehaviour
             if (ChargeTime <= 0)
             {
                 chargeComplete = true;
-                
+
 
             }
             else
@@ -139,7 +152,7 @@ public class BossA : MonoBehaviour
 
             }
             //</charging>
-            
+
             if (chargeComplete)
             {
                 if (dash1)
@@ -174,29 +187,30 @@ public class BossA : MonoBehaviour
 
 
         }
-        else{
+        else
+        {
 
         }
 
     }
     void CreateLine(Vector3 pos)
     {
-        
-        lineRenderer = currentLine.GetComponent<LineRenderer>();      
+
+        lineRenderer = currentLine.GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, gameObject.transform.position);
         lineRenderer.SetPosition(1, pos);
     }
 
 
-    private bool Dash( Vector3 playerPosition)
+    private bool Dash(Vector3 playerPosition)
     {
         Vector3 dir = playerPosition - transform.position;
-     
+
         float distanceThisFrame = speed * Time.deltaTime;
-        
+
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
 
-        if (dir.magnitude <= distanceThisFrame )
+        if (dir.magnitude <= distanceThisFrame)
         {
             return true;
         }
@@ -216,7 +230,7 @@ public class BossA : MonoBehaviour
 
         if (index == 1 || index == 3)
         {
-           rot = new Vector3(0, 0, 270f);
+            rot = new Vector3(0, 0, 270f);
         }
         else
         {
@@ -228,10 +242,42 @@ public class BossA : MonoBehaviour
     }
 
 
-    private void charge( float destoryTime)
+    private void charge(float destoryTime)
     {
         ChargeObject = Instantiate(chargeEffect, chargePosition.position, chargePosition.rotation);
         Destroy(ChargeObject, destoryTime);
-    
+
+    }
+
+
+    private int checkPlayerZone()
+    {
+
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player.transform.position.y < zone1y)
+        {
+            return 1;
+        }
+        else if (player.transform.position.y < zone2y)
+        {
+            return 2;
+        }
+        else if (player.transform.position.y < zone3y)
+        {
+            return 3;
+        }
+        else if (player.transform.position.y < zone4y)
+        {
+            return 4;
+        }
+
+        return 1;
+    }
+
+    private void findCameraPos()
+    {
+        camera = GameObject.FindGameObjectWithTag("MainCamera");
+        camPos = camera.transform.position;
     }
 }
