@@ -13,6 +13,14 @@ TagManager:
   - Enemy
   - DroppableObject
   - Sword
+  - Platform
+  - Fire
+  - BossDeathCutscene
+  - Water
+  - SwordCutscene
+  - Ramp
+  - Canvas
+  - Orb
   layers:
   - Default
   - TransparentFX
