@@ -68,7 +68,7 @@ public class PlayerHealthController : MonoBehaviour
     }
     void Start()
     {
-        maxEXP = 200;
+        maxEXP = 100;
         currentEXP = 0;
         currentHp = maxHP;
         //isHealing = false;
@@ -111,7 +111,8 @@ public class PlayerHealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(currentEXP);
+        //CalculateEXPCanvas();
         if (currentHp < 1)
         {
             damage.Play();
@@ -163,9 +164,11 @@ public class PlayerHealthController : MonoBehaviour
             CalculateHPCanvas();
         }
 
-        if (other.gameObject.tag == "Orb")
+        else if (other.gameObject.tag == "Orb")
         {
+            Destroy(other.gameObject);
             absorbSound.Play();
+            //Destroy(other.gameObject);
             currentEXP += 10;
             CalculateEXPCanvas();
         }

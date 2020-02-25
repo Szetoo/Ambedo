@@ -44,8 +44,9 @@ public class EnemyHealth : MonoBehaviour
         }
         if (currentHp < 1 & gameObject.GetComponent<Animator>().GetBool("Alive"))
         {
-            StartCoroutine(SpawnOrbs());
             StartCoroutine(KillEnemy());
+            StartCoroutine(SpawnOrbs());
+            //StartCoroutine(KillEnemy());
            // StartCoroutine(SpawnOrbs());
         }
 
@@ -84,12 +85,12 @@ public class EnemyHealth : MonoBehaviour
         float step = 2 * Time.deltaTime;
         for (int i = 0; i < numberOfOrbs; i++)
         {
-            Instantiate(orb, new Vector3(gameObject.transform.position.x + Random.Range(1,2), gameObject.transform.position.y, 0), Quaternion.identity);
+            Instantiate(orb, new Vector3(gameObject.transform.position.x + Random.Range(0,3), gameObject.transform.position.y, 0), Quaternion.identity);
         }
 
         //float step = 2 * Time.deltaTime;
 
-        yield return new WaitForSeconds(3);
+        yield return null;
 
 
 

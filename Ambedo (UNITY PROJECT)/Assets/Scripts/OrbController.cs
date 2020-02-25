@@ -5,7 +5,7 @@ using UnityEngine;
 public class OrbController : MonoBehaviour
     
 {
-    int speed = 5;
+    int speed = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,7 @@ public class OrbController : MonoBehaviour
         {
             CircleCollider2D collider = gameObject.GetComponent<CircleCollider2D>();
             collider.enabled = false;
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
     }

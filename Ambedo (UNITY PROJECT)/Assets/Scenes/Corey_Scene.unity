@@ -69855,9 +69855,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.016516805, y: -0.028470755}
+  m_Offset: {x: -0.033782005, y: -0.028470755}
   serializedVersion: 2
-  m_Radius: 0.2311784
+  m_Radius: 0.10625744
 --- !u!114 &1618290619 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7589222167627565945, guid: d58c16a9d3379a240bfdc4be2440c33f,
@@ -126898,22 +126898,22 @@ PrefabInstance:
     - target: {fileID: 4531184265981533032, guid: f869af00fa0823145b0dffb8c5b1fb46,
         type: 3}
       propertyPath: m_Offset.y
-      value: 0.04813537
+      value: 0.050334424
       objectReference: {fileID: 0}
     - target: {fileID: 4531184265981533032, guid: f869af00fa0823145b0dffb8c5b1fb46,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.382067
+      value: 0.44803864
       objectReference: {fileID: 0}
     - target: {fileID: 4531184265981533032, guid: f869af00fa0823145b0dffb8c5b1fb46,
         type: 3}
       propertyPath: m_Offset.x
-      value: -0.021963187
+      value: -0.019764125
       objectReference: {fileID: 0}
     - target: {fileID: 4531184265981533032, guid: f869af00fa0823145b0dffb8c5b1fb46,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.33814025
+      value: 0.38651943
       objectReference: {fileID: 0}
     - target: {fileID: 5278715150182161686, guid: f869af00fa0823145b0dffb8c5b1fb46,
         type: 3}
@@ -127265,6 +127265,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9018086904403330442, guid: d58c16a9d3379a240bfdc4be2440c33f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2897029505494336569, guid: d58c16a9d3379a240bfdc4be2440c33f,
         type: 3}
       propertyPath: m_Name
@@ -127273,22 +127278,27 @@ PrefabInstance:
     - target: {fileID: 8490632163633305434, guid: d58c16a9d3379a240bfdc4be2440c33f,
         type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.4716981
       objectReference: {fileID: 0}
     - target: {fileID: 8490632163633305434, guid: d58c16a9d3379a240bfdc4be2440c33f,
         type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.4716981
       objectReference: {fileID: 0}
     - target: {fileID: 8490632163633305434, guid: d58c16a9d3379a240bfdc4be2440c33f,
         type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 0.4716981
       objectReference: {fileID: 0}
     - target: {fileID: 8490632163633305434, guid: d58c16a9d3379a240bfdc4be2440c33f,
         type: 3}
       propertyPath: m_FillClockwise
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8490632163633305434, guid: d58c16a9d3379a240bfdc4be2440c33f,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3271705754244489478, guid: d58c16a9d3379a240bfdc4be2440c33f,
         type: 3}
