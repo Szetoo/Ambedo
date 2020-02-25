@@ -4,12 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine.Playables;
 
 public class PlayerHealthController : MonoBehaviour
 {
 
     public float maxHP = 200;
     public float currentHp;
+    private float currentEXP;
+    private float maxEXP;
+    private GameObject cutscene;
+    private int currentLevel;
 
     // private bool isHealing;
     private bool invincible;
@@ -17,13 +22,17 @@ public class PlayerHealthController : MonoBehaviour
     private float invincibilityTime = 3;
     private float invincibilityExpiry;
     private float canHealTime;
+    
 
     private float amountToHeal;
     public AudioSource damage;
     public AudioSource healthGain;
+    public AudioSource absorbSound;
     public Image[] hearts;
+    public Sprite[] transformations;
     public Sprite fullHeart;
     public Sprite emptyHeart;
+
 
 
     // Use this for initialization
@@ -59,11 +68,15 @@ public class PlayerHealthController : MonoBehaviour
     }
     void Start()
     {
+        maxEXP = 200;
+        currentEXP = 0;
         currentHp = maxHP;
         //isHealing = false;
         invincible = false;
         //damage.Play();
         CalculateHPCanvas();
+        CalculateEXPCanvas();
+        currentLevel = 1;
     }
 
     private void CalculateHPCanvas()
@@ -88,6 +101,11 @@ public class PlayerHealthController : MonoBehaviour
                 hearts[i].enabled = false;
             }
         }
+    }
+
+    private void CalculateEXPCanvas()
+    {
+        GameObject.FindGameObjectWithTag("Canvas").transform.GetChild(10).gameObject.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(currentEXP/maxEXP,1,1);
     }
 
     // Update is called once per frame
@@ -116,6 +134,10 @@ public class PlayerHealthController : MonoBehaviour
         {
             currentHp = maxHP;
         }
+        if (currentEXP >= maxEXP)
+        {
+            StartCoroutine(LevelUp());
+        }
 
     }
 
@@ -140,7 +162,14 @@ public class PlayerHealthController : MonoBehaviour
             playerTakesDamage(100);
             CalculateHPCanvas();
         }
-     
+
+        if (other.gameObject.tag == "Orb")
+        {
+            absorbSound.Play();
+            currentEXP += 10;
+            CalculateEXPCanvas();
+        }
+
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -158,5 +187,23 @@ public class PlayerHealthController : MonoBehaviour
         healthGain.Play();
         currentHp += amount;
         CalculateHPCanvas();
+    }
+
+    public IEnumerator LevelUp()
+    {
+        currentLevel += 1;
+        currentEXP = 0;
+        Debug.Log("Play Boss Death and Player Transformation Cutscene");
+        cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
+        cutscene.GetComponent<PlayableDirector>().Play();
+
+
+        yield return new WaitForSeconds(9);
+        gameObject.GetComponent<SpriteRenderer>().sprite = transformations[currentLevel-1];
+        gameObject.GetComponent<PlayerHealthController>().maxHP += 100;
+        gameObject.GetComponent<PlayerHealthController>().currentHp += 100;
+        CalculateEXPCanvas();
+        CalculateHPCanvas();
+        //Destroy(gameObject);
     }
 }
