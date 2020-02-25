@@ -14,6 +14,8 @@ public class EnemyHealth : MonoBehaviour
     private float canHealTime;
 
     private float amountToHeal;
+    public GameObject orb;
+    public int numberOfOrbs;
 
 
     void Start()
@@ -40,9 +42,11 @@ public class EnemyHealth : MonoBehaviour
         {
             currentHp = maxHP;
         }
-        if (currentHp < 1)
+        if (currentHp < 1 & gameObject.GetComponent<Animator>().GetBool("Alive"))
         {
+            StartCoroutine(SpawnOrbs());
             StartCoroutine(KillEnemy());
+           // StartCoroutine(SpawnOrbs());
         }
 
     }
@@ -69,8 +73,26 @@ public class EnemyHealth : MonoBehaviour
         {
            colliders[i].enabled = false;
         }
+       
+        
 
         yield return new WaitForSeconds(1);
         Destroy(gameObject);
+    }
+    public IEnumerator SpawnOrbs()
+    {
+        float step = 2 * Time.deltaTime;
+        for (int i = 0; i < numberOfOrbs; i++)
+        {
+            Instantiate(orb, new Vector3(gameObject.transform.position.x + Random.Range(1,2), gameObject.transform.position.y, 0), Quaternion.identity);
+            orb.gameObject.GetComponent<Transform>().position = Vector3.MoveTowards(transform.position, GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>().position, step);
+        }
+
+        //float step = 2 * Time.deltaTime;
+
+        yield return new WaitForSeconds(3);
+
+
+
     }
 }
