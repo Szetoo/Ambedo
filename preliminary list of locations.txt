@@ -1,0 +1,9 @@
+LOCATIONS:
+-Orphanage/Bridge/Surrounding Forest
+-Dark Forest
+-Abandoned Factory
+-Sewer System
+-Abandoned House/Log cabin
+-Dried up lake
+-Hiking trail up hill
+-Mineshaft (to make way up hill, very vertical)
