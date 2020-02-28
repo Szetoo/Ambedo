@@ -45,7 +45,7 @@ public class BossHealth : MonoBehaviour
         if (currentHp < maxHP & canHealTime < Time.time)
         {
             amountToHeal = maxHP - currentHp;
-            Debug.Log(currentHp);
+            //Debug.Log(currentHp);
         }
         if (invincibilityExpiry < Time.time)
         {
@@ -74,7 +74,7 @@ public class BossHealth : MonoBehaviour
 
             currentHp = currentHp - 100;
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
-            Debug.Log(currentHp);
+           // Debug.Log(currentHp);
             invincible = true;
             invincibilityExpiry = Time.time + invincibilityTime;
             canHealTime = invincibilityExpiry + 6;

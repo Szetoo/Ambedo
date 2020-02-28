@@ -125,9 +125,9 @@ public class PlayerHealthController : MonoBehaviour
 
         if ((other.gameObject.tag == "Enemy" | other.gameObject.tag == "Boss") & invincible == false)
         {
-            Debug.Log(gameObject.tag);
+           // Debug.Log(gameObject.tag);
             damagePlayer(100);  //Constant 100 for now, will change depending on which enemy is doing damage
-            Debug.Log(currentHP);
+           // Debug.Log(currentHP);
             CalculateHPCanvas();
 
 
@@ -137,7 +137,7 @@ public class PlayerHealthController : MonoBehaviour
         {
             damage.Play();
             inLight = true;
-            Debug.Log("Enter Light");
+           // Debug.Log("Enter Light");
             CalculateHPCanvas();
         }
 
@@ -152,9 +152,9 @@ public class PlayerHealthController : MonoBehaviour
 
         if ((other.gameObject.tag == "Enemy" | other.gameObject.tag == "Boss") & invincible == false)
         {
-            Debug.Log(gameObject.tag);
+           // Debug.Log(gameObject.tag);
             damagePlayer(100);  //Constant 100 for now, will change depending on which enemy is doing damage
-            Debug.Log(currentHP);
+           // Debug.Log(currentHP);
             CalculateHPCanvas();
 
 
@@ -164,7 +164,7 @@ public class PlayerHealthController : MonoBehaviour
         {
             damage.Play();
             inLight = true;
-            Debug.Log("Enter Light");
+         //   Debug.Log("Enter Light");
             CalculateHPCanvas();
         }
 
@@ -175,7 +175,7 @@ public class PlayerHealthController : MonoBehaviour
         if (other.tag == "LightZone")
         {
             inLight = false;
-            Debug.Log("Exit Light");
+           // Debug.Log("Exit Light");
         }
     }
 

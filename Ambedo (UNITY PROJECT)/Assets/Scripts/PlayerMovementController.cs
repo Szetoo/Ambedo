@@ -25,42 +25,42 @@ public class PlayerMovementController : MonoBehaviour
     private SpriteRenderer sprite;
     public bool isWielding;
     
-    void Awake()
-    {
+    //void Awake()
+    //{
         
-        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
-        {
-            Debug.Log("Reading Save File");
-            // 2
-            // player = GameObject.FindGameObjectWithTag("Player");
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
-            Save save = (Save)bf.Deserialize(file);
-            file.Close();
+    //    if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+    //    {
+    //        Debug.Log("Reading Save File");
+    //        // 2
+    //        // player = GameObject.FindGameObjectWithTag("Player");
+    //        BinaryFormatter bf = new BinaryFormatter();
+    //        FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+    //        Save save = (Save)bf.Deserialize(file);
+    //        file.Close();
 
-            // 3
+    //        // 3
 
-            float xPosition = save.xSpawnPosition;
-            float yPosition = save.ySpawnPosition;
-            isWielding = save.isWielding;
+    //        float xPosition = save.xSpawnPosition;
+    //        float yPosition = save.ySpawnPosition;
+    //        isWielding = save.isWielding;
 
-            Debug.Log(xPosition);
-            Debug.Log(yPosition);
+    //        Debug.Log(xPosition);
+    //        Debug.Log(yPosition);
 
-            gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
-            Debug.Log("Game Loaded");
+    //        gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
+    //        Debug.Log("Game Loaded");
 
-            //Unpause();
-        }
-        else
-        {
-            Debug.Log("No game saved!");
-        }
-        if (isWielding)
-        {
-            gameObject.transform.GetChild(1).gameObject.SetActive(true);
-        }
-    }
+    //        //Unpause();
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("No game saved!");
+    //    }
+    //    if (isWielding)
+    //    {
+    //        gameObject.transform.GetChild(1).gameObject.SetActive(true);
+    //    }
+    //}
 
     void Start()
     {
@@ -117,7 +117,7 @@ public class PlayerMovementController : MonoBehaviour
         //Runs only when the jump button is being pressed/held
         else if (verticalAxis != 0)
         {
-            Debug.Log(verticalAxis);
+           // Debug.Log(verticalAxis);
             if (isTouchingLadder)
             {
                 ladderMovement(rb, verticalAxis);
@@ -279,7 +279,7 @@ public class PlayerMovementController : MonoBehaviour
         if (!isClimbing & other.tag == "Ladder" & Input.GetAxis("Vertical") != 0)
         {
             isClimbing = true;
-            Debug.Log("Climbing Ladder");
+          //  Debug.Log("Climbing Ladder");
         }
     }
 
@@ -299,7 +299,7 @@ public class PlayerMovementController : MonoBehaviour
 
             isClimbing = false;
             isTouchingLadder = false;
-            Debug.Log("Stopped climbing ladder");
+            //Debug.Log("Stopped climbing ladder");
         }
 
     }
