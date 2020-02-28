@@ -21,7 +21,14 @@ public class PlayerMovementController : MonoBehaviour
     private bool isClimbing;
     private float nextWaterJump;
     private SpriteRenderer sprite;
+
+
+    private float horizontalAxis;
+    private float verticalAxis;
+    private bool jumpButton;
+
     
+
 
     void Start()
     {
@@ -36,12 +43,10 @@ public class PlayerMovementController : MonoBehaviour
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
-        float horizontalAxis = Input.GetAxis("Horizontal");
-        float verticalAxis = Input.GetAxis("Vertical");
-        bool jumpButton = Input.GetButton("Jump");
-
-
-
+        horizontalAxis = Input.GetAxis("Horizontal");
+        verticalAxis = Input.GetAxis("Vertical");
+        jumpButton = Input.GetButton("Jump");
+        
         //Runs when pressing a button that moves left or right
         if (horizontalAxis != 0)
         {
@@ -64,14 +69,14 @@ public class PlayerMovementController : MonoBehaviour
         }
 
         //Runs only when the jump button is being pressed/held
-        else if (verticalAxis != 0)
+        else if (jumpButton || verticalAxis != 0)
         {
             Debug.Log(verticalAxis);
-            if (isTouchingLadder)
+            if (verticalAxis != 0 && isTouchingLadder)
             {
                 ladderMovement(rb, verticalAxis);
             }
-            else
+            else if (jumpButton)
             {
                 jump(rb, jumpButton);
 
@@ -102,7 +107,7 @@ public class PlayerMovementController : MonoBehaviour
             if (rb.velocity.x == 0)
             {
                 momentum = 0;
-                if (Input.GetButton("Horizontal"))
+                if (jumpButton)
                     momentum = moveHorizontal;
             }
         }
@@ -130,8 +135,7 @@ public class PlayerMovementController : MonoBehaviour
             sprite.flipX = true;
             transform.localScale.Set(transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
-
-
+        
         //More sprinting stuff
         if (!(Input.GetButton("Horizontal") && canStartSprint) || isInWater)
             sprintHorizontal = 0;
@@ -171,13 +175,12 @@ public class PlayerMovementController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(new Vector2(0.0f, jumpForce));
             }
-
         }
 
         else
         {
             //Executes if player is eligible to jump
-            if (!isJumping & !isTouchingLadder & -landingTolerance <= acceleration & acceleration <= landingTolerance)
+            if (!isJumping & !isClimbing & -landingTolerance <= acceleration & acceleration <= landingTolerance)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(new Vector2(0.0f, jumpForce));
@@ -194,9 +197,11 @@ public class PlayerMovementController : MonoBehaviour
 
     public void ladderMovement(Rigidbody2D rb, float verticalAxis)
     {
-        Vector2 movement = new Vector2(rb.position.x, rb.position.y + (climbSpeed * verticalAxis));
+        if (isTouchingLadder) { 
+            Vector2 movement = new Vector2(rb.position.x, rb.position.y + (climbSpeed * verticalAxis));
 
-        rb.transform.position = movement;
+            rb.transform.position = movement;
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -211,19 +216,20 @@ public class PlayerMovementController : MonoBehaviour
         {
             isTouchingLadder = true;
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
         
     }
 
-    
-
     public void OnTriggerStay2D(Collider2D other)
     {
-        if (!isClimbing & other.tag == "Ladder" & Input.GetAxis("Vertical") != 0)
+        if (isTouchingLadder)
         {
-            isClimbing = true;
-            Debug.Log("Climbing Ladder");
+            isClimbing = verticalAxis != 0;
+        }
+        else
+        {
+            isClimbing = false;
         }
     }
 
@@ -237,13 +243,13 @@ public class PlayerMovementController : MonoBehaviour
         else if (other.tag == "Ladder")
         {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.velocity = new Vector2(rb.velocity.x, -(landingTolerance+0.001f));
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-            isClimbing = false;
+            
             isTouchingLadder = false;
             Debug.Log("Stopped climbing ladder");
+            isJumping = false;
         }
 
     }
