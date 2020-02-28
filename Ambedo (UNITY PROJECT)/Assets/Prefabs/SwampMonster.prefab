@@ -254,7 +254,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a33bafe8ee711460080768d653c555db, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3c905a1322096354296c555ff95c950b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -371,3 +371,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c135da2f1a398142adc8a2344f68b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 0
+  enemyDamageFromPlayer: 0
+  healAmount: 0
+  invDuration: 0
+  timeUntilHeal: 0
+  currentHP: 0
