@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4531184265981533039}
   - component: {fileID: 4531184265981533036}
   - component: {fileID: 4531184265981533037}
-  - component: {fileID: 4531184265981533042}
+  - component: {fileID: 2647129247757715618}
   - component: {fileID: 4531184265981533032}
   - component: {fileID: 5278715150182161686}
   - component: {fileID: 5278715150182161672}
@@ -136,7 +136,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.37, y: 0.42}
   m_EdgeRadius: 0
---- !u!114 &4531184265981533042
+--- !u!114 &2647129247757715618
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,15 +145,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4531184265981533043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d236b4489646d0043bdb1609e1b63dc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6be30baa580c8bc44990f6c0716a692b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSpeed: 4
-  jumpForce: 180
+  xSpeed: 6
+  jumpForce: 190
   accelSlowdown: 0.055
-  landingTolerance: 0.2
-  sprintMultiplier: 2.5
-  climbSpeed: 0.07
+  landingTolerance: 0.01
+  sprintMultiplier: 1
+  climbSpeed: 0.1
   waterJumpFrames: 0
   isWielding: 0
 --- !u!61 &4531184265981533032
