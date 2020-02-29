@@ -48,14 +48,10 @@ public class PlayerMovementController : MonoBehaviour
         jumpButton = Input.GetButton("Jump");
         
         //Runs when pressing a button that moves left or right
-        if (horizontalAxis != 0)
-        {
-            horizontalMovement(rb, horizontalAxis);
-
-        }
+        horizontalMovement(rb, horizontalAxis);
 
         //Stops the player if they're still moving after they shouldn't be 
-        else if (rb.velocity.x != 0)
+        if (horizontalAxis == 0 & rb.velocity.x != 0)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
@@ -71,7 +67,6 @@ public class PlayerMovementController : MonoBehaviour
         //Runs only when the jump button is being pressed/held
         else if (jumpButton || verticalAxis != 0)
         {
-            Debug.Log(verticalAxis);
             if (verticalAxis != 0 && isTouchingLadder)
             {
                 ladderMovement(rb, verticalAxis);
@@ -106,7 +101,7 @@ public class PlayerMovementController : MonoBehaviour
             canStartSprint = false;
             if (rb.velocity.x == 0)
             {
-                momentum = 0;
+                momentum = 1;
                 if (jumpButton)
                     momentum = moveHorizontal;
             }
@@ -155,8 +150,10 @@ public class PlayerMovementController : MonoBehaviour
         float acceleration = (rb.velocity.y - lastVelocity.y) / Time.fixedDeltaTime;
         lastVelocity = rb.velocity;
 
-        if (isJumping && -landingTolerance <= rb.velocity.y && rb.velocity.y <= landingTolerance)
+
+        if (!jumpButton & !isClimbing & isJumping & Mathf.Abs(acceleration) < landingTolerance)
         {
+            Debug.Log("No Longer Jumping!");
             isJumping = false;
         }
     }
@@ -179,8 +176,10 @@ public class PlayerMovementController : MonoBehaviour
 
         else
         {
+            Debug.Log(acceleration);
+
             //Executes if player is eligible to jump
-            if (!isJumping & !isClimbing & -landingTolerance <= acceleration & acceleration <= landingTolerance)
+            if (!isJumping & !isClimbing)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(new Vector2(0.0f, jumpForce));
@@ -188,7 +187,7 @@ public class PlayerMovementController : MonoBehaviour
             }
 
             //Executes if player is already jumping
-            else if (isJumping && acceleration < 0 && rb.velocity.y > 0)
+            else if (isJumping & rb.velocity.y > 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * (1 + accelSlowdown));
             }
