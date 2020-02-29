@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 
 public class PlayerHealthController : MonoBehaviour
 {
@@ -13,12 +14,18 @@ public class PlayerHealthController : MonoBehaviour
     public int healAmount;
     public float invDuration;
     public float lightInvDuration;
-    
+    private float currentEXP;
+    private float maxEXP;
+    private GameObject cutscene;
+    private int currentLevel;
+
     public AudioSource damage;
     public AudioSource healthGain;
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
+    public AudioSource absorbSound;
+    public Sprite[] transformations;
 
     [HideInInspector]
     public float currentHP;
@@ -66,14 +73,21 @@ public class PlayerHealthController : MonoBehaviour
     }
     void Start()
     {
+        currentEXP = 0;
+        maxEXP = 100;
         currentHP = maxHP;
         invincible = false;
         CalculateHPCanvas();
+        CalculateEXPCanvas();
+        currentLevel = 1;
+ 
     }
+
 
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(currentEXP);
         if (currentHP < maxHP & canHealTime < Time.time)
         {
             healPlayer(healAmount);
@@ -87,6 +101,10 @@ public class PlayerHealthController : MonoBehaviour
         if (inLight & !invincible)
         {
             damagePlayer(lightDamage, lightInvDuration);
+        }
+        if (currentEXP >= maxEXP)
+        {
+            StartCoroutine(LevelUp());
         }
 
     }
@@ -116,6 +134,11 @@ public class PlayerHealthController : MonoBehaviour
         }
     }
 
+    private void CalculateEXPCanvas()
+    {
+        GameObject.FindGameObjectWithTag("Canvas").transform.GetChild(10).gameObject.transform.GetChild(0).GetComponent<RectTransform>().localScale = new Vector3(currentEXP / maxEXP, 1, 1);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "PlayerAttackHitbox")
@@ -140,6 +163,15 @@ public class PlayerHealthController : MonoBehaviour
            // Debug.Log("Enter Light");
             CalculateHPCanvas();
         }
+        else if (other.gameObject.tag == "Orb")
+        {
+            Destroy(other.gameObject);
+            absorbSound.Play();
+            //Destroy(other.gameObject);
+            currentEXP += 10;
+            CalculateEXPCanvas();
+        }
+
 
     }
 
@@ -177,6 +209,24 @@ public class PlayerHealthController : MonoBehaviour
             inLight = false;
            // Debug.Log("Exit Light");
         }
+
+    }
+    public IEnumerator LevelUp()
+    {
+        currentLevel += 1;
+        currentEXP = 0;
+        //Debug.Log("Play Boss Death and Player Transformation Cutscene");
+        cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
+        cutscene.GetComponent<PlayableDirector>().Play();
+
+
+        yield return new WaitForSeconds(9);
+        gameObject.GetComponent<SpriteRenderer>().sprite = transformations[currentLevel - 1];
+        gameObject.GetComponent<PlayerHealthController>().maxHP += 100;
+        gameObject.GetComponent<PlayerHealthController>().currentHP += 100;
+        CalculateEXPCanvas();
+        CalculateHPCanvas();
+        //Destroy(gameObject);
     }
 
     private void healPlayer(float amount)

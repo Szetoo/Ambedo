@@ -23,6 +23,9 @@ TagManager:
   - Ladder
   - BossDeathCutscene
   - Ramp
+  - Orb
+  - Canvas
+  - Light
   layers:
   - Default
   - TransparentFX

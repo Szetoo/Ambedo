@@ -10,13 +10,17 @@ public class EnemyHealth : MonoBehaviour
     public int healAmount;
     public float invDuration;
     public float timeUntilHeal;
-    
+    public GameObject orb;
+    public int numberOfOrbs;
+
     [HideInInspector]
     public float currentHP;
 
     private bool invincible;
     private float invincibilityExpiry;
     private float canHealTime;
+    private bool orbsHaveBeenSpawned;
+
 
     private const float healRate = 0.1f;
     
@@ -26,12 +30,13 @@ public class EnemyHealth : MonoBehaviour
         currentHP = maxHP;
         invincible = false;
         gameObject.GetComponent<Animator>().SetBool("Alive", true);
+        orbsHaveBeenSpawned = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //StartCoroutine(SpawnOrbs());
         if (currentHP < maxHP & canHealTime < Time.time)
         {
             healEnemy(healAmount);
@@ -42,13 +47,20 @@ public class EnemyHealth : MonoBehaviour
             invincible = false;
             gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
 
-        } 
+        }
+        if (currentHP < 1 & !orbsHaveBeenSpawned)
+        {
+            
+            StartCoroutine(KillEnemy());
+            StartCoroutine(SpawnOrbs());
+
+        }
 
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OnTriggerEnterCall from EnemyHealth");
+        //Debug.Log("OnTriggerEnterCall from EnemyHealth");
         if (other.gameObject.tag == "PlayerAttackHitbox" & invincible == false)
         {
             damageEnemy(enemyDamageFromPlayer);
@@ -70,7 +82,7 @@ public class EnemyHealth : MonoBehaviour
         currentHP -= amount;
         if (currentHP <= 0)
         {
-            StartCoroutine(killEnemy());
+            StartCoroutine(KillEnemy());
             return;
         }
         goInvincible(invDuration);
@@ -78,12 +90,13 @@ public class EnemyHealth : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
     }
 
-    public IEnumerator killEnemy()
+    public IEnumerator KillEnemy()
     {
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
         BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
-        //gameObject.GetComponent<Rigidbody2D>().enabled = false;
-       // gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
+        gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         for (int i = 0; i < colliders.Length; i++)
         {
             colliders[i].enabled = false;
@@ -97,5 +110,21 @@ public class EnemyHealth : MonoBehaviour
     {
         invincible = true;
         invincibilityExpiry = Time.time + duration;
+    }
+    public IEnumerator SpawnOrbs()
+    {
+        orbsHaveBeenSpawned = true;
+        float step = 2 * Time.deltaTime;
+        for (int i = 0; i < numberOfOrbs; i++)
+        {
+            Instantiate(orb, new Vector3(gameObject.transform.position.x + Random.Range(0, 1), gameObject.transform.position.y, 0), Quaternion.identity);
+        }
+
+        //float step = 2 * Time.deltaTime;
+
+        yield return null;
+
+
+
     }
 }

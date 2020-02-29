@@ -376,4 +376,6 @@ MonoBehaviour:
   healAmount: 0
   invDuration: 0
   timeUntilHeal: 0
+  orb: {fileID: 4078487342204485565, guid: 52821e8a924f0864f887ddbd7f7c2dd0, type: 3}
+  numberOfOrbs: 2
   currentHP: 0
