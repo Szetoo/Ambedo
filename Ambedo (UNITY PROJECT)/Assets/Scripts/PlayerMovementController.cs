@@ -80,7 +80,7 @@ public class PlayerMovementController : MonoBehaviour
         jumpForceConstant = jumpForce;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         jumpButton = Input.GetButton("Jump");

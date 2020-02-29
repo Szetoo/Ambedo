@@ -31,9 +31,9 @@ GameObject:
   - component: {fileID: 4531184265981533039}
   - component: {fileID: 4531184265981533036}
   - component: {fileID: 4531184265981533037}
-  - component: {fileID: 2647129247757715618}
   - component: {fileID: 4531184265981533032}
   - component: {fileID: 5278715150182161686}
+  - component: {fileID: 2647129247757715618}
   - component: {fileID: 5278715150182161672}
   - component: {fileID: -4156331813256980353}
   - component: {fileID: 4050281320994791343}
@@ -158,26 +158,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.37, y: 0.42}
   m_EdgeRadius: 0
---- !u!114 &2647129247757715618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4531184265981533043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6be30baa580c8bc44990f6c0716a692b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xSpeed: 6
-  jumpForce: 190
-  accelSlowdown: 0.055
-  landingTolerance: 0.01
-  sprintMultiplier: 1
-  climbSpeed: 0.1
-  waterJumpFrames: 0
-  isWielding: 0
 --- !u!61 &4531184265981533032
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -300,6 +280,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2647129247757715618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4531184265981533043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be30baa580c8bc44990f6c0716a692b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xSpeed: 6
+  jumpForce: 200
+  accelSlowdown: 0.055
+  landingTolerance: 0.01
+  sprintMultiplier: 1
+  climbSpeed: 0.1
+  waterJumpFrames: 0
+  isWielding: 0
 --- !u!114 &5278715150182161672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,21 +548,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4531184265981533038}
     m_Modifications:
-    - target: {fileID: 6757198181627942366, guid: dd9e0bf4f33df4eb685ef8d57c586729,
-        type: 3}
-      propertyPath: m_Name
-      value: hit04_0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6757198181627942366, guid: dd9e0bf4f33df4eb685ef8d57c586729,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6757198181627942366, guid: dd9e0bf4f33df4eb685ef8d57c586729,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
     - target: {fileID: 498348956857978288, guid: dd9e0bf4f33df4eb685ef8d57c586729,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -627,6 +612,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.006459279
+      objectReference: {fileID: 0}
+    - target: {fileID: 6757198181627942366, guid: dd9e0bf4f33df4eb685ef8d57c586729,
+        type: 3}
+      propertyPath: m_Name
+      value: hit04_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6757198181627942366, guid: dd9e0bf4f33df4eb685ef8d57c586729,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6757198181627942366, guid: dd9e0bf4f33df4eb685ef8d57c586729,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd9e0bf4f33df4eb685ef8d57c586729, type: 3}
