@@ -55,13 +55,17 @@ public class LightController : MonoBehaviour
         float seed = Mathf.Abs(GetComponent<Transform>().transform.position.x); 
         float randomNum = (100000/(69 * Mathf.Exp(seed/25) + 420) % 1337) + 420/seed; //https://www.youtube.com/watch?v=dQw4w9WgXcQ
         yield return new WaitForSecondsRealtime(randomNum);
+
+        AudioSource[] lightSounds = GetComponents<AudioSource>();
         while (true)
         {
-
+            lightSounds[1].Play();
             lightOn(true);
             yield return new WaitForSecondsRealtime(randomNum*1.3f);
             lightOff();
+            lightSounds[1].Stop();
             yield return new WaitForSecondsRealtime(randomNum*2.1f);
+            lightSounds[0].Play();
             lightOn(false);
             yield return new WaitForSecondsRealtime(0.15f);
             lightOff();
@@ -69,7 +73,9 @@ public class LightController : MonoBehaviour
             lightOn(false);
             yield return new WaitForSecondsRealtime(0.1f);
             lightOff();
+            lightSounds[0].Stop();
             yield return new WaitForSecondsRealtime(1f);
+
             
         }
     }

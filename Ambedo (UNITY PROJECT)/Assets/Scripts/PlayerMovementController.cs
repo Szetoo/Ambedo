@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
@@ -12,6 +14,7 @@ public class PlayerMovementController : MonoBehaviour
     public float sprintMultiplier;
     public float climbSpeed;
     public int waterJumpFrames;
+    public bool isWielding = true;
     
     private bool isJumping;
     private Vector2 lastVelocity;
@@ -22,13 +25,48 @@ public class PlayerMovementController : MonoBehaviour
     private float nextWaterJump;
     private SpriteRenderer sprite;
 
-
     private float horizontalAxis;
     private float verticalAxis;
     private bool jumpButton;
 
-    
+    private void Awake()
+    {
 
+        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            // Debug.Log("Reading Save File");
+            // 2
+            // player = GameObject.FindGameObjectWithTag("Player");
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            Save save = (Save)bf.Deserialize(file);
+            file.Close();
+
+            // 3
+
+            float xPosition = save.xSpawnPosition;
+            float yPosition = save.ySpawnPosition;
+            isWielding = save.isWielding;
+
+            Debug.Log(xPosition);
+            Debug.Log(yPosition);
+
+            gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
+            Debug.Log("Game Loaded");
+
+            //Unpause();
+        }
+        else
+        {
+            Debug.Log("No game saved!");
+        }
+        isWielding = true;
+        if (isWielding)
+        {
+            gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        }
+
+    }
 
     void Start()
     {
@@ -95,6 +133,7 @@ public class PlayerMovementController : MonoBehaviour
 
 
         //Water physics. Irrelevant to us for now.
+        /*
         if (isJumping || isInWater)
         {
             //if (sprintHorizontal == 0)
@@ -108,6 +147,7 @@ public class PlayerMovementController : MonoBehaviour
         }
         else
             canStartSprint = true;
+        */
 
         //Moving to the left
         if (moveHorizontal < 0)
@@ -118,7 +158,7 @@ public class PlayerMovementController : MonoBehaviour
             //momentum = -xSpeed;
         }
 
-        //Stationary (I'm particularly worried that this won't work, but I can't test it)
+        //Stationary 
         else if (moveHorizontal == 0)
         {
             sprite.flipX = sprite.flipX;
