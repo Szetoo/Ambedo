@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -23,7 +25,36 @@ public class EnemyHealth : MonoBehaviour
 
 
     private const float healRate = 0.1f;
+
     
+    private void Awake()
+    {
+        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            Save save = (Save)bf.Deserialize(file);
+            file.Close();
+
+            // 3
+
+
+            Dictionary<string, bool> enemies = save.enemiesInLevel1;
+
+            string enemyName = gameObject.name;
+            Debug.Log(enemyName);
+            if (enemies[enemyName] == false)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            Debug.Log("No game saved!");
+        }
+
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -93,6 +124,7 @@ public class EnemyHealth : MonoBehaviour
     public IEnumerator KillEnemy()
     {
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
+        SaveToGame();
         BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
         gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX;
         gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionY;
@@ -126,5 +158,59 @@ public class EnemyHealth : MonoBehaviour
 
 
 
+    }
+
+    private void SaveToGame()
+    {
+        
+            // Debug.Log("Reading Save File");
+            // 2
+            // player = GameObject.FindGameObjectWithTag("Player");
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            Save save = (Save)bf.Deserialize(file);
+            file.Close();
+
+            // 3
+
+            float xPosition = save.xSpawnPosition;
+            float yPosition = save.ySpawnPosition;
+            bool isWielding = save.isWielding;
+            Dictionary<string, bool> enemies = save.enemiesInLevel1;
+            float currentEXP = save.currentEXP;
+            int currentLevel = save.currentLevel;
+
+        string enemyName = gameObject.name;
+            enemies[enemyName] = false;
+
+
+           
+            //gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
+            Debug.Log("Game Loaded");
+
+        Save save2 = CreateSaveGameObject(xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel);
+
+        // 2
+        file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+        bf.Serialize(file, save2);
+        file.Close();
+
+        //Unpause();
+
+
+    }
+    private Save CreateSaveGameObject(float xPosition, float yPosition,bool isWielding, Dictionary<string,bool> enemies, float currentEXP, int currentLevel)
+    {
+        Save save = new Save();
+        //player = GameObject.FindGameObjectWithTag("Player");
+
+        save.xSpawnPosition = xPosition;
+        save.ySpawnPosition = yPosition;
+        save.isWielding = isWielding;
+        save.enemiesInLevel1 = enemies;
+        save.currentEXP = currentEXP;
+        save.currentLevel = currentLevel;
+
+        return save;
     }
 }

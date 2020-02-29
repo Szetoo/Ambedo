@@ -178,5 +178,15 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: -6674859839146322332, guid: dd3b26ab9ac56ba41a66a36171bbe4b9, type: 2}
     value: {fileID: 7411022631032048173}
+  - key: {fileID: -798767224142466771, guid: dd3b26ab9ac56ba41a66a36171bbe4b9, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 5466385712147073825, guid: dd3b26ab9ac56ba41a66a36171bbe4b9, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 7943566638472638111, guid: dd3b26ab9ac56ba41a66a36171bbe4b9, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 7159871851348873107, guid: dd3b26ab9ac56ba41a66a36171bbe4b9, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 7985091159413811552, guid: dd3b26ab9ac56ba41a66a36171bbe4b9, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []

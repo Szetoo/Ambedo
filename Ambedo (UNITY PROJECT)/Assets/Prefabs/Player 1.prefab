@@ -293,11 +293,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xSpeed: 6
-  jumpForce: 200
+  jumpForce: 190
   accelSlowdown: 0.055
-  landingTolerance: 0.01
+  landingTolerance: 0.2
   sprintMultiplier: 1
-  climbSpeed: 0.1
+  climbSpeed: 0.08
   waterJumpFrames: 0
   isWielding: 0
 --- !u!114 &5278715150182161672
@@ -317,6 +317,8 @@ MonoBehaviour:
   healAmount: 2
   invDuration: 4
   lightInvDuration: 0.25
+  currentEXP: 0
+  currentLevel: 0
   damage: {fileID: 5278715150182161686}
   healthGain: {fileID: 4050281320994791343}
   hearts:
@@ -333,7 +335,13 @@ MonoBehaviour:
   fullHeart: {fileID: 21300000, guid: aeb00e505869d044c910a08bdaf07e9b, type: 3}
   emptyHeart: {fileID: 21300000, guid: 282173543a3915f4bb2b4498062a6fef, type: 3}
   absorbSound: {fileID: 0}
-  transformations: []
+  transformations:
+  - {fileID: 21300000, guid: 8a6bca2c0603ffb48ba35626243cff9e, type: 3}
+  - {fileID: 21300000, guid: 44d7bf33626eaaa4b8d3f8be96265c95, type: 3}
+  - {fileID: 21300000, guid: bcc8be2747559aa44a51a8670c8ba441, type: 3}
+  - {fileID: 21300000, guid: 53e129c960b2e5a42af9215b29f49c30, type: 3}
+  - {fileID: 21300000, guid: 10ee0939f4c4f204293a36855f08d4bf, type: 3}
+  - {fileID: 21300000, guid: f8bea7afd5a854e33bfa4823db09681f, type: 3}
   currentHP: 0
 --- !u!114 &-4156331813256980353
 MonoBehaviour:

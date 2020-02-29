@@ -33,7 +33,7 @@ public class PlayerMovementController : MonoBehaviour
     
     void Awake()
     {
-
+        
         if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
         {
            // Debug.Log("Reading Save File");
@@ -53,7 +53,7 @@ public class PlayerMovementController : MonoBehaviour
             Debug.Log(xPosition);
             Debug.Log(yPosition);
 
-            //gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
+            gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
             Debug.Log("Game Loaded");
 
             //Unpause();
@@ -62,11 +62,12 @@ public class PlayerMovementController : MonoBehaviour
         {
             Debug.Log("No game saved!");
         }
-      
+        isWielding = true;
         if (isWielding)
         {
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
         }
+        
     }
 
 

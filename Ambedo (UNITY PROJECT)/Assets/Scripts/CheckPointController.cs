@@ -33,6 +33,19 @@ public class CheckPointController : MonoBehaviour {
     {
     if (other.gameObject.tag == "Player" & enabled == true)
     {
+
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            Save save = (Save)bf.Deserialize(file);
+            file.Close();
+
+            // 3
+
+           
+            
+            Dictionary<string, bool> enemies = save.enemiesInLevel1;
+            float currentEXP = save.currentEXP;
+            int currentLevel = save.currentLevel;
             Debug.Log("Checkpoint status: " + enabled);
             Debug.Log("Player has reached checkpoint, saving game");
             enabled = false;
@@ -40,24 +53,26 @@ public class CheckPointController : MonoBehaviour {
             Debug.Log("Player will spawn at x: " + xCheckPointPosition + " y: " + yCheckPointPosition);
             Debug.Log(Application.persistentDataPath);
 
-            Save save = CreateSaveGameObject();
+            Save save2 = CreateSaveGameObject(xCheckPointPosition, yCheckPointPosition, player.GetComponent<PlayerMovementController>().isWielding, enemies, currentEXP, currentLevel);
 
             // 2
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
-            bf.Serialize(file, save);
+            file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            bf.Serialize(file, save2);
             file.Close();
         }
     }
 
-    private Save CreateSaveGameObject()
+    private Save CreateSaveGameObject(float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel)
     {
         Save save = new Save();
         //player = GameObject.FindGameObjectWithTag("Player");
 
-        save.xSpawnPosition = xCheckPointPosition;
-        save.ySpawnPosition = yCheckPointPosition;
-        save.isWielding = player.GetComponent<PlayerMovementController>().isWielding;
+        save.xSpawnPosition = xPosition;
+        save.ySpawnPosition = yPosition;
+        save.isWielding = isWielding;
+        save.enemiesInLevel1 = enemies;
+        save.currentEXP = currentEXP;
+        save.currentLevel = currentLevel;
 
         return save;
     }
