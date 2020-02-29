@@ -49,6 +49,7 @@ public class PlayerMovementController : MonoBehaviour
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");
         jumpButton = Input.GetButton("Jump");
+        //Debug.Log(isJumping);
         
         //Runs when pressing a button that moves left or right
         if (horizontalAxis != 0)
@@ -76,7 +77,7 @@ public class PlayerMovementController : MonoBehaviour
         //Runs only when the jump button is being pressed/held
         else if (jumpButton || verticalAxis != 0)
         {
-            Debug.Log(verticalAxis);
+            //Debug.Log(verticalAxis);
             if (verticalAxis != 0 && isTouchingLadder)
             {
                 ladderMovement(rb, verticalAxis);
@@ -186,6 +187,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             //Executes if player is eligible to jump
             if (!isJumping & !isTouchingLadder & -landingTolerance <= acceleration & acceleration <= landingTolerance)
+            //if (!isJumping & !isTouchingLadder)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(new Vector2(0.0f, jumpForce));
@@ -217,18 +219,46 @@ public class PlayerMovementController : MonoBehaviour
             isInWater = true;
         }
 
-        if (other.tag == "Ladder")
+        else if(other.tag == "Ladder")
         {
             isTouchingLadder = true;
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
-        
+        else if(other.tag == "Platform")
+        {
+            isJumping = false;
+        }
+        else if(other.tag == "Ramp")
+        {
+            isJumping = false;
+            jumpForce = 250;
+        }
+        else if (other.tag == "Untagged")
+        {
+            jumpForce = jumpForceConstant;
+        }
     }
+
+
 
     public void OnTriggerStay2D(Collider2D other)
     {
-        if (isTouchingLadder)
+        if (other.tag == "Platform")
+        {
+            isJumping = false;
+        }
+        else if (other.tag == "Ramp")
+        {
+            isJumping = false;
+            jumpForce = 250;
+            Debug.Log(jumpForce);
+        }
+        else if (other.tag == "Untagged")
+        {
+            jumpForce = jumpForceConstant;
+        }
+        else if (isTouchingLadder)
         {
             isClimbing = verticalAxis != 0;
         }
@@ -257,6 +287,7 @@ public class PlayerMovementController : MonoBehaviour
             Debug.Log("Stopped climbing ladder");
             isJumping = false;
         }
+        
 
     }
 

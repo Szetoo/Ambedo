@@ -18,6 +18,11 @@ TagManager:
   - ShowOnPause
   - Sword
   - LightZone
+  - BossRoom
+  - SwordCutscene
+  - Ladder
+  - BossDeathCutscene
+  - Ramp
   layers:
   - Default
   - TransparentFX
