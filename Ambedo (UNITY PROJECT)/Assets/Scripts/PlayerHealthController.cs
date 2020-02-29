@@ -141,12 +141,21 @@ public class PlayerHealthController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.tag == "Orb")
+        {
+            Destroy(other.gameObject);
+            absorbSound.Play();
+            //Destroy(other.gameObject);
+            currentEXP += 10;
+            CalculateEXPCanvas();
+        }
+
         if (other.gameObject.tag == "PlayerAttackHitbox")
         {
             return;
         }
 
-        if ((other.gameObject.tag == "Enemy" | other.gameObject.tag == "Boss") & invincible == false)
+        else if ((other.gameObject.tag == "Enemy" | other.gameObject.tag == "Boss") & invincible == false)
         {
            // Debug.Log(gameObject.tag);
             damagePlayer(100);  //Constant 100 for now, will change depending on which enemy is doing damage
@@ -156,21 +165,14 @@ public class PlayerHealthController : MonoBehaviour
 
         }
 
-        if (other.tag == "LightZone")
+        else if (other.tag == "LightZone")
         {
             damage.Play();
             inLight = true;
            // Debug.Log("Enter Light");
             CalculateHPCanvas();
         }
-        else if (other.gameObject.tag == "Orb")
-        {
-            Destroy(other.gameObject);
-            absorbSound.Play();
-            //Destroy(other.gameObject);
-            currentEXP += 10;
-            CalculateEXPCanvas();
-        }
+       
 
 
     }

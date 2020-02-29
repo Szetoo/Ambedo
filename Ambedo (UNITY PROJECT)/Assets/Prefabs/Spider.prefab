@@ -373,9 +373,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 200
   enemyDamageFromPlayer: 100
-  healAmount: 1
-  invDuration: 1
-  timeUntilHeal: 7
+  healAmount: 3
+  invDuration: 2
+  timeUntilHeal: 5
   orb: {fileID: 4078487342204485565, guid: 52821e8a924f0864f887ddbd7f7c2dd0, type: 3}
   numberOfOrbs: 2
   currentHP: 0

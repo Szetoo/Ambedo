@@ -16,6 +16,7 @@ public class OrbController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         transform.position = Vector3.MoveTowards(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position, speed * Time.deltaTime);
     }
 
@@ -25,7 +26,7 @@ public class OrbController : MonoBehaviour
         {
             CircleCollider2D collider = gameObject.GetComponent<CircleCollider2D>();
             collider.enabled = false;
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
 
     }

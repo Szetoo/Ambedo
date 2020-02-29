@@ -26,6 +26,7 @@ TagManager:
   - Orb
   - Canvas
   - Light
+  - Pedestal
   layers:
   - Default
   - TransparentFX

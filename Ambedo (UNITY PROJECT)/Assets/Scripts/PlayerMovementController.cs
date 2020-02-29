@@ -30,13 +30,13 @@ public class PlayerMovementController : MonoBehaviour
     private float horizontalAxis;
     private float verticalAxis;
     private bool jumpButton;
-
+    
     void Awake()
     {
 
         if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
         {
-            Debug.Log("Reading Save File");
+           // Debug.Log("Reading Save File");
             // 2
             // player = GameObject.FindGameObjectWithTag("Player");
             BinaryFormatter bf = new BinaryFormatter();
@@ -62,6 +62,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             Debug.Log("No game saved!");
         }
+      
         if (isWielding)
         {
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
@@ -79,13 +80,13 @@ public class PlayerMovementController : MonoBehaviour
         jumpForceConstant = jumpForce;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-
+        jumpButton = Input.GetButton("Jump");
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");
-        jumpButton = Input.GetButton("Jump");
+        //jumpButton = Input.GetButton("Jump");
         //Debug.Log(isJumping);
 
         if (jumpButton || verticalAxis != 0)
@@ -251,10 +252,14 @@ public class PlayerMovementController : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Water")
+        if (other.tag == "Ramp")
         {
-
-            isInWater = true;
+            isJumping = false;
+            jumpForce = 195;
+        }
+        if (other.tag == "Untagged")
+        {
+            jumpForce = jumpForceConstant;
         }
 
         else if(other.tag == "Ladder")
@@ -267,35 +272,26 @@ public class PlayerMovementController : MonoBehaviour
         {
             isJumping = false;
         }
-        else if(other.tag == "Ramp")
-        {
-            isJumping = false;
-            jumpForce = 250;
-        }
-        else if (other.tag == "Untagged")
-        {
-            jumpForce = jumpForceConstant;
-        }
+        
+        
     }
 
 
 
     public void OnTriggerStay2D(Collider2D other)
     {
+        if (other.tag == "Ramp")
+        {
+            isJumping = false;
+            jumpForce = 195;
+           // Debug.Log(jumpForce);
+        }
         if (other.tag == "Platform")
         {
             isJumping = false;
         }
-        else if (other.tag == "Ramp")
-        {
-            isJumping = false;
-            jumpForce = 250;
-            Debug.Log(jumpForce);
-        }
-        else if (other.tag == "Untagged")
-        {
-            jumpForce = jumpForceConstant;
-        }
+        
+        
         else if (isTouchingLadder)
         {
             isClimbing = verticalAxis != 0;
