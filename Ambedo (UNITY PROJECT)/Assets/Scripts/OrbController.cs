@@ -7,7 +7,7 @@ using System.IO;
 public class OrbController : MonoBehaviour
 
 {
-    int speed = 6;
+    int speed = 4;
 
     // Start is called before the first frame update
     void Start()

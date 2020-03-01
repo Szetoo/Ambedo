@@ -227,7 +227,8 @@ public class PlayerHealthController : MonoBehaviour
     }
     public IEnumerator LevelUp()
     {
-        currentLevel += 1;
+        Debug.Log(currentLevel);
+        currentLevel++;
         gameObject.GetComponent<PlayerHealthController>().maxHP += 100;
         gameObject.GetComponent<PlayerHealthController>().currentHP += 100;
         float leftOverEXP = currentEXP - maxEXP;
@@ -244,7 +245,8 @@ public class PlayerHealthController : MonoBehaviour
 
 
         yield return new WaitForSeconds(8);
-        gameObject.GetComponent<SpriteRenderer>().sprite = transformations[currentLevel-1];
+        Debug.Log(currentLevel);
+        gameObject.GetComponent<SpriteRenderer>().sprite = transformations[currentLevel];
         //gameObject.GetComponent<PlayerHealthController>().maxHP += 100;
         //gameObject.GetComponent<PlayerHealthController>().currentHP += 100;
         //gameObject.GetComponent<SpriteRenderer>().sprite = transformations[currentLevel];
