@@ -60,7 +60,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             Debug.Log("No game saved!");
         }
-        isWielding = true;
+        //isWielding = true;
         if (isWielding)
         {
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
