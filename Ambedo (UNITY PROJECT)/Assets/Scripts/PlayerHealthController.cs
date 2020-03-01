@@ -80,7 +80,7 @@ public class PlayerHealthController : MonoBehaviour
     void Start()
     {
        // currentEXP = 0;
-        maxEXP = 20;
+        maxEXP = 100;
        // currentHP = maxHP;
         //invincible = false;
         CalculateHPCanvas();
@@ -157,7 +157,7 @@ public class PlayerHealthController : MonoBehaviour
             Destroy(other.gameObject);
             absorbSound.Play();
             //Destroy(other.gameObject);
-            currentEXP += 10;
+            currentEXP += 5;
             SaveToGame();
             CalculateEXPCanvas();
         }

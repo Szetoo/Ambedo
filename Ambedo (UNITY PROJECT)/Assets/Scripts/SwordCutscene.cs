@@ -48,6 +48,7 @@ public class SwordCutscene : MonoBehaviour {
             gameObject.GetComponent<PlayableDirector>().Play();
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             player.GetComponent<PlayerMovementController>().isWielding = true;
+            //player.GetComponent<PlayerMovementController>().horizontalMovement(other.GetComponent<Rigidbody2D>(), 2);
             Save save = CreateSaveGameObject();
 
             // 2

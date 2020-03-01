@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -15,7 +15,7 @@ public class PlayerMovementController : MonoBehaviour
     public float climbSpeed;
     public int waterJumpFrames;
     public bool isWielding = true;
-    
+
     private bool isJumping;
     private Vector2 lastVelocity;
     private bool canStartSprint;
@@ -24,19 +24,17 @@ public class PlayerMovementController : MonoBehaviour
     private bool isClimbing;
     private float nextWaterJump;
     private SpriteRenderer sprite;
-    private float jumpForceConstant;
-
 
     private float horizontalAxis;
     private float verticalAxis;
     private bool jumpButton;
-    
-    void Awake()
+
+    private void Awake()
     {
-        
+
         if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
         {
-           // Debug.Log("Reading Save File");
+            // Debug.Log("Reading Save File");
             // 2
             // player = GameObject.FindGameObjectWithTag("Player");
             BinaryFormatter bf = new BinaryFormatter();
@@ -62,14 +60,13 @@ public class PlayerMovementController : MonoBehaviour
         {
             Debug.Log("No game saved!");
         }
-        isWielding = true;
+        //isWielding = true;
         if (isWielding)
         {
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
         }
-        
-    }
 
+    }
 
     void Start()
     {
@@ -78,21 +75,36 @@ public class PlayerMovementController : MonoBehaviour
         lastVelocity = new Vector2(0.0f, 0.0f);
         canStartSprint = true;
         sprite = GetComponent<SpriteRenderer>();
-        jumpForceConstant = jumpForce;
     }
 
     void FixedUpdate()
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        jumpButton = Input.GetButton("Jump");
+
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");
-        //jumpButton = Input.GetButton("Jump");
-        //Debug.Log(isJumping);
+        jumpButton = Input.GetButton("Jump");
 
-        if (jumpButton || verticalAxis != 0)
+        //Runs when pressing a button that moves left or right
+        horizontalMovement(rb, horizontalAxis);
+
+        //Stops the player if they're still moving after they shouldn't be 
+        if (horizontalAxis == 0 & rb.velocity.x != 0)
         {
-            //Debug.Log(verticalAxis);
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+
+
+        //Falling physics of player. MUST RUN BEFORE JUMP CALL.
+        if (!jumpButton & !isClimbing)
+        {
+            verticalMovement(rb, verticalAxis);
+
+        }
+
+        //Runs only when the jump button is being pressed/held
+        else if (jumpButton || verticalAxis != 0)
+        {
             if (verticalAxis != 0 && isTouchingLadder)
             {
                 ladderMovement(rb, verticalAxis);
@@ -104,34 +116,9 @@ public class PlayerMovementController : MonoBehaviour
             }
 
         }
-
-        //Runs when pressing a button that moves left or right
-        if (horizontalAxis != 0)
-        {
-            horizontalMovement(rb, horizontalAxis);
-
-        }
-
-        //Stops the player if they're still moving after they shouldn't be 
-        else if (rb.velocity.x != 0)
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
-
-        //Falling physics of player. MUST RUN BEFORE JUMP CALL.
-        if (!jumpButton & !isClimbing)
-        {
-        verticalMovement(rb, verticalAxis);
-
-        }
-
-        
-            
-        
-        
     }
 
-    
+
 
     public void horizontalMovement(Rigidbody2D rb, float moveHorizontal)
     {
@@ -146,19 +133,21 @@ public class PlayerMovementController : MonoBehaviour
 
 
         //Water physics. Irrelevant to us for now.
-        /*if (isJumping || isInWater)
+        /*
+        if (isJumping || isInWater)
         {
             //if (sprintHorizontal == 0)
             canStartSprint = false;
             if (rb.velocity.x == 0)
             {
-                momentum = 0;
+                momentum = 1;
                 if (jumpButton)
                     momentum = moveHorizontal;
             }
         }
         else
-            canStartSprint = true;*/
+            canStartSprint = true;
+        */
 
         //Moving to the left
         if (moveHorizontal < 0)
@@ -169,7 +158,7 @@ public class PlayerMovementController : MonoBehaviour
             //momentum = -xSpeed;
         }
 
-        //Stationary (I'm particularly worried that this won't work, but I can't test it)
+        //Stationary 
         else if (moveHorizontal == 0)
         {
             sprite.flipX = sprite.flipX;
@@ -181,7 +170,7 @@ public class PlayerMovementController : MonoBehaviour
             sprite.flipX = true;
             transform.localScale.Set(transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
-        
+
         //More sprinting stuff
         if (!(Input.GetButton("Horizontal") && canStartSprint) || isInWater)
             sprintHorizontal = 0;
@@ -201,8 +190,10 @@ public class PlayerMovementController : MonoBehaviour
         float acceleration = (rb.velocity.y - lastVelocity.y) / Time.fixedDeltaTime;
         lastVelocity = rb.velocity;
 
-        if (isJumping && -landingTolerance <= rb.velocity.y && rb.velocity.y <= landingTolerance)
+
+        if (!jumpButton & !isClimbing & isJumping & Mathf.Abs(acceleration) < landingTolerance)
         {
+            Debug.Log("No Longer Jumping!");
             isJumping = false;
         }
     }
@@ -213,7 +204,7 @@ public class PlayerMovementController : MonoBehaviour
         lastVelocity = rb.velocity;
 
         //Water physics stuff
-        /*if (isInWater)
+        if (isInWater)
         {
             if (Time.time > nextWaterJump)
             {
@@ -223,11 +214,12 @@ public class PlayerMovementController : MonoBehaviour
             }
         }
 
-        if
-        {*/
+        else
+        {
+            Debug.Log(acceleration);
+
             //Executes if player is eligible to jump
-            if (!isJumping & !isTouchingLadder & -landingTolerance <= acceleration & acceleration <= landingTolerance)
-            //if (!isJumping & !isTouchingLadder)
+            if (!isJumping & !isClimbing)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(new Vector2(0.0f, jumpForce));
@@ -235,16 +227,17 @@ public class PlayerMovementController : MonoBehaviour
             }
 
             //Executes if player is already jumping
-            else if (isJumping & acceleration < 0 & rb.velocity.y > 0)
+            else if (isJumping & rb.velocity.y > 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * (1 + accelSlowdown));
             }
-        
+        }
     }
 
     public void ladderMovement(Rigidbody2D rb, float verticalAxis)
     {
-        if (isTouchingLadder) { 
+        if (isTouchingLadder)
+        {
             Vector2 movement = new Vector2(rb.position.x, rb.position.y + (climbSpeed * verticalAxis));
 
             rb.transform.position = movement;
@@ -253,47 +246,24 @@ public class PlayerMovementController : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Ramp")
+        if (other.tag == "Water")
         {
-            isJumping = false;
-            jumpForce = 195;
-        }
-        if (other.tag == "Untagged")
-        {
-            jumpForce = jumpForceConstant;
+
+            isInWater = true;
         }
 
-        else if(other.tag == "Ladder")
+        if (other.tag == "Ladder")
         {
             isTouchingLadder = true;
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
-        else if(other.tag == "Platform")
-        {
-            isJumping = false;
-        }
-        
-        
+
     }
-
-
 
     public void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "Ramp")
-        {
-            isJumping = false;
-            jumpForce = 195;
-           // Debug.Log(jumpForce);
-        }
-        if (other.tag == "Platform")
-        {
-            isJumping = false;
-        }
-        
-        
-        else if (isTouchingLadder)
+        if (isTouchingLadder)
         {
             isClimbing = verticalAxis != 0;
         }
@@ -313,16 +283,14 @@ public class PlayerMovementController : MonoBehaviour
         else if (other.tag == "Ladder")
         {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.velocity = new Vector2(rb.velocity.x, -(landingTolerance+0.001f));
+            rb.velocity = new Vector2(rb.velocity.x, -(landingTolerance + 0.001f));
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-            isClimbing = false;
             isTouchingLadder = false;
             Debug.Log("Stopped climbing ladder");
             isJumping = false;
         }
-        
 
     }
 

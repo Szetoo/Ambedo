@@ -24,6 +24,10 @@ public class BossHealth : MonoBehaviour
 
     private float amountToHeal;
 
+    public GameObject orb;
+    public int numberOfOrbs;
+    private bool orbsHaveBeenSpawned;
+
 
     // Use this for initialization
     void Start()
@@ -34,6 +38,7 @@ public class BossHealth : MonoBehaviour
         gameObject.GetComponent<Animator>().SetBool("Alive", true);
         cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
         room = GameObject.FindGameObjectWithTag("BossRoom");
+        orbsHaveBeenSpawned = false;
 
 
     }
@@ -41,7 +46,7 @@ public class BossHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //StartCoroutine(SpawnOrbs());
         if (currentHp < maxHP & canHealTime < Time.time)
         {
             amountToHeal = maxHP - currentHp;
@@ -56,9 +61,11 @@ public class BossHealth : MonoBehaviour
         {
             currentHp = maxHP;
         }
-        if (currentHp < 1)
+        if (currentHp < 1 & !orbsHaveBeenSpawned)
         {
+            StartCoroutine(SpawnOrbs());
             StartCoroutine(killBoss());
+           // StartCoroutine(SpawnOrbs());
         }
 
     }
@@ -79,6 +86,23 @@ public class BossHealth : MonoBehaviour
             invincibilityExpiry = Time.time + invincibilityTime;
             canHealTime = invincibilityExpiry + 6;
         }
+    }
+
+    public IEnumerator SpawnOrbs()
+    {
+        orbsHaveBeenSpawned = true;
+        float step = 2 * Time.deltaTime;
+        for (int i = 0; i < numberOfOrbs; i++)
+        {
+            Instantiate(orb, new Vector3(gameObject.transform.position.x + Random.Range(0, 1), gameObject.transform.position.y, 0), Quaternion.identity);
+        }
+
+        //float step = 2 * Time.deltaTime;
+
+        yield return null;
+
+
+
     }
 
 
@@ -115,46 +139,17 @@ public class BossHealth : MonoBehaviour
         }
         // Destroy(gameObject);
         collider2.enabled = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
 
 
         Debug.Log("Play Boss Death and Player Transformation Cutscene");
-        cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
+        //cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
         player = GameObject.FindGameObjectWithTag("Player");
         cam.GetComponent<CustomCamera.CameraMovement>().lowerDeadBound = 5f;
         cam.transform.localPosition = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
-        cutscene.GetComponent<PlayableDirector>().Play();
+        //cutscene.GetComponent<PlayableDirector>().Play();
       
-        yield return new WaitForSeconds(4);
-
-        player.GetComponent<SpriteRenderer>().sprite = Transformation;
-        yield return new WaitForSecondsRealtime(0.1f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
-        yield return new WaitForSecondsRealtime(0.5f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation;
-        yield return new WaitForSecondsRealtime(0.2f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
-        yield return new WaitForSecondsRealtime(0.5f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation;
-        yield return new WaitForSecondsRealtime(0.3f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
-        yield return new WaitForSecondsRealtime(0.5f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation;
-        yield return new WaitForSecondsRealtime(0.1f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
-        yield return new WaitForSecondsRealtime(0.1f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation;
-        yield return new WaitForSecondsRealtime(0.1f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
-        yield return new WaitForSecondsRealtime(0.1f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation;
-        yield return new WaitForSecondsRealtime(0.1f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation2;
-        yield return new WaitForSecondsRealtime(0.2f);
-        player.GetComponent<SpriteRenderer>().sprite = Transformation;
-
-        player.GetComponent<PlayerHealthController>().maxHP = 300;
-        player.GetComponent<SpriteRenderer>().sprite = Transformation;
+        
         room.GetComponent<AudioSource>().enabled = false;
         cam.GetComponent<AudioSource>().enabled = true;
         
