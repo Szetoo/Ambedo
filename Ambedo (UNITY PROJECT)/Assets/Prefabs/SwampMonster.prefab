@@ -127,7 +127,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 80a96c89f122d3c41b2f874aebf3c3a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -254,7 +254,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a33bafe8ee711460080768d653c555db, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3c905a1322096354296c555ff95c950b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -371,3 +371,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c135da2f1a398142adc8a2344f68b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 300
+  enemyDamageFromPlayer: 100
+  healAmount: 1
+  invDuration: 1
+  timeUntilHeal: 6
+  orb: {fileID: 4078487342204485565, guid: 52821e8a924f0864f887ddbd7f7c2dd0, type: 3}
+  numberOfOrbs: 2
+  currentHP: 0

@@ -22,8 +22,16 @@ TagManager:
   - SwordCutscene
   - Ladder
   - BossDeathCutscene
+<<<<<<< HEAD
   - Boss
   - Boss2AndPlayer
+=======
+  - Ramp
+  - Orb
+  - Canvas
+  - Light
+  - Pedestal
+>>>>>>> 264a439b11a3418c65915de438bc543f0e642cf6
   layers:
   - Default
   - TransparentFX

@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -14,7 +14,8 @@ public class PlayerMovementController : MonoBehaviour
     public float sprintMultiplier;
     public float climbSpeed;
     public int waterJumpFrames;
-    
+    public bool isWielding = true;
+
     private bool isJumping;
     private Vector2 lastVelocity;
     private bool canStartSprint;
@@ -23,48 +24,52 @@ public class PlayerMovementController : MonoBehaviour
     private bool isClimbing;
     private float nextWaterJump;
     private SpriteRenderer sprite;
-    public bool isWielding;
-    
-    //void Awake()
-    //{
-        
-    //    if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
-    //    {
-    //        Debug.Log("Reading Save File");
-    //        // 2
-    //        // player = GameObject.FindGameObjectWithTag("Player");
-    //        BinaryFormatter bf = new BinaryFormatter();
-    //        FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
-    //        Save save = (Save)bf.Deserialize(file);
-    //        file.Close();
 
-    //        // 3
+    private float horizontalAxis;
+    private float verticalAxis;
+    private bool jumpButton;
 
-    //        float xPosition = save.xSpawnPosition;
-    //        float yPosition = save.ySpawnPosition;
-    //        isWielding = save.isWielding;
+    private void Awake()
+    {
 
-    //        Debug.Log(xPosition);
-    //        Debug.Log(yPosition);
+        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            // Debug.Log("Reading Save File");
+            // 2
+            // player = GameObject.FindGameObjectWithTag("Player");
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+            Save save = (Save)bf.Deserialize(file);
+            file.Close();
 
-    //        gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
-    //        Debug.Log("Game Loaded");
+            // 3
 
-    //        //Unpause();
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("No game saved!");
-    //    }
-    //    if (isWielding)
-    //    {
-    //        gameObject.transform.GetChild(1).gameObject.SetActive(true);
-    //    }
-    //}
+            float xPosition = save.xSpawnPosition;
+            float yPosition = save.ySpawnPosition;
+            isWielding = save.isWielding;
+
+            Debug.Log(xPosition);
+            Debug.Log(yPosition);
+
+            gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
+            Debug.Log("Game Loaded");
+
+            //Unpause();
+        }
+        else
+        {
+            Debug.Log("No game saved!");
+        }
+        //isWielding = true;
+        if (isWielding)
+        {
+            gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        }
+
+    }
 
     void Start()
     {
-       
         isJumping = false;
         isClimbing = false;
         lastVelocity = new Vector2(0.0f, 0.0f);
@@ -76,53 +81,35 @@ public class PlayerMovementController : MonoBehaviour
     {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
-        float horizontalAxis = Input.GetAxis("Horizontal");
-        float verticalAxis = Input.GetAxis("Vertical");
-        bool jumpButton = Input.GetButton("Jump");
-
-
+        horizontalAxis = Input.GetAxis("Horizontal");
+        verticalAxis = Input.GetAxis("Vertical");
+        jumpButton = Input.GetButton("Jump");
 
         //Runs when pressing a button that moves left or right
-        if (horizontalAxis != 0)
-        {
-            horizontalMovement(rb, horizontalAxis);
-
-        }
+        horizontalMovement(rb, horizontalAxis);
 
         //Stops the player if they're still moving after they shouldn't be 
-        else if (rb.velocity.x != 0)
+        if (horizontalAxis == 0 & rb.velocity.x != 0)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
 
-        if (gameObject.GetComponent<Rigidbody2D>().velocity.y < -10)
-        {
-            jumpForce = 300;
-        }
-        else
-        {
-            jumpForce = 180;
-        }
-
         //Falling physics of player. MUST RUN BEFORE JUMP CALL.
         if (!jumpButton & !isClimbing)
         {
-        verticalMovement(rb, verticalAxis);
+            verticalMovement(rb, verticalAxis);
 
         }
 
-
-
         //Runs only when the jump button is being pressed/held
-        else if (verticalAxis != 0)
+        else if (jumpButton || verticalAxis != 0)
         {
-           // Debug.Log(verticalAxis);
-            if (isTouchingLadder)
+            if (verticalAxis != 0 && isTouchingLadder)
             {
                 ladderMovement(rb, verticalAxis);
             }
-            else
+            else if (jumpButton)
             {
                 jump(rb, jumpButton);
 
@@ -131,7 +118,7 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    
+
 
     public void horizontalMovement(Rigidbody2D rb, float moveHorizontal)
     {
@@ -146,19 +133,21 @@ public class PlayerMovementController : MonoBehaviour
 
 
         //Water physics. Irrelevant to us for now.
+        /*
         if (isJumping || isInWater)
         {
             //if (sprintHorizontal == 0)
             canStartSprint = false;
             if (rb.velocity.x == 0)
             {
-                momentum = 0;
-                if (Input.GetButton("Horizontal"))
+                momentum = 1;
+                if (jumpButton)
                     momentum = moveHorizontal;
             }
         }
         else
             canStartSprint = true;
+        */
 
         //Moving to the left
         if (moveHorizontal < 0)
@@ -169,7 +158,7 @@ public class PlayerMovementController : MonoBehaviour
             //momentum = -xSpeed;
         }
 
-        //Stationary (I'm particularly worried that this won't work, but I can't test it)
+        //Stationary 
         else if (moveHorizontal == 0)
         {
             sprite.flipX = sprite.flipX;
@@ -181,7 +170,6 @@ public class PlayerMovementController : MonoBehaviour
             sprite.flipX = true;
             transform.localScale.Set(transform.localScale.x, transform.localScale.y, transform.localScale.z);
         }
-
 
         //More sprinting stuff
         if (!(Input.GetButton("Horizontal") && canStartSprint) || isInWater)
@@ -202,10 +190,11 @@ public class PlayerMovementController : MonoBehaviour
         float acceleration = (rb.velocity.y - lastVelocity.y) / Time.fixedDeltaTime;
         lastVelocity = rb.velocity;
 
-        if (isJumping && -landingTolerance <= rb.velocity.y && rb.velocity.y <= landingTolerance)
+
+        if (!jumpButton & !isClimbing & isJumping & Mathf.Abs(acceleration) < landingTolerance)
         {
+            Debug.Log("No Longer Jumping!");
             isJumping = false;
-            jumpForce = 180;
         }
     }
 
@@ -223,25 +212,22 @@ public class PlayerMovementController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(new Vector2(0.0f, jumpForce));
             }
-
         }
 
         else
         {
+            Debug.Log(acceleration);
+
             //Executes if player is eligible to jump
-            if (!isJumping & !isTouchingLadder & -landingTolerance <= acceleration & acceleration <= landingTolerance)
+            if (!isJumping & !isClimbing)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(new Vector2(0.0f, jumpForce));
                 isJumping = true;
-                if (gameObject.GetComponent<Rigidbody2D>().velocity.y < 5)
-                {
-                    jumpForce = 400;
-                }
             }
 
             //Executes if player is already jumping
-            else if (isJumping && acceleration < 0 && rb.velocity.y > 0)
+            else if (isJumping & rb.velocity.y > 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * (1 + accelSlowdown));
             }
@@ -250,9 +236,12 @@ public class PlayerMovementController : MonoBehaviour
 
     public void ladderMovement(Rigidbody2D rb, float verticalAxis)
     {
-        Vector2 movement = new Vector2(rb.position.x, rb.position.y + (climbSpeed * verticalAxis));
+        if (isTouchingLadder)
+        {
+            Vector2 movement = new Vector2(rb.position.x, rb.position.y + (climbSpeed * verticalAxis));
 
-        rb.transform.position = movement;
+            rb.transform.position = movement;
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -269,17 +258,18 @@ public class PlayerMovementController : MonoBehaviour
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
-        
-    }
 
-    
+    }
 
     public void OnTriggerStay2D(Collider2D other)
     {
-        if (!isClimbing & other.tag == "Ladder" & Input.GetAxis("Vertical") != 0)
+        if (isTouchingLadder)
         {
-            isClimbing = true;
-          //  Debug.Log("Climbing Ladder");
+            isClimbing = verticalAxis != 0;
+        }
+        else
+        {
+            isClimbing = false;
         }
     }
 
@@ -293,13 +283,13 @@ public class PlayerMovementController : MonoBehaviour
         else if (other.tag == "Ladder")
         {
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-            //rb.constraints = RigidbodyConstraints2D.None;
+            rb.velocity = new Vector2(rb.velocity.x, -(landingTolerance + 0.001f));
+            rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-            isClimbing = false;
             isTouchingLadder = false;
-            //Debug.Log("Stopped climbing ladder");
+            Debug.Log("Stopped climbing ladder");
+            isJumping = false;
         }
 
     }

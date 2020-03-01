@@ -145,7 +145,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3, y: 3}
+  m_Size: {x: 0.31, y: 0.44}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -169,7 +169,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.31, y: 0.44}
-    newSize: {x: 3, y: 3}
+    newSize: {x: 0.31, y: 0.44}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -195,7 +195,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.31, y: 0.44}
-    newSize: {x: 3, y: 3}
+    newSize: {x: 0.31, y: 0.44}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -213,11 +213,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a33bafe8ee711460080768d653c555db, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f54e7a2520c34d04a8b8482209a1779b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.18
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -372,6 +372,8 @@ MonoBehaviour:
   Transformation: {fileID: 21300000, guid: 44d7bf33626eaaa4b8d3f8be96265c95, type: 3}
   Transformation2: {fileID: 21300000, guid: 8a6bca2c0603ffb48ba35626243cff9e, type: 3}
   cam: {fileID: 0}
+  orb: {fileID: 1796091236334667887, guid: a305e5c31a8543c429307fe0909924b2, type: 3}
+  numberOfOrbs: 8
 --- !u!114 &582634408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +399,14 @@ MonoBehaviour:
     type: 3}
   currentLine: {fileID: 0}
   lineRenderer: {fileID: 0}
+  zone1y: -22
+  zone2y: -15
+  zone3y: -8
+  zone4y: -2
+  zoneNum: 1
+  camPos: {x: 0, y: 0, z: 0}
+  camX: 16
+  camY: 9
 --- !u!1 &7323035559718551588
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,11 +485,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7323035559272345656}
     m_Modifications:
-    - target: {fileID: 175434198385295049, guid: 217bd3573d1f7d54a8bef414aac4f1a7,
-        type: 3}
-      propertyPath: m_Name
-      value: Boss Room Light
-      objectReference: {fileID: 0}
     - target: {fileID: 175434198385295051, guid: 217bd3573d1f7d54a8bef414aac4f1a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -534,6 +539,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 175434198385295049, guid: 217bd3573d1f7d54a8bef414aac4f1a7,
+        type: 3}
+      propertyPath: m_Name
+      value: Boss Room Light
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 217bd3573d1f7d54a8bef414aac4f1a7, type: 3}

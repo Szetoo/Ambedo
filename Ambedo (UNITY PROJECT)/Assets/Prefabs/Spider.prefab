@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4339526543263263334}
   - component: {fileID: 6514819286524887333}
   m_Layer: 0
-  m_Name: Enemy1 (1)
+  m_Name: Spider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,3 +371,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c135da2f1a398142adc8a2344f68b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 200
+  enemyDamageFromPlayer: 100
+  healAmount: 3
+  invDuration: 2
+  timeUntilHeal: 5
+  orb: {fileID: 4078487342204485565, guid: 52821e8a924f0864f887ddbd7f7c2dd0, type: 3}
+  numberOfOrbs: 2
+  currentHP: 0

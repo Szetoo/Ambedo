@@ -8,15 +8,27 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class SwordCutscene : MonoBehaviour { 
 
     GameObject player;
+    GameObject pedestal;
     private float xCheckPointPosition;
     private float yCheckPointPosition;
     private bool hasBeenTriggered;
 
-
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        pedestal = GameObject.FindGameObjectWithTag("Pedestal");
+        if (player.GetComponent<PlayerMovementController>().isWielding == true)
+        {
+            pedestal.SetActive(false);
+            gameObject.SetActive(false);
+            //pedestal.SetActive(false);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
         player =  GameObject.FindGameObjectWithTag("Player");
+        pedestal = GameObject.FindGameObjectWithTag("Pedestal");
         xCheckPointPosition = gameObject.GetComponent<Transform>().position.x;
         yCheckPointPosition = gameObject.GetComponent<Transform>().position.y;
         hasBeenTriggered = false;
@@ -36,6 +48,7 @@ public class SwordCutscene : MonoBehaviour {
             gameObject.GetComponent<PlayableDirector>().Play();
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             player.GetComponent<PlayerMovementController>().isWielding = true;
+            //player.GetComponent<PlayerMovementController>().horizontalMovement(other.GetComponent<Rigidbody2D>(), 2);
             Save save = CreateSaveGameObject();
 
             // 2

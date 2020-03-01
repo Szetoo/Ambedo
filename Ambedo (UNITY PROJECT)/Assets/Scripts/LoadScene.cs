@@ -28,6 +28,13 @@ public class LoadScene : MonoBehaviour
             if (name == "Introduction")
             {
                 File.Delete(Application.persistentDataPath + "/gamesave.save");
+                Save save = CreateSaveGameObject();
+
+                // 2
+                BinaryFormatter bf = new BinaryFormatter();
+                FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
+                bf.Serialize(file, save);
+                file.Close();
                 Initiate.Fade(name, Color.black, 1.0f);
             }
             else
@@ -35,6 +42,14 @@ public class LoadScene : MonoBehaviour
                 Initiate.Fade(name, Color.black, 1.0f);
             }
         }
+    }
+
+    private Save CreateSaveGameObject()
+    {
+        Save save = new Save();
+        //player = GameObject.FindGameObjectWithTag("Player");
+
+        return save;
     }
 
 }
