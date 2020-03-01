@@ -33,7 +33,7 @@ public class ParabolaController : MonoBehaviour
     protected ParabolaFly gizmo;
 
     //draw
-    protected ParabolaFly parabolaFly;
+    public ParabolaFly parabolaFly;
 
     void OnDrawGizmos()
     {

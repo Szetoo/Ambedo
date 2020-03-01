@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cadad017bdd22b2468a246a745582e25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 3
+  projectileSpeed: 3.5
   ImpactEffect: {fileID: 9134038223809885930, guid: f74bd385eb4110a49a39b7c21bd46d7c,
     type: 3}
   rigidBody: {fileID: 9053969657440286431}

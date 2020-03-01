@@ -15,7 +15,7 @@ public class BossProjectile : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.velocity = transform.up * projectileSpeed * -1;
-        Destroy(gameObject, 4.7f);
+        Destroy(gameObject, 15f);
     }
 
     private void OnDestroy()
@@ -24,6 +24,7 @@ public class BossProjectile : MonoBehaviour
         //Destroy(collision.gameObject);
         Destroy(impact, 0.9f);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")

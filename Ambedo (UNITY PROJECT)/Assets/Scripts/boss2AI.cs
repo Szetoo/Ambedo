@@ -17,9 +17,6 @@ public class boss2AI : MonoBehaviour
 
 
     // Spell1 Variable
-    private bool dashToComplete = false;
-    private bool turnOverComplete = true;
-    private bool stepBackComplete = true;
     private int Spell1Step = 1;
     private Vector3 spell1Pos;
 
@@ -29,7 +26,6 @@ public class boss2AI : MonoBehaviour
     private int Spell2Step = 1;
 
     // stepBack Varible
-    Vector3 stepBackPos1;
     Vector3 stepBackPos2;
 
 
@@ -202,6 +198,10 @@ public class boss2AI : MonoBehaviour
         return false;
 
     }
+
+
+    
+
 
     private int Dash(Vector3 playerPosition, float speed, int step1, int step2)
     {
