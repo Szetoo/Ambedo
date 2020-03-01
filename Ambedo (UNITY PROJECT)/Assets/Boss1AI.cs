@@ -78,10 +78,16 @@ public class Boss1AI : MonoBehaviour
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerPosition = player.transform;
+        if (player != null)
+        {
+            playerPosition = player.transform;
+        }
         currentHP = gameObject.GetComponent<BossHealth>().currentHp;
-
-        BossTurning(playerPosition.position.x);
+        if (player != null)
+        {
+            BossTurning(playerPosition.position.x);
+        }
+        
 
         if (CooldownReady())
         {
@@ -180,9 +186,11 @@ public class Boss1AI : MonoBehaviour
                 break;
             case 4:
                 Spell2Step = Dash(BossOriginPosition, 10f, 4, 5);
+                //Spell2Step = summorFireball();
                 break;
             case 5:
                 Spell2Step = 1;
+                Spell2Step = summorFireball();
                 return true;
         }
         return false;
@@ -304,11 +312,16 @@ public class Boss1AI : MonoBehaviour
         if ((playerXpos - transform.position.x) > 0)
         {
             transform.rotation = Quaternion.Euler(0, 180f, 0);
+            gameObject.transform.GetChild(1).transform.localPosition = new Vector3(0f, 0.1f, 49f);
+            gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0,0, 0);
             bossDirection = -1;
         }
         if ((playerXpos - transform.position.x) < 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, 0);
+            //gameObject.GetComponentInChildren<Light>().transform.rotation = Quaternion.Euler(0, 0, 0);
+            gameObject.transform.GetChild(1).transform.localPosition = new Vector3(0f, 0.1f, -49f);
             bossDirection = 1;
         }
     }

@@ -4,34 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Platform
-  - Fire
-  - Water
-  - DroppableObject
-  - Enemy
   - Enemy Aggro
-  - EnemyAggro
-  - DeadZone
-  - CheckPoint
-  - DestroyableObject
-  - PlayerAttackHitbox
-  - ShowOnPause
-  - Sword
-  - LightZone
-  - BossRoom
-  - SwordCutscene
-  - Ladder
-  - BossDeathCutscene
-<<<<<<< HEAD
-  - Boss
-  - Boss2AndPlayer
-=======
-  - Ramp
-  - Orb
-  - Canvas
-  - Light
-  - Pedestal
->>>>>>> 264a439b11a3418c65915de438bc543f0e642cf6
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -41,9 +15,9 @@ TagManager:
   - UI
   - 
   - 
-  - DroppableObjects
-  - Grid
-  - Weapon
+  - 
+  - 
+  - 
   - 
   - 
   - 

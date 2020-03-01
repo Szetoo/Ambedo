@@ -6,7 +6,7 @@ using UnityEngine.Playables;
 public class BossHealth : MonoBehaviour
 {
 
-    private float maxHP = 300;
+    private float maxHP = 400;
     public float currentHp;
     public Sprite Transformation;
     public Sprite Transformation2;
@@ -86,6 +86,20 @@ public class BossHealth : MonoBehaviour
             invincibilityExpiry = Time.time + invincibilityTime;
             canHealTime = invincibilityExpiry + 6;
         }
+        /*if (other.gameObject.tag == "PlayerAttackHitbox" & invincible == false)
+        {
+
+
+            knockBack(gameObject);
+
+
+            currentHp = currentHp - 100;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+            // Debug.Log(currentHp);
+            invincible = true;
+            invincibilityExpiry = Time.time + invincibilityTime;
+            canHealTime = invincibilityExpiry + 6;
+        }*/
     }
 
     public IEnumerator SpawnOrbs()
@@ -109,44 +123,53 @@ public class BossHealth : MonoBehaviour
 
     public void knockBack(Collider2D other)
     {
+        //gameObject.GetComponent<Boss1AI>().enabled = false;
+        //gameObject.GetComponent<ParabolaController>().enabled = false;
+        
 
         if (gameObject.transform.position.x > other.gameObject.transform.position.x)
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x + 1, gameObject.transform.position.y, 0f);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x + 100, gameObject.transform.position.y, 0f);
 
         }
 
         if (gameObject.transform.position.x <= other.gameObject.transform.position.x)
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x - 1, gameObject.transform.position.y, 0f);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x - 100, gameObject.transform.position.y, 0f);
         }
+        //gameObject.GetComponent<Boss1AI>().enabled = true;
+       // gameObject.GetComponent<ParabolaController>().enabled = true;
+        
 
 
-     
+
     }
 
     public IEnumerator killBoss()
     {
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
+        gameObject.GetComponent<ParabolaController>().enabled = false;
         BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
         EdgeCollider2D collider2 = gameObject.GetComponent<EdgeCollider2D>();
-        
-      //  Debug.Log("Play Boss Death and Player Transformation Cutscene");
-       // cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
+        //yield return new WaitForSeconds(3);
+
+        //  Debug.Log("Play Boss Death and Player Transformation Cutscene");
+        // cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
         for (int i = 0; i < colliders.Length; i++)
         {
             colliders[i].enabled = false;
         }
         // Destroy(gameObject);
+
         collider2.enabled = false;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
+        //yield return new WaitForSeconds(5);
 
 
-        Debug.Log("Play Boss Death and Player Transformation Cutscene");
-        //cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
-        player = GameObject.FindGameObjectWithTag("Player");
-        cam.GetComponent<CustomCamera.CameraMovement>().lowerDeadBound = 5f;
-        cam.transform.localPosition = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
+        
+        //player = GameObject.FindGameObjectWithTag("Player");
+        //cam.GetComponent<CustomCamera.CameraMovement>().lowerDeadBound = 5f;
+        //cam.transform.localPosition = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
         //cutscene.GetComponent<PlayableDirector>().Play();
       
         

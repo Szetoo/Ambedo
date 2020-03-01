@@ -373,7 +373,7 @@ MonoBehaviour:
   Transformation2: {fileID: 21300000, guid: 8a6bca2c0603ffb48ba35626243cff9e, type: 3}
   cam: {fileID: 0}
   orb: {fileID: 1796091236334667887, guid: a305e5c31a8543c429307fe0909924b2, type: 3}
-  numberOfOrbs: 8
+  numberOfOrbs: 16
 --- !u!114 &582634408
 MonoBehaviour:
   m_ObjectHideFlags: 0

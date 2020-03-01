@@ -52,8 +52,8 @@ public class CheckPointController : MonoBehaviour {
             Debug.Log("Checkpoint status: " + enabled);
             Debug.Log("Player will spawn at x: " + xCheckPointPosition + " y: " + yCheckPointPosition);
             Debug.Log(Application.persistentDataPath);
-
-            Save save2 = CreateSaveGameObject(xCheckPointPosition, yCheckPointPosition, player.GetComponent<PlayerMovementController>().isWielding, enemies, currentEXP, currentLevel);
+            bool cameraPanTrigger = save.cameraPanHasBeenActivated;
+            Save save2 = CreateSaveGameObject(xCheckPointPosition, yCheckPointPosition, player.GetComponent<PlayerMovementController>().isWielding, enemies, currentEXP, currentLevel, cameraPanTrigger);
 
             // 2
             file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
@@ -62,7 +62,7 @@ public class CheckPointController : MonoBehaviour {
         }
     }
 
-    private Save CreateSaveGameObject(float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel)
+    private Save CreateSaveGameObject(float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool trigger)
     {
         Save save = new Save();
         //player = GameObject.FindGameObjectWithTag("Player");
@@ -73,6 +73,7 @@ public class CheckPointController : MonoBehaviour {
         save.enemiesInLevel1 = enemies;
         save.currentEXP = currentEXP;
         save.currentLevel = currentLevel;
+        save.cameraPanHasBeenActivated = trigger;
 
         return save;
     }

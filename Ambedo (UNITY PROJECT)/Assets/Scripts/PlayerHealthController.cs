@@ -55,13 +55,16 @@ public class PlayerHealthController : MonoBehaviour
             file.Close();
 
             // 3
-
+            Debug.Log(save.currentLevel);
+            
             currentEXP = save.currentEXP;
             currentLevel = save.currentLevel;
-            maxHP = (currentLevel + 2) * 100;
+            maxHP = (save.currentLevel + 2) * 100;
             currentHP = maxHP;
+            Debug.Log(maxHP);
             invincible = false;
             isLevelingUp = false;
+            gameObject.GetComponent<SpriteRenderer>().sprite = transformations[currentLevel];
 
 
 

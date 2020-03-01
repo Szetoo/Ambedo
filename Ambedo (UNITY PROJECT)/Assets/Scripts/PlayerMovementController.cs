@@ -216,7 +216,7 @@ public class PlayerMovementController : MonoBehaviour
 
         else
         {
-            Debug.Log(acceleration);
+            //Debug.Log(acceleration);
 
             //Executes if player is eligible to jump
             if (!isJumping & !isClimbing)

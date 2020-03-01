@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 25eab71ce73fe45a0868d23159cb803c
   - enabled: 1
-    path: Assets/Scenes/Level1-alex.unity
-    guid: 076f37a2e3f472d4abf28bc4a5ace154
+    path: Assets/Scenes/Introduction.unity
+    guid: 18326486c2c75d74d80e6797195663dd
+  - enabled: 1
+    path: Assets/Scenes/Level-alex-tim.unity
+    guid: 4a5d5688f33484c06abe84259c24c79c
   m_configObjects: {}

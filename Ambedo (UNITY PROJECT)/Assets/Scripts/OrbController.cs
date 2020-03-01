@@ -55,13 +55,14 @@ public class OrbController : MonoBehaviour
         Dictionary<string, bool> enemies = save.enemiesInLevel1;
         float currentEXP = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>().currentEXP;
         int currentLevel = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>().currentLevel;
+        bool trigger = save.cameraPanHasBeenActivated;
 
         
 
 
 
 
-        Save save2 = CreateSaveGameObject(xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel);
+        Save save2 = CreateSaveGameObject(xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
@@ -73,7 +74,7 @@ public class OrbController : MonoBehaviour
 
     }
 
-    private Save CreateSaveGameObject(float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel)
+    private Save CreateSaveGameObject(float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool trigger)
     {
         Save save = new Save();
         //player = GameObject.FindGameObjectWithTag("Player");
@@ -84,6 +85,7 @@ public class OrbController : MonoBehaviour
         save.enemiesInLevel1 = enemies;
         save.currentEXP = currentEXP;
         save.currentLevel = currentLevel;
+        save.cameraPanHasBeenActivated = trigger;
 
         return save;
     }

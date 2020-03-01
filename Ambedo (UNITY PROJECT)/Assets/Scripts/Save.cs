@@ -21,7 +21,8 @@ public class Save
                                                 {"SwampMonster2", true},
                                                 {"Spider2", true}
                                             };
-   
+
+    public bool cameraPanHasBeenActivated;
     
     
 
