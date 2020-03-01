@@ -72,13 +72,15 @@ GameObject:
   m_Component:
   - component: {fileID: 1167195936}
   - component: {fileID: 1167195937}
+  - component: {fileID: 362156285}
+  - component: {fileID: 362156284}
   m_Layer: 0
   m_Name: headCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1167195936
 Transform:
   m_ObjectHideFlags: 0
@@ -119,6 +121,44 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13165629, y: 0.053479433}
   m_EdgeRadius: 0
+--- !u!61 &362156285
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167195935}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.03365792, y: 0.22436237}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.13026378, y: 0.12974632}
+  m_EdgeRadius: 0
+--- !u!114 &362156284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167195935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2607bbe6f5c2f499cb7ac6ba9fde6c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2138012415742701248
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,10 +389,11 @@ GameObject:
   - component: {fileID: 6617911135467702721}
   - component: {fileID: 43074021201558618}
   - component: {fileID: 5871220996271861236}
-  - component: {fileID: 7405348081499803475}
+  - component: {fileID: 7323035558498432659}
+  - component: {fileID: 7323035558498432658}
   m_Layer: 0
   m_Name: Boss2
-  m_TagString: Enemy
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -558,6 +599,8 @@ MonoBehaviour:
   Transformation: {fileID: 21300000, guid: 44d7bf33626eaaa4b8d3f8be96265c95, type: 3}
   Transformation2: {fileID: 21300000, guid: 8a6bca2c0603ffb48ba35626243cff9e, type: 3}
   cam: {fileID: 0}
+  orb: {fileID: 0}
+  numberOfOrbs: 0
 --- !u!68 &43074021201558618
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -602,7 +645,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13491507, y: 0.2878157}
   m_EdgeRadius: 0
---- !u!114 &7405348081499803475
+--- !u!50 &7323035558498432659
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6617911135467702585}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 100
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &7323035558498432658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -614,7 +678,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f42881f242afb4b3d8cbd5e9c1af9e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destoryPlat: {fileID: 0}
+  destoryPlat: {fileID: 9026685368248640469, guid: 5c59e8204b6cb4270850483af5224bea,
+    type: 3}
   spellOrder: 1
   playerOnBoss: 0
 --- !u!1 &6915457868569877741
@@ -626,13 +691,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7172951224989270660}
+  - component: {fileID: 4501115932700966826}
   m_Layer: 0
   m_Name: PlayerAndBoss
-  m_TagString: Untagged
+  m_TagString: Boss2AndPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7172951224989270660
 Transform:
   m_ObjectHideFlags: 0
@@ -647,6 +713,32 @@ Transform:
   m_Father: {fileID: 6617911135467702720}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &4501115932700966826
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915457868569877741}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.007501632, y: 0.12711656}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.27020484, y: 0.7966145}
+  m_EdgeRadius: 0
 --- !u!1001 &4501115932348299055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -654,11 +746,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6617911135467702720}
     m_Modifications:
-    - target: {fileID: 175434198385295049, guid: 217bd3573d1f7d54a8bef414aac4f1a7,
-        type: 3}
-      propertyPath: m_Name
-      value: Boss Room Light
-      objectReference: {fileID: 0}
     - target: {fileID: 175434198385295051, guid: 217bd3573d1f7d54a8bef414aac4f1a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -667,7 +754,7 @@ PrefabInstance:
     - target: {fileID: 175434198385295051, guid: 217bd3573d1f7d54a8bef414aac4f1a7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 175434198385295051, guid: 217bd3573d1f7d54a8bef414aac4f1a7,
         type: 3}
@@ -713,6 +800,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 175434198385295049, guid: 217bd3573d1f7d54a8bef414aac4f1a7,
+        type: 3}
+      propertyPath: m_Name
+      value: Boss Room Light
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 217bd3573d1f7d54a8bef414aac4f1a7, type: 3}

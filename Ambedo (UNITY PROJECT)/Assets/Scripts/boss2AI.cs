@@ -93,7 +93,7 @@ public class boss2AI : MonoBehaviour
         }
         else
         {
-            float step = 5 * Time.deltaTime;
+            float step = 10 * Time.deltaTime;
             BossMovePos = new Vector3(playerPosition.position.x, transform.position.y, 0f);
             BossTurning(playerPosition.position.x);
             transform.position =  Vector3.MoveTowards(transform.position, BossMovePos, step);
