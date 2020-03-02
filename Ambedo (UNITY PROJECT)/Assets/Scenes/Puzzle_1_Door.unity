@@ -157,8 +157,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35378426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: 206.7, y: -37.5, z: 0}
+  m_LocalScale: {x: 5.05, y: 5.05, z: 1.01}
   m_Children:
   - {fileID: 1763924391}
   - {fileID: 1345492177}
@@ -202,8 +202,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149608077}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: 206.7, y: -37.5, z: 0}
+  m_LocalScale: {x: 5.05, y: 5.05, z: 1.01}
   m_Children:
   - {fileID: 1269343444}
   - {fileID: 1356649835}
@@ -2944,8 +2944,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 490978600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: 206.7, y: -37.5, z: 0}
+  m_LocalScale: {x: 5.05, y: 5.05, z: 1.01}
   m_Children:
   - {fileID: 1870044857}
   - {fileID: 412471367}
@@ -2989,8 +2989,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1107243234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3, y: -0.4, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: 205.39, y: -37.904, z: 0}
+  m_LocalScale: {x: 5.05, y: 5.05, z: 1.01}
   m_Children:
   - {fileID: 256625841}
   m_Father: {fileID: 0}
@@ -3016,17 +3016,17 @@ PrefabInstance:
     - target: {fileID: 4531184265981533038, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50.5
+      value: 257.7
       objectReference: {fileID: 0}
     - target: {fileID: 4531184265981533038, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.5
+      value: -51.135
       objectReference: {fileID: 0}
     - target: {fileID: 4531184265981533038, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1033.5
       objectReference: {fileID: 0}
     - target: {fileID: 4531184265981533038, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
         type: 3}
@@ -3067,6 +3067,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531184265981533038, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531184265981533038, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531184265981533038, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 4531184265981533032, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
         type: 3}
@@ -3196,6 +3211,11 @@ PrefabInstance:
       propertyPath: absorbSound
       value: 
       objectReference: {fileID: 1236957585}
+    - target: {fileID: 5278715150182161672, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4531184265981533039, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
         type: 3}
       propertyPath: m_FlipX
@@ -3211,6 +3231,26 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5973620739826912295, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2647129247757715618, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
+        type: 3}
+      propertyPath: jumpForce
+      value: 201
+      objectReference: {fileID: 0}
+    - target: {fileID: 3909444234594596691, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1236957583}
+    - target: {fileID: 3909444234594596691, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
+        type: 3}
+      propertyPath: ImpactEffect
+      value: 
+      objectReference: {fileID: 1254734549}
     - target: {fileID: 4531184265981533042, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
         type: 3}
       propertyPath: xSpeed
@@ -3241,31 +3281,11 @@ PrefabInstance:
       propertyPath: climbSpeed
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 3909444234594596691, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1236957583}
-    - target: {fileID: 3909444234594596691, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
-        type: 3}
-      propertyPath: ImpactEffect
-      value: 
-      objectReference: {fileID: 1254734549}
-    - target: {fileID: 5973620739826912295, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4531184265981533036, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
         type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 3842f466151051f4e81fead2127b22c4, type: 2}
-    - target: {fileID: 2647129247757715618, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
-        type: 3}
-      propertyPath: jumpForce
-      value: 201
-      objectReference: {fileID: 0}
     - target: {fileID: -4156331813256980353, guid: 76a2a762807a49f41aa21a9ab2ce08e7,
         type: 3}
       propertyPath: hitbox
@@ -5315,7 +5335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743128545}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 62.41, y: -9.96, z: -10}
+  m_LocalPosition: {x: 221.31, y: -2.7599998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
