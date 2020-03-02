@@ -15,7 +15,7 @@ public class Boss1AI : MonoBehaviour
 
     // Constant
     private float cooldownTime = 1f;
-    private float dashSpeed = 10f;
+    private float dashSpeed = 25f;
 
     // charge effect game object
     public GameObject chargeEffect;
@@ -27,7 +27,6 @@ public class Boss1AI : MonoBehaviour
 
     // Spell1 Variable
     private int Spell1Step = 0;
-    private Vector3 spell1Pos;
 
     // Spell2 Variable
     private int Spell2Step = 1;
@@ -82,6 +81,7 @@ public class Boss1AI : MonoBehaviour
         {
             playerPosition = player.transform;
         }
+
         currentHP = gameObject.GetComponent<BossHealth>().currentHp;
         if (player != null)
         {
@@ -139,7 +139,7 @@ public class Boss1AI : MonoBehaviour
                 Spell1Step = CheckStop(0, 1);
                 break;
             case 1:
-                Spell1Step = Dash(ParabolaRoot.transform.GetChild(0).transform.position, 25f, 1, 2);
+                Spell1Step = Dash(ParabolaRoot.transform.GetChild(0).transform.position, dashSpeed, 1, 2);
                 break;
             case 2:
                 ParabolaFlying();
@@ -151,7 +151,7 @@ public class Boss1AI : MonoBehaviour
                 Spell1Step = CheckStop(3, 4);
                 break;
             case 4:
-                Spell1Step = Dash(ParabolaRoot.transform.GetChild(0).transform.position, 25f, 4, 5);
+                Spell1Step = Dash(ParabolaRoot.transform.GetChild(0).transform.position, dashSpeed, 4, 5);
                 break;
             case 5:
                 ParabolaFlying();

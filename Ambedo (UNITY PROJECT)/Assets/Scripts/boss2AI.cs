@@ -13,7 +13,7 @@ public class boss2AI : MonoBehaviour
     private float cooldownTime = 2.0f;
     private float dashSpeed = 10f;
     private float turnSpeed = 90f;
-    private float stepBackSpeed = 15f;
+    private float stepBackSpeed = 20f;
 
 
     // Spell1 Variable
@@ -35,6 +35,8 @@ public class boss2AI : MonoBehaviour
     private GameObject destoryPlatform;
     private Vector3 PopUppos;
     private Vector3 destoryPlatPos;
+    private Vector3 destoryPlatpos;
+    private Vector3 MarkPos;
 
 
     //Boss attack variable
@@ -53,9 +55,15 @@ public class boss2AI : MonoBehaviour
     private float cooldownRemain = 3.0f;
     private int bossDirection = 1; // 1 == left 2 == right
 
-   
 
-    
+    // wait variable
+    private bool waitstart = true;
+    private float timeWaitRemain;
+
+    // exclamation variable
+    public GameObject exclamation;
+    private GameObject exclamationMark;
+
 
 
     void Start()
@@ -157,7 +165,7 @@ public class boss2AI : MonoBehaviour
                 Spell1Step = TailChange();
                 break;
             case 3:
-                Spell1Step = Dash(stepBackPos2, dashSpeed, 3, 4);
+                Spell1Step = Dash(stepBackPos2, stepBackSpeed, 3, 4);
                 break;
             case 4:
                 Spell1Step = 1;
@@ -177,17 +185,27 @@ public class boss2AI : MonoBehaviour
         switch (Spell2Step)
         {
             case 1:
-                CreateThePlat(playerPosition);
+                summorExclamation(playerPosition);
                 Spell2Step = 2;
                 break;
             case 2:
-                Spell2Step = MoveUpPlatform();
+                if (wait(1.75f))
+                {
+                    Spell2Step = 3;
+                }
                 break;
             case 3:
-                Spell2Step = Dash(destoryPlatPos, dashSpeed, 3, 4);
-                Debug.Log(destoryPlatPos.y);
+                CreateThePlat(playerPosition);
+                Spell2Step = 4;
                 break;
             case 4:
+                Spell2Step = MoveUpPlatform();
+                break;
+            case 5:
+                Spell2Step = Dash(destoryPlatPos, dashSpeed, 5, 6);
+                Debug.Log(destoryPlatPos.y);
+                break;
+            case 6:
                 Spell2Step = 1;
                 return true;
 
@@ -254,11 +272,10 @@ public class boss2AI : MonoBehaviour
             return 3;
 
         }
-        
+     
         return 2;
-
     }
-    
+
 
 
     private void BossTurning(float playerXpos)
@@ -267,18 +284,20 @@ public class boss2AI : MonoBehaviour
         if ((playerXpos - transform.position.x) > 0)
         {
             transform.rotation = Quaternion.Euler(0, 180f, 0);
+            gameObject.transform.GetChild(1).transform.localPosition = new Vector3(0f, 0.1f, 49f);
+            gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, 0);
             bossDirection = -1;
         }
         if ((playerXpos - transform.position.x) < 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, 0);
+            gameObject.transform.GetChild(1).transform.localPosition = new Vector3(0f, 0.1f, -49f);
             bossDirection = 1;
         }
-
-
     }
 
-  
+
 
     private void FindStepPos()
     {
@@ -306,13 +325,6 @@ public class boss2AI : MonoBehaviour
 
     private void CreateThePlat(Vector3 playerPosition)
     {
-        //    ShowEucationMark();
-        //    HideEucationMark();
-        //    summor the platform;
-        //    The platform showup;
-
-
-        Vector3 destoryPlatpos = new Vector3(Random.Range(-1, 2) + playerPosition.x, -12f, 0);
         destoryPlatform = Instantiate(destoryPlat, destoryPlatpos, Quaternion.Euler(0, 0f, 0f));
         PopUppos = destoryPlatform.transform.position + new Vector3(0, 3.2f, 0);
 
@@ -326,37 +338,46 @@ public class boss2AI : MonoBehaviour
         if (Move(destoryPlatform.transform, PopUppos, 20))
         {
             destoryPlatPos = new Vector3(destoryPlatform.transform.position.x,transform.position.y,0f);
-            return 3;
+            return 5;
         }
 
-        return 2;
+        return 4;
     }
-
-
-
-
-
-    //private bool BreakPlatform()
-    //{
-    //    dashToPlatform();
-    //    BreakPlatform;
-    //    Checkif player is onplatform
-
-
-    //}
-
-    //private void wallBreak()
-    //{
-    //    summor the projectile;
-    //}
 
    
 
-    //end of code
+    private void summorExclamation(Vector3 playerPosition)
+    {
+        destoryPlatpos = new Vector3(Random.Range(-1, 2) + playerPosition.x, -12f, 0);
+        MarkPos = destoryPlatpos - new Vector3(1f, 11f, 0f);
+        exclamationMark = Instantiate(exclamation, MarkPos, Quaternion.Euler(0, 0f, 0f));
+        Destroy(exclamationMark, 2f);
+    }
 
 
     private void ResetCooldown()
     {
         cooldownRemain = cooldownTime;
     }
+
+
+    private bool wait(float time)
+    {
+        if (waitstart)
+        {
+            waitstart = false;
+            timeWaitRemain = time;
+        }
+
+        timeWaitRemain -= Time.deltaTime;
+        if (timeWaitRemain <= 0)
+        {
+            waitstart = true;
+            return true;
+        }
+        return false;
+    }
+
+    //end of code
+
 }
