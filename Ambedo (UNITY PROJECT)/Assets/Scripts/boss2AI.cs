@@ -141,6 +141,14 @@ public class boss2AI : MonoBehaviour
                          }
                          ResetCooldown();
                     }
+                    if (playerOnBoss)
+                {
+                    if (destoryPlatform != null)
+                    {
+                        Destroy(destoryPlatform, 1f);
+                    }
+                    
+                }
                     break;
                 case 4:
                     round = round + 1;
@@ -210,6 +218,7 @@ public class boss2AI : MonoBehaviour
                 return true;
 
         }
+        
 
 
 
@@ -326,6 +335,7 @@ public class boss2AI : MonoBehaviour
     private void CreateThePlat(Vector3 playerPosition)
     {
         destoryPlatform = Instantiate(destoryPlat, destoryPlatpos, Quaternion.Euler(0, 0f, 0f));
+        Destroy(destoryPlatform, 3f);
         PopUppos = destoryPlatform.transform.position + new Vector3(0, 3.2f, 0);
 
     }
