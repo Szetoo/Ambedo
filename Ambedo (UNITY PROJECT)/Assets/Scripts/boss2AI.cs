@@ -210,10 +210,16 @@ public class boss2AI : MonoBehaviour
                 Spell2Step = MoveUpPlatform();
                 break;
             case 5:
-                Spell2Step = Dash(destoryPlatPos, dashSpeed, 5, 6);
-                Debug.Log(destoryPlatPos.y);
+                destoryPlatPos = destoryPlatPos + new Vector3(bossDirection * 4 , 0, 0);
+                Debug.Log(destoryPlatPos.x);
+                Spell2Step = 6;
                 break;
             case 6:
+                Spell2Step = Dash(destoryPlatPos, dashSpeed, 6, 7);
+                //Debug.Log(destoryPlatPos.y);
+                break;  
+            case 7:
+                Destroy(destoryPlatform);
                 Spell2Step = 1;
                 return true;
 
@@ -232,6 +238,7 @@ public class boss2AI : MonoBehaviour
 
     private int Dash(Vector3 playerPosition, float speed, int step1, int step2)
     {
+        gameObject.GetComponent<Animator>().SetBool("Moving", true);
         Vector3 dir = playerPosition - transform.position;
 
         float distanceThisFrame = speed * Time.deltaTime;
@@ -240,6 +247,7 @@ public class boss2AI : MonoBehaviour
 
         if (dir.magnitude <= (distanceThisFrame))
         {
+            gameObject.GetComponent<Animator>().SetBool("Moving", false);
             return step2;
         }
 
@@ -249,6 +257,7 @@ public class boss2AI : MonoBehaviour
 
     private bool Move(Transform theObject, Vector3 targetPosition, float speed)
     {
+        gameObject.GetComponent<Animator>().SetBool("Moving", true);
         Vector3 dir = targetPosition - theObject.position;
 
         float distanceThisFrame = speed * Time.deltaTime;
@@ -257,6 +266,7 @@ public class boss2AI : MonoBehaviour
 
         if (dir.magnitude <= distanceThisFrame)
         {
+            gameObject.GetComponent<Animator>().SetBool("Moving", false);
             return true;
         }
 
@@ -335,7 +345,7 @@ public class boss2AI : MonoBehaviour
     private void CreateThePlat(Vector3 playerPosition)
     {
         destoryPlatform = Instantiate(destoryPlat, destoryPlatpos, Quaternion.Euler(0, 0f, 0f));
-        Destroy(destoryPlatform, 3f);
+        Destroy(destoryPlatform, 4f);
         PopUppos = destoryPlatform.transform.position + new Vector3(0, 3.2f, 0);
 
     }
@@ -373,6 +383,8 @@ public class boss2AI : MonoBehaviour
 
     private bool wait(float time)
     {
+        gameObject.GetComponent<Animator>().SetBool("Moving", false);
+
         if (waitstart)
         {
             waitstart = false;
