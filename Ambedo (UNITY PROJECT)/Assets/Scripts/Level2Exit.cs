@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Level2Exit : MonoBehaviour
 {
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class Level2Exit : MonoBehaviour
     {
         if (collision.tag == "Boss2AndPlayer")
         {
-            SceneManager.LoadScene("Main Menu");
+            SceneManager.LoadScene("level 3");
         }
 
     }

@@ -19,6 +19,7 @@ public class boss2AI : MonoBehaviour
     // Spell1 Variable
     private int Spell1Step = 1;
     private Vector3 spell1Pos;
+    private Vector3 t;
 
     // turn Variable
     float turntime = 1f;
@@ -47,7 +48,7 @@ public class boss2AI : MonoBehaviour
 
 
     // player position
-    private Transform playerPosition;
+    private Vector3 playerPosition;
 
 
     // boss current HP
@@ -75,7 +76,7 @@ public class boss2AI : MonoBehaviour
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerPosition = player.transform;
+        playerPosition = Setbound(player.transform.position);
         currentHP = gameObject.GetComponent<BossHealth>().currentHp;
 
 
@@ -91,15 +92,16 @@ public class boss2AI : MonoBehaviour
             }
             else
             {
-                BossTurning(playerPosition.position.x);
-                spell1Pos = new Vector3(playerPosition.position.x, transform.position.y, 0.0f);
+                BossTurning(playerPosition.x);
+                spell1Pos = new Vector3(playerPosition.x, transform.position.y, 0.0f);
             }
         }
         else
         {
+            playerPosition = player.transform.position;
             float step = 10 * Time.deltaTime;
-            BossMovePos = new Vector3(playerPosition.position.x, transform.position.y, 0f);
-            BossTurning(playerPosition.position.x);
+            BossMovePos = new Vector3(playerPosition.x, transform.position.y, 0f);
+            BossTurning(playerPosition.x);
             transform.position =  Vector3.MoveTowards(transform.position, BossMovePos, step);
         }
     }
@@ -167,13 +169,15 @@ public class boss2AI : MonoBehaviour
         switch (Spell1Step)
         {
             case 1:
-                Spell1Step = Dash(playerPosition, dashSpeed,1,2);
+                t = Setbound(playerPosition);
+                Spell1Step = Dash(t, dashSpeed,1,2);
                 break;   
             case 2:
                 Spell1Step = TailChange();
                 break;
             case 3:
-                Spell1Step = Dash(stepBackPos2, stepBackSpeed, 3, 4);
+                //if (Checkbound(stepBackPos2)) Spell1Step = 1;
+                 Spell1Step = Dash(stepBackPos2, stepBackSpeed, 3, 4);
                 break;
             case 4:
                 Spell1Step = 1;
@@ -238,6 +242,8 @@ public class boss2AI : MonoBehaviour
 
     private int Dash(Vector3 playerPosition, float speed, int step1, int step2)
     {
+        // Vector3 t = Setbound(playerPosition);
+
         gameObject.GetComponent<Animator>().SetBool("Moving", true);
         Vector3 dir = playerPosition - transform.position;
 
@@ -245,7 +251,7 @@ public class boss2AI : MonoBehaviour
 
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
 
-        if (dir.magnitude <= (distanceThisFrame))
+        if (dir.magnitude <= (distanceThisFrame+0.1f))
         {
             gameObject.GetComponent<Animator>().SetBool("Moving", false);
             return step2;
@@ -257,6 +263,7 @@ public class boss2AI : MonoBehaviour
 
     private bool Move(Transform theObject, Vector3 targetPosition, float speed)
     {
+       
         gameObject.GetComponent<Animator>().SetBool("Moving", true);
         Vector3 dir = targetPosition - theObject.position;
 
@@ -274,18 +281,38 @@ public class boss2AI : MonoBehaviour
     }
 
 
-    
+    private Vector3 Setbound(Vector3 targetPosition)
+    {
+        Vector3 result = targetPosition;
+
+
+        if (targetPosition.x > 391) result = new Vector3(390.5f, targetPosition.y, 0);
+        else if (targetPosition.x < 364) result = new Vector3(364, targetPosition.y, 0);
+
+        return result;
+    }
+
+
+    private bool Checkbound(Vector3 targetPosition)
+    {
+        bool result = false;
+
+        if (targetPosition.x > 391) return true;
+        else if (targetPosition.x < 364) return true;
+
+        return result;
+    }
 
 
     private int TailChange()
     {
-        transform.Find("tailCollider").transform.rotation = Quaternion.Euler(0, 180f, 0);
+        //transform.Find("tailCollider").transform.rotation = Quaternion.Euler(0, 180f, 0);
 
         timeRemain -= Time.deltaTime;
 
         if (timeRemain <= 0)
         {
-            transform.Find("tailCollider").transform.rotation = Quaternion.Euler(0, 0f, 0);
+           // transform.Find("tailCollider").transform.rotation = Quaternion.Euler(0, 0f, 0);
             timeRemain = turntime;
             FindStepPos();
             return 3;
@@ -294,6 +321,7 @@ public class boss2AI : MonoBehaviour
      
         return 2;
     }
+
 
 
 
@@ -368,7 +396,7 @@ public class boss2AI : MonoBehaviour
 
     private void summorExclamation(Vector3 playerPosition)
     {
-        destoryPlatpos = new Vector3(Random.Range(-1, 2) + playerPosition.x, -12f, 0);
+        destoryPlatpos = new Vector3(Random.Range(-1, 2) + playerPosition.x, -68f, 0);
         MarkPos = destoryPlatpos - new Vector3(1f, 11f, 0f);
         exclamationMark = Instantiate(exclamation, MarkPos, Quaternion.Euler(0, 0f, 0f));
         Destroy(exclamationMark, 2f);

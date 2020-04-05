@@ -25,22 +25,8 @@ public class Boss3AI : MonoBehaviour
     private GameObject firedProjectile;
 
     // turn Variable
-    float turntime = 1f;
-    float timeRemain = 1f;
     private int Spell2Step = 1;
 
-    // stepBack Varible
-    Vector3 stepBackPos2;
-
-
-
-    // Spell2 Variable
-    public GameObject destoryPlat;
-    private GameObject destoryPlatform;
-    private Vector3 PopUppos;
-    private Vector3 destoryPlatPos;
-    private Vector3 destoryPlatpos;
-    private Vector3 MarkPos;
 
 
     //Boss attack variable
@@ -63,10 +49,6 @@ public class Boss3AI : MonoBehaviour
     // wait variable
     private bool waitstart = true;
     private float timeWaitRemain;
-
-    // exclamation variable
-    public GameObject exclamation;
-    private GameObject exclamationMark;
 
 
 
@@ -342,23 +324,6 @@ public class Boss3AI : MonoBehaviour
         }
 
         return step1;
-    }
-
-
-    private bool Move(Transform theObject, Vector3 targetPosition, float speed)
-    {
-        Vector3 dir = targetPosition - theObject.position;
-
-        float distanceThisFrame = speed * Time.deltaTime;
-
-        theObject.Translate(dir.normalized * distanceThisFrame, Space.World);
-
-        if (dir.magnitude <= distanceThisFrame)
-        {
-            return true;
-        }
-
-        return false;
     }
 
 
