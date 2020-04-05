@@ -42,8 +42,7 @@ public class PlatformMovementController : MonoBehaviour
     {
         toUse = movementCoroutine();
         StartCoroutine(toUse);
-
-        Debug.Log(GetComponent<Transform>().transform.position);
+        
     }
 
 

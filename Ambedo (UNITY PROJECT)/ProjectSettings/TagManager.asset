@@ -19,6 +19,7 @@ TagManager:
   - Sword
   - LightZone
   - Ladder
+  - ProjectileSpawner
   layers:
   - Default
   - TransparentFX
