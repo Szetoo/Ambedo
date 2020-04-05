@@ -88,7 +88,7 @@ public class BossRoomCameraPan : MonoBehaviour
         file.Close();
 
         // 3
-
+        int gameLevel = save.saveFileLevel;
         float xPosition = save.xSpawnPosition;
         float yPosition = save.ySpawnPosition;
         bool isWielding = save.isWielding;
@@ -104,7 +104,7 @@ public class BossRoomCameraPan : MonoBehaviour
 
 
 
-        Save save2 = CreateSaveGameObject(xPosition, yPosition, isWielding, enemies, curEXP, curLevel, true);
+        Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, curEXP, curLevel, true);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
@@ -120,11 +120,11 @@ public class BossRoomCameraPan : MonoBehaviour
         //Destroy(gameObject);
     }
 
-    private Save CreateSaveGameObject(float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool cameraPan)
+    private Save CreateSaveGameObject(int level, float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool cameraPan)
     {
         Save save = new Save();
         //player = GameObject.FindGameObjectWithTag("Player");
-
+        save.saveFileLevel = level;
         save.xSpawnPosition = xPosition;
         save.ySpawnPosition = yPosition;
         save.isWielding = isWielding;

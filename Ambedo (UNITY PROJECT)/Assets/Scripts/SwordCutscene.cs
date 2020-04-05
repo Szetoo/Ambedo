@@ -49,6 +49,9 @@ public class SwordCutscene : MonoBehaviour {
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             player.GetComponent<PlayerMovementController>().isWielding = true;
             //player.GetComponent<PlayerMovementController>().horizontalMovement(other.GetComponent<Rigidbody2D>(), 2);
+            SaveToGame();
+
+            /*
             Save save = CreateSaveGameObject();
 
             // 2
@@ -56,11 +59,12 @@ public class SwordCutscene : MonoBehaviour {
             FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
             bf.Serialize(file, save);
             file.Close();
+            */
             hasBeenTriggered = true;
 
         }
     }
-
+    /*
     private Save CreateSaveGameObject()
     {
         Save save = new Save();
@@ -69,6 +73,60 @@ public class SwordCutscene : MonoBehaviour {
         save.xSpawnPosition = xCheckPointPosition;
         save.ySpawnPosition = yCheckPointPosition;
         save.isWielding = true;
+
+        return save;
+    }*/
+
+    private void SaveToGame()
+    {
+
+        // Debug.Log("Reading Save File");
+        // 2
+        // player = GameObject.FindGameObjectWithTag("Player");
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+        Save save = (Save)bf.Deserialize(file);
+        file.Close();
+
+        // 3
+        int gameLevel = save.saveFileLevel;
+        float xPosition = xCheckPointPosition;
+        float yPosition = yCheckPointPosition;
+        bool isWielding = true;
+        Dictionary<string, bool> enemies = save.enemiesInLevel1;
+        float currentEXP = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>().currentEXP;
+        int currentLevel = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>().currentLevel;
+        bool trigger = save.cameraPanHasBeenActivated;
+
+
+
+
+
+
+        Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
+
+        // 2
+        file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+        bf.Serialize(file, save2);
+        file.Close();
+
+        //Unpause();
+
+
+    }
+
+    private Save CreateSaveGameObject(int level, float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool trigger)
+    {
+        Save save = new Save();
+        //player = GameObject.FindGameObjectWithTag("Player");
+        save.saveFileLevel = level;
+        save.xSpawnPosition = xPosition;
+        save.ySpawnPosition = yPosition;
+        save.isWielding = isWielding;
+        save.enemiesInLevel1 = enemies;
+        save.currentEXP = currentEXP;
+        save.currentLevel = currentLevel;
+        save.cameraPanHasBeenActivated = trigger;
 
         return save;
     }

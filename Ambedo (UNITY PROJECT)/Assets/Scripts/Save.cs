@@ -9,6 +9,8 @@ public class Save
     // public List<(int,int)> livingTargetPositions = new List<(int,int)>();
     // public List<int> livingTargetsTypes = new List<int>();
 
+
+    public int saveFileLevel;
     public float xSpawnPosition;
     public float ySpawnPosition;
     public bool isWielding;
@@ -26,4 +28,20 @@ public class Save
     
     
 
+
+    public Save CreateSaveObject(int gameLevel, float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool trigger)
+    {
+        Save save = new Save();
+        //player = GameObject.FindGameObjectWithTag("Player");
+        save.saveFileLevel = gameLevel;
+        save.xSpawnPosition = xPosition;
+        save.ySpawnPosition = yPosition;
+        save.isWielding = isWielding;
+        save.enemiesInLevel1 = enemies;
+        save.currentEXP = currentEXP;
+        save.currentLevel = currentLevel;
+        save.cameraPanHasBeenActivated = trigger;
+
+        return save;
+    }
 }

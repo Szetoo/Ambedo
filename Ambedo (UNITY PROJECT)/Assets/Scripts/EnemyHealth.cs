@@ -171,8 +171,8 @@ public class EnemyHealth : MonoBehaviour
             Save save = (Save)bf.Deserialize(file);
             file.Close();
 
-            // 3
-
+        // 3
+        int gameLevel = save.saveFileLevel;
             float xPosition = save.xSpawnPosition;
             float yPosition = save.ySpawnPosition;
             bool isWielding = save.isWielding;
@@ -188,7 +188,7 @@ public class EnemyHealth : MonoBehaviour
             //gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
             Debug.Log("Game Loaded");
 
-        Save save2 = CreateSaveGameObject(xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel);
+        Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
@@ -199,11 +199,11 @@ public class EnemyHealth : MonoBehaviour
 
 
     }
-    private Save CreateSaveGameObject(float xPosition, float yPosition,bool isWielding, Dictionary<string,bool> enemies, float currentEXP, int currentLevel)
+    private Save CreateSaveGameObject(int level, float xPosition, float yPosition,bool isWielding, Dictionary<string,bool> enemies, float currentEXP, int currentLevel)
     {
         Save save = new Save();
         //player = GameObject.FindGameObjectWithTag("Player");
-
+        save.saveFileLevel = level;
         save.xSpawnPosition = xPosition;
         save.ySpawnPosition = yPosition;
         save.isWielding = isWielding;

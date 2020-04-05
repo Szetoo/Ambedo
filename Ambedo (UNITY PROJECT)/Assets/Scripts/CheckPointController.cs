@@ -41,8 +41,8 @@ public class CheckPointController : MonoBehaviour {
 
             // 3
 
-           
-            
+
+            int gameLevel = save.saveFileLevel;
             Dictionary<string, bool> enemies = save.enemiesInLevel1;
             float currentEXP = save.currentEXP;
             int currentLevel = save.currentLevel;
@@ -53,7 +53,7 @@ public class CheckPointController : MonoBehaviour {
             Debug.Log("Player will spawn at x: " + xCheckPointPosition + " y: " + yCheckPointPosition);
             Debug.Log(Application.persistentDataPath);
             bool cameraPanTrigger = save.cameraPanHasBeenActivated;
-            Save save2 = CreateSaveGameObject(xCheckPointPosition, yCheckPointPosition, player.GetComponent<PlayerMovementController>().isWielding, enemies, currentEXP, currentLevel, cameraPanTrigger);
+            Save save2 = CreateSaveGameObject(gameLevel, xCheckPointPosition, yCheckPointPosition, player.GetComponent<PlayerMovementController>().isWielding, enemies, currentEXP, currentLevel, cameraPanTrigger);
 
             // 2
             file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
@@ -62,11 +62,11 @@ public class CheckPointController : MonoBehaviour {
         }
     }
 
-    private Save CreateSaveGameObject(float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool trigger)
+    private Save CreateSaveGameObject(int level, float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool trigger)
     {
         Save save = new Save();
         //player = GameObject.FindGameObjectWithTag("Player");
-
+        save.saveFileLevel = level;
         save.xSpawnPosition = xPosition;
         save.ySpawnPosition = yPosition;
         save.isWielding = isWielding;

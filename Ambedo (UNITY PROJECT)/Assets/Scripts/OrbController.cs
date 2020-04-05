@@ -48,7 +48,7 @@ public class OrbController : MonoBehaviour
         file.Close();
 
         // 3
-
+        int gameLevel = save.saveFileLevel;
         float xPosition = save.xSpawnPosition;
         float yPosition = save.ySpawnPosition;
         bool isWielding = save.isWielding;
@@ -62,7 +62,7 @@ public class OrbController : MonoBehaviour
 
 
 
-        Save save2 = CreateSaveGameObject(xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
+        Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
@@ -74,11 +74,11 @@ public class OrbController : MonoBehaviour
 
     }
 
-    private Save CreateSaveGameObject(float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool trigger)
+    private Save CreateSaveGameObject(int level, float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool trigger)
     {
         Save save = new Save();
         //player = GameObject.FindGameObjectWithTag("Player");
-
+        save.saveFileLevel = level;
         save.xSpawnPosition = xPosition;
         save.ySpawnPosition = yPosition;
         save.isWielding = isWielding;

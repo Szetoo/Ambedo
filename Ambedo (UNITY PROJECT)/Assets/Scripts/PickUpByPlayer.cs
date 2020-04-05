@@ -21,6 +21,11 @@ public class PickUpByPlayer : MonoBehaviour {
     void Start () {
         beingHeld = false;
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        swordXPos = -0.102f;
+        swordYPos = -0.077f;
+        swordZRotate = 50f;
+        ImpactEffect.transform.localPosition = new Vector2(-0.652f, 0.223f);
+        ImpactEffect.transform.eulerAngles = new Vector3(0f, 0f, 0f);
         pickUp();
 
     }
