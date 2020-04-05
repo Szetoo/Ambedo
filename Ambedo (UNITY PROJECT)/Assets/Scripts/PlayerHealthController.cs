@@ -34,6 +34,7 @@ public class PlayerHealthController : MonoBehaviour
     private float invincibilityExpiry;
     private float canHealTime;
     private float amountToHeal;
+    private int currentGameLevel;
 
     private bool inLight;
     private bool invincible;
@@ -56,7 +57,7 @@ public class PlayerHealthController : MonoBehaviour
 
             // 3
             Debug.Log(save.currentLevel);
-            
+            currentGameLevel = save.saveFileLevel;
             currentEXP = save.currentEXP;
             currentLevel = save.currentLevel;
             maxHP = (save.currentLevel + 2) * 100;
@@ -320,7 +321,25 @@ public class PlayerHealthController : MonoBehaviour
     {
         damage.Play();
         Destroy(gameObject);
-        Initiate.Fade("Level-alex-tim", Color.black, 1.0f);
+        if (currentGameLevel == 1)
+        {
+            Initiate.Fade("Level-alex-tim", Color.black, 1.0f);
+        }
+        else if (currentGameLevel == 2)
+        {
+            Initiate.Fade("level 2", Color.black, 1.0f);
+        }
+        else if (currentGameLevel == 3)
+        {
+            Initiate.Fade("level 3", Color.black, 1.0f);
+        }
+        else if (currentGameLevel == 4)
+        {
+            Initiate.Fade("Orphanage", Color.black, 1.0f);
+        }
+
+
+        //Initiate.Fade("Level-alex-tim", Color.black, 1.0f);
     }
 
     private void SaveToGame()

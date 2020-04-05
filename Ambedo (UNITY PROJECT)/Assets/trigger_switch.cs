@@ -25,16 +25,20 @@ public class trigger_switch : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerAttackHitbox")
         {
+            activeObject.SetActive(true);
+            deactiveLockObject.SetActive(false);
+            Destroy(lockObject);
             Destroy(gameObject);
         }
     }
 
     private void OnDestroy()
     {
-        activeObject.SetActive(true);
-        Destroy(lockObject);
+        //activeObject.SetActive(true);
+        //deactiveLockObject.SetActive(false);
+        //Destroy(lockObject);
 
-        deactiveLockObject.SetActive(false);
+        //deactiveLockObject.SetActive(false);
     }
 }
 

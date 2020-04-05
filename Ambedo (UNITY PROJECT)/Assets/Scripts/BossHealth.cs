@@ -5,7 +5,7 @@ using UnityEngine.Playables;
 
 public class BossHealth : MonoBehaviour
 {
-
+    public int bossNumber;
     private float maxHP = 400;
     public float currentHp;
     public Sprite Transformation;
@@ -36,7 +36,7 @@ public class BossHealth : MonoBehaviour
         //isHealing = false;
         invincible = false;
         gameObject.GetComponent<Animator>().SetBool("Alive", true);
-        cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
+        //cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
         room = GameObject.FindGameObjectWithTag("BossRoom");
         orbsHaveBeenSpawned = false;
 
@@ -125,17 +125,30 @@ public class BossHealth : MonoBehaviour
     {
         //gameObject.GetComponent<Boss1AI>().enabled = false;
         //gameObject.GetComponent<ParabolaController>().enabled = false;
-        
+
 
         if (gameObject.transform.position.x > other.gameObject.transform.position.x)
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x + 100, gameObject.transform.position.y, 0f);
-
+            if (bossNumber == 2)
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x + 2, gameObject.transform.position.y, 0f);
+            }
+            else
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x + 100, gameObject.transform.position.y, 0f);
+            }
         }
 
         if (gameObject.transform.position.x <= other.gameObject.transform.position.x)
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x - 100, gameObject.transform.position.y, 0f);
+            if (bossNumber == 2)
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x - 2, gameObject.transform.position.y, 0f);
+            }
+            else
+            {
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x - 100, gameObject.transform.position.y, 0f);
+            }
         }
         //gameObject.GetComponent<Boss1AI>().enabled = true;
        // gameObject.GetComponent<ParabolaController>().enabled = true;
@@ -148,20 +161,33 @@ public class BossHealth : MonoBehaviour
     public IEnumerator killBoss()
     {
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
-        gameObject.GetComponent<ParabolaController>().enabled = false;
-        BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
-        EdgeCollider2D collider2 = gameObject.GetComponent<EdgeCollider2D>();
+        if (bossNumber != 2)
+        {
+            gameObject.GetComponent<ParabolaController>().enabled = false;
+            EdgeCollider2D collider2 = gameObject.GetComponent<EdgeCollider2D>();
+            collider2.enabled = false;
+            room.GetComponent<AudioSource>().enabled = false;
+            cam.GetComponent<AudioSource>().enabled = true;
+            BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                colliders[i].enabled = false;
+            }
+
+        }
+        //BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
+        //EdgeCollider2D collider2 = gameObject.GetComponent<EdgeCollider2D>();
         //yield return new WaitForSeconds(3);
 
         //  Debug.Log("Play Boss Death and Player Transformation Cutscene");
         // cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            colliders[i].enabled = false;
-        }
+       // for (int i = 0; i < colliders.Length; i++)
+        //{
+         //   colliders[i].enabled = false;
+        //}
         // Destroy(gameObject);
 
-        collider2.enabled = false;
+        //collider2.enabled = false;
         yield return new WaitForSeconds(3);
         //yield return new WaitForSeconds(5);
 
@@ -173,8 +199,8 @@ public class BossHealth : MonoBehaviour
         //cutscene.GetComponent<PlayableDirector>().Play();
       
         
-        room.GetComponent<AudioSource>().enabled = false;
-        cam.GetComponent<AudioSource>().enabled = true;
+        //room.GetComponent<AudioSource>().enabled = false;
+        //cam.GetComponent<AudioSource>().enabled = true;
         
         Destroy(gameObject);
     }

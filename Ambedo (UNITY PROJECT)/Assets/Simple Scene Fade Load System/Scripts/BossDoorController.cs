@@ -36,6 +36,8 @@ public class BossDoorController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             step = 2;
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().enabled = false;
+
            
         }
     }
@@ -58,7 +60,10 @@ public class BossDoorController : MonoBehaviour
         else
         {
             step = 0;
-            boss.SetActive(true);
+            if (boss != null)
+            {
+                boss.SetActive(true);
+            }
         }
 
 
