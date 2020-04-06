@@ -173,8 +173,10 @@ public class BossHealth : MonoBehaviour
             {
                 colliders[i].enabled = false;
             }
+            yield return new WaitForSeconds(3);
 
         }
+        else { yield return new WaitForSeconds(1); }
         //BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
         //EdgeCollider2D collider2 = gameObject.GetComponent<EdgeCollider2D>();
         //yield return new WaitForSeconds(3);
@@ -188,7 +190,7 @@ public class BossHealth : MonoBehaviour
         // Destroy(gameObject);
 
         //collider2.enabled = false;
-        yield return new WaitForSeconds(3);
+        //yield return new WaitForSeconds(3);
         //yield return new WaitForSeconds(5);
 
 

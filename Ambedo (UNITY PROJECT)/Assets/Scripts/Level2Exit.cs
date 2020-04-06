@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Level2Exit : MonoBehaviour
 {
 
-    
+    public GameObject boss;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +24,9 @@ public class Level2Exit : MonoBehaviour
     {
         if (collision.tag == "Boss2AndPlayer")
         {
-            SceneManager.LoadScene("level 3");
+            Destroy(boss);
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            Destroy(gameObject);
         }
 
     }
