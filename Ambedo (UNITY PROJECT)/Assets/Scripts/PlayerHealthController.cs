@@ -359,15 +359,18 @@ public class PlayerHealthController : MonoBehaviour
         float yPosition = save.ySpawnPosition;
         bool isWielding = save.isWielding;
         Dictionary<string, bool> enemies = save.enemiesInLevel1;
+        Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
         float curEXP = currentEXP;
         int curLevel = currentLevel;
+        bool trigger = save.cameraPanHasBeenActivated;
 
 
 
 
 
 
-        Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, curEXP, curLevel);
+        //Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, curEXP, curLevel);
+        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, curEXP, curLevel, trigger);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
@@ -379,18 +382,5 @@ public class PlayerHealthController : MonoBehaviour
 
     }
 
-    private Save CreateSaveGameObject(int level,float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel)
-    {
-        Save save = new Save();
-        //player = GameObject.FindGameObjectWithTag("Player");
-        save.saveFileLevel = level;
-        save.xSpawnPosition = xPosition;
-        save.ySpawnPosition = yPosition;
-        save.isWielding = isWielding;
-        save.enemiesInLevel1 = enemies;
-        save.currentEXP = currentEXP;
-        save.currentLevel = currentLevel;
-
-        return save;
-    }
+   
 }

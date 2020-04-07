@@ -63,6 +63,7 @@ private void SaveToGame()
     float yPosition = save.ySpawnPosition;
     bool isWielding = save.isWielding;
     Dictionary<string, bool> enemies = save.enemiesInLevel1;
+       Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
     float currentEXP = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>().currentEXP;
     int currentLevel = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>().currentLevel;
     bool trigger = save.cameraPanHasBeenActivated;
@@ -72,10 +73,11 @@ private void SaveToGame()
         //Save save2 = save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
 
 
-        Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
+        //Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
+        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, currentEXP, currentLevel, trigger);
 
-    // 2
-    file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
+        // 2
+        file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
     bf.Serialize(file, save2);
     file.Close();
         Debug.Log(Application.persistentDataPath);
@@ -85,20 +87,6 @@ private void SaveToGame()
 
 }
 
-private Save CreateSaveGameObject(int gameLevel,float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool trigger)
-{
-    Save save = new Save();
-        //player = GameObject.FindGameObjectWithTag("Player");
-    save.saveFileLevel = gameLevel;
-    save.xSpawnPosition = xPosition;
-    save.ySpawnPosition = yPosition;
-    save.isWielding = isWielding;
-    save.enemiesInLevel1 = enemies;
-    save.currentEXP = currentEXP;
-    save.currentLevel = currentLevel;
-    save.cameraPanHasBeenActivated = trigger;
 
-    return save;
-}
 
 }

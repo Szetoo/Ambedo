@@ -21,7 +21,7 @@ public class ProjectileMovementController : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
 
         Vector3 direction = Quaternion.Euler(0, 0, angle) * transform.right;
-        Debug.Log(direction);
+        //Debug.Log(direction);
         rb.velocity = speed * direction;
     }
 

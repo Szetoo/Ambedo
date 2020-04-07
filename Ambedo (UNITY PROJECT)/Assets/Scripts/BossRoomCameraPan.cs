@@ -93,6 +93,7 @@ public class BossRoomCameraPan : MonoBehaviour
         float yPosition = save.ySpawnPosition;
         bool isWielding = save.isWielding;
         Dictionary<string, bool> enemies = save.enemiesInLevel1;
+        Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
         float curEXP = save.currentEXP;
         int curLevel = save.currentLevel;
         //bool cameraPanBool = trigger;
@@ -104,7 +105,7 @@ public class BossRoomCameraPan : MonoBehaviour
 
 
 
-        Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, curEXP, curLevel, true);
+        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, curEXP, curLevel, true);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
@@ -120,22 +121,5 @@ public class BossRoomCameraPan : MonoBehaviour
         //Destroy(gameObject);
     }
 
-    private Save CreateSaveGameObject(int level, float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, float currentEXP, int currentLevel, bool cameraPan)
-    {
-        Save save = new Save();
-        //player = GameObject.FindGameObjectWithTag("Player");
-        save.saveFileLevel = level;
-        save.xSpawnPosition = xPosition;
-        save.ySpawnPosition = yPosition;
-        save.isWielding = isWielding;
-        save.enemiesInLevel1 = enemies;
-        save.currentEXP = currentEXP;
-        save.currentLevel = currentLevel;
-        save.cameraPanHasBeenActivated = cameraPan;
-        //Debug.Log("camera pan value");
-        //Debug.Log(save.cameraPanHasBeenActivated);
-
-
-        return save;
-    }
+    
 }

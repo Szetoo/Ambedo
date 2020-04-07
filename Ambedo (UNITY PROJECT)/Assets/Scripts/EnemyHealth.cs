@@ -14,7 +14,7 @@ public class EnemyHealth : MonoBehaviour
     public float timeUntilHeal;
     public GameObject orb;
     public int numberOfOrbs;
-
+    private int currentGameLevel;
     [HideInInspector]
     public float currentHP;
 
@@ -22,6 +22,7 @@ public class EnemyHealth : MonoBehaviour
     private float invincibilityExpiry;
     private float canHealTime;
     private bool orbsHaveBeenSpawned;
+    
 
 
     private const float healRate = 0.1f;
@@ -37,16 +38,42 @@ public class EnemyHealth : MonoBehaviour
             file.Close();
 
             // 3
-
-
+            currentGameLevel = save.saveFileLevel;
+            Debug.Log(currentGameLevel);
             Dictionary<string, bool> enemies = save.enemiesInLevel1;
+            Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
+            string enemyName = gameObject.name;
+            Debug.Log(enemyName);
+            Debug.Log("Here are the enemies in Level 2: ");
+            //Debug.Log(enemies2);
+            foreach(KeyValuePair<string, bool> kvp in enemies2)
+            {
+                Debug.Log( kvp.Key + kvp.Value);
+            }
+            if (currentGameLevel == 1) {
+                if (enemies[enemyName] == false)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
+            else if(currentGameLevel == 2)
+            {
+                Debug.Log("We are in level two and we are checking for:" + enemyName);
+               
+                if (enemies2[enemyName] == false)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
 
+            //Dictionary<string, bool> enemies = save.enemiesInLevel1;
+            /*
             string enemyName = gameObject.name;
             Debug.Log(enemyName);
             if (enemies[enemyName] == false)
             {
                 gameObject.SetActive(false);
-            }
+            }*/
         }
         else
         {
@@ -172,23 +199,36 @@ public class EnemyHealth : MonoBehaviour
             file.Close();
 
         // 3
-        int gameLevel = save.saveFileLevel;
+       
+        
+            int gameLevel = save.saveFileLevel;
             float xPosition = save.xSpawnPosition;
             float yPosition = save.ySpawnPosition;
             bool isWielding = save.isWielding;
             Dictionary<string, bool> enemies = save.enemiesInLevel1;
+            Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
             float currentEXP = save.currentEXP;
             int currentLevel = save.currentLevel;
+            bool trigger = save.cameraPanHasBeenActivated; 
 
-        string enemyName = gameObject.name;
+        if (currentGameLevel == 1)
+        {
+            string enemyName = gameObject.name;
             enemies[enemyName] = false;
+        }
+        else if(currentGameLevel == 2)
+        {
+            string enemyName = gameObject.name;
+            enemies2[enemyName] = false;
+        }
+        
 
 
            
             //gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
             Debug.Log("Game Loaded");
 
-        Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel);
+        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, currentEXP, currentLevel, trigger);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
@@ -199,7 +239,7 @@ public class EnemyHealth : MonoBehaviour
 
 
     }
-    private Save CreateSaveGameObject(int level, float xPosition, float yPosition,bool isWielding, Dictionary<string,bool> enemies, float currentEXP, int currentLevel)
+    /*private Save CreateSaveGameObject(int level, float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, Dictionary<string, bool> enemies2, float currentEXP, int currentLevel)
     {
         Save save = new Save();
         //player = GameObject.FindGameObjectWithTag("Player");
@@ -208,9 +248,10 @@ public class EnemyHealth : MonoBehaviour
         save.ySpawnPosition = yPosition;
         save.isWielding = isWielding;
         save.enemiesInLevel1 = enemies;
+        save.enemiesInLevel2 = enemies2;
         save.currentEXP = currentEXP;
         save.currentLevel = currentLevel;
 
         return save;
-    }
+    }*/
 }
