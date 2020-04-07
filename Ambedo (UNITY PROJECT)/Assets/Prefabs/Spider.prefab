@@ -127,7 +127,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 80a96c89f122d3c41b2f874aebf3c3a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -193,7 +193,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00085130334, y: 0.016252875}
+  m_Offset: {x: 0, y: -0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -204,7 +204,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32302612, y: 0.29291463}
+  m_Size: {x: 0.28, y: 0.19}
   m_EdgeRadius: 0
 --- !u!61 &4339526543263263329
 BoxCollider2D:
@@ -219,7 +219,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0023355484, y: 0.016260386}
+  m_Offset: {x: 0, y: -0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -230,7 +230,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.29614806, y: 0.26456165}
+  m_Size: {x: 0.28, y: 0.19}
   m_EdgeRadius: 0
 --- !u!114 &4339526543263263328
 MonoBehaviour:
@@ -244,6 +244,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99463d5a8feba4c588b5ab230a10daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ai: 5
+  projectileSpeed: 0
+  projectileFireRate: 0
+  territory: {fileID: 0}
+  enemy: {fileID: 0}
+  projectileSpawner: {fileID: 0}
+  speed: 2
 --- !u!82 &4339526543263263343
 AudioSource:
   m_ObjectHideFlags: 0
@@ -371,11 +378,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c135da2f1a398142adc8a2344f68b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 200
-  enemyDamageFromPlayer: 100
-  healAmount: 3
-  invDuration: 2
-  timeUntilHeal: 5
-  orb: {fileID: 4078487342204485565, guid: 52821e8a924f0864f887ddbd7f7c2dd0, type: 3}
-  numberOfOrbs: 4
+  maxHP: 0
+  enemyDamageFromPlayer: 0
+  healAmount: 0
+  invDuration: 0
+  timeUntilHeal: 0
+  orb: {fileID: 0}
+  numberOfOrbs: 0
   currentHP: 0
