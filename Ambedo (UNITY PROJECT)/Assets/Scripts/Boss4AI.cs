@@ -6,7 +6,6 @@ public class Boss4AI : MonoBehaviour
 {
 
     GameObject player;
-    GameObject camera;
     public GameObject fireBall;
     public GameObject fireBall2;
 
@@ -34,34 +33,19 @@ public class Boss4AI : MonoBehaviour
     private Vector3 dir1, dir2, dir3, dir4;
     private float fireballSpeed = 13f;
 
-    // Spell4 Variable
-    private int Spell4Step = 1;
-
-
     // Escape Variable
     int puzzleCode = 0;
-
-
 
     //Boss attack variable
     public int spellOrder = 1;
     private int round = 0;
-    public bool playerOnBoss = false;
-    Vector3 BossMovePos;
     Vector3 BossOriginPos;
     Vector3 BossflytoPos;
-
 
     // player position
     private Transform playerPosition;
 
-
-    // player position
-    private Vector3 playerPos;
-
-
     // boss current HP
-    private float currentHP;
     private float cooldownRemain = 0.4f;
     private int bossDirection = 1; // 1 == left 2 == right
 
@@ -75,35 +59,16 @@ public class Boss4AI : MonoBehaviour
     private bool waitstart = true;
     private float timeRemain;
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             playerPosition = player.transform;
-        }
-
-        currentHP = gameObject.GetComponent<BossHealth>().currentHp;
-        if (player != null)
-        {
             BossTurning(playerPosition.position.x);
         }
 
-
-        if (CooldownReady())
-        {
-
-            AttackEvent(playerPosition.position, BossOriginPos, BossflytoPos);
-
-        }
-
-
+        if (CooldownReady()) AttackEvent(playerPosition.position, BossOriginPos, BossflytoPos);
     }
 
     void AttackEvent(Vector3 PlayerPosition, Vector3 BossOriginPosition, Vector3 BossFlyto)
@@ -130,6 +95,10 @@ public class Boss4AI : MonoBehaviour
                     spellOrder = 1;
                     ResetCooldown();
                 }
+                break;
+            case 4:
+                round = round + 1;
+                spellOrder = 1;
                 break;
 
         }
@@ -163,7 +132,6 @@ public class Boss4AI : MonoBehaviour
                 Spell1Step = 1;
                 return true;
         }
-
         return false;
     }
 
@@ -292,8 +260,6 @@ public class Boss4AI : MonoBehaviour
     }
 
 
-
-
     private void summorFireball()
     {
         float angle;
@@ -303,15 +269,12 @@ public class Boss4AI : MonoBehaviour
             angle = -60f + ((float)i * 30f);
             Instantiate(fireBall, firePosition, Quaternion.Euler(0, 0f,  Random.Range(angle, angle + 25)));
          }
-    
     }
 
    
 
     private void summorflyingfireball()
     {
-
-
         firePosition = transform.position + new Vector3(0,2.5f,0);
         fireBallObject1 =Instantiate(fireBall2, firePosition, Quaternion.Euler(0, 0f, 270f));
         firePosition = transform.position + new Vector3(0, -2.5f, 0);
@@ -363,12 +326,54 @@ public class Boss4AI : MonoBehaviour
                 moveToward(dir3, fireballSpeed, fireBallObject3);
                 moveToward(dir4, fireballSpeed, fireBallObject4);
                 break;
-
         }
            
     }
 
+    public void puzzleFunction(int code)
+    {
+        switch (puzzleCode)
+        {
+            case 1:
+                if (code == 2) puzzleCode = code;
+                else puzzleCode = 0;
+                break;
+            case 2:
+                if (code == 3) puzzleCode = code;
+                else puzzleCode = 0;
+                break;
+            case 3:
+                if (code == 4) puzzleCode = code;
+                else puzzleCode = 0;
+                break;
+            case 4:
+                if (code == 5) puzzleCode = code;
+                else puzzleCode = 0;
+                break;
+            case 5:
+                if (code == 6) Destroy(gameObject, 0.5f);
+                else puzzleCode = 0;
+                break;
 
+        }
+        if (code == 1) puzzleCode = code;
+
+
+        Debug.Log("Puzzle Code:" + puzzleCode);
+    }
+
+    private void moveToward(Vector3 dir, float speed, GameObject Origin)
+    {
+        if (Origin != null)
+        {
+            float distanceThisFrame = speed * Time.deltaTime;
+
+            Origin.transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+        }
+
+    }
+
+    // below are genetic boss function 
     private int Dash(Vector3 targetPosition, float speed, int step1, int step2)
     {
         Vector3 dir = targetPosition - transform.position;
@@ -402,55 +407,6 @@ public class Boss4AI : MonoBehaviour
         return step1;
     }
 
-
-    private void  moveToward (Vector3 dir, float speed,GameObject Origin)
-    {
-        if (Origin != null)
-        {
-            float distanceThisFrame = speed * Time.deltaTime;
-
-            Origin.transform.Translate(dir.normalized * distanceThisFrame, Space.World);
-        }
-  
-    }
-
-
-
-
-    public void puzzleFunction(int code)
-    {
-        switch (puzzleCode)
-        {
-            case 1:
-                if (code == 2) puzzleCode = code;
-                else puzzleCode = 0;
-                break;
-            case 2:
-                if (code == 3) puzzleCode = code;
-                else puzzleCode = 0;
-                break;
-            case 3:
-                if (code == 4) puzzleCode = code;
-                else puzzleCode = 0;
-                break;
-            case 4:
-                if (code == 5) puzzleCode = code;
-                else puzzleCode = 0;
-                break;
-            case 5:
-                if (code == 6) Destroy(gameObject, 0.5f);
-                else puzzleCode = 0;
-                break;
-
-        }
-        if (code == 1)  puzzleCode = code;
-        
-        
-        Debug.Log("Puzzle Code:" + puzzleCode);
-    }
-
-
-
     private void ResetCooldown()
     {
         cooldownRemain = cooldownTime;
@@ -459,18 +415,11 @@ public class Boss4AI : MonoBehaviour
 
     private bool CooldownReady()
     {
-
-        if (cooldownRemain <= 0)
-        {
-            return true;
-        }
-        else
-        {
-            cooldownRemain -= Time.deltaTime;
-        }
-
+        if (cooldownRemain <= 0) return true;
+        else cooldownRemain -= Time.deltaTime;
         return false;
     }
+
 
     private void BossTurning(float playerXpos)
     {
@@ -491,7 +440,6 @@ public class Boss4AI : MonoBehaviour
         }
     }
 
-
     private bool wait(float time)
     {
         if (waitstart)
@@ -509,10 +457,5 @@ public class Boss4AI : MonoBehaviour
         return false;
     }
 
-
-
-
-
-
-
+    // end of code 
 }

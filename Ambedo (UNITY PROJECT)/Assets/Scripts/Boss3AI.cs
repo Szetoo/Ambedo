@@ -6,84 +6,50 @@ public class Boss3AI : MonoBehaviour
 {
 
     GameObject player;
-    GameObject camera;
     public GameObject Projectile;
     
-
     // Constant 
     private float cooldownTime = 2.0f;
-    private float dashSpeed = 10f;
-    private float turnSpeed = 90f;
-    private float stepBackSpeed = 20f;
     private float jumpHeight = 0.2f;
-
 
     // Spell1 Variable
     private int Spell1Step = 1;
-    private Vector3 spell1Pos;
     private Vector3 groundPos;
     private GameObject firedProjectile;
 
-    // turn Variable
+    // Spell2 Variable
     private int Spell2Step = 1;
-
-
 
     //Boss attack variable
     public int spellOrder = 1;
     private int round = 0;
-    public bool playerOnBoss = false;
-    Vector3 BossMovePos;
-
 
     // player position
     private Transform playerPosition;
 
-
-    // boss current HP
-    private float currentHP;
+    // boss variable
     private float cooldownRemain = 3.0f;
     public int bossDirection = 1; // -1 == left 1 == right
 
-
-    // wait variable
+    // wait function variable
     private bool waitstart = true;
     private float timeWaitRemain;
 
-
-
-    void Start()
-    {
-
-
-        // Update is called once per frame
-    }
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerPosition = player.transform;
-        currentHP = gameObject.GetComponent<BossHealth>().currentHp;
-
-
-        // turning
-
-        BossTurning(playerPosition.position.x);
+        BossTurning(playerPosition.position.x); // turning
 
         if (CooldownReady())
             {
-
                 AttackEvent();
-
             }
         
     }
 
-
-
-
     void AttackEvent()
     {
-
         switch (spellOrder)
         {
             case 1:
@@ -101,23 +67,19 @@ public class Boss3AI : MonoBehaviour
                 }
                 break;
             case 3:
-                //round = round + 1;
+                round = round + 1;
                 spellOrder = 1;
                 break;
         }
 
     }
 
-
-
-
     private bool Spell1(Vector3 playerPosition)
     {
-
         switch (Spell1Step)
         {
             case 1:
-                Spell1Step = Jump(1, 2);
+                Spell1Step = Jump( 2);
                 break;
             case 2:
                 if(wait(1f)) Spell1Step = 3;
@@ -163,19 +125,14 @@ public class Boss3AI : MonoBehaviour
                 if (wait(1f)) Spell1Step = 14;
                 break;
             case 14:
+                Spell1Step = 1;
                 return true;
- 
         }
-
         return false;
-
     }
-
 
     private bool Spell2(Vector3 playerPosition)
     {
-
-
         switch (Spell2Step)
         {
             case 1:
@@ -210,19 +167,16 @@ public class Boss3AI : MonoBehaviour
                 Spell2Step = fire3(10);
                 break;
             case 10:
+                Spell2Step = 1;
                 return true;
         }
-
         return false;
-
     }
 
-
-    private int Jump(int step1, int step2)
+    private int Jump(int step2)
     {
         Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
         rb.AddForce(new Vector2(0f,2500f));
-       // rb.MovePosition(desiredPosition);
         return step2;
     }
 
@@ -236,11 +190,6 @@ public class Boss3AI : MonoBehaviour
         rb.AddForce(initialVelocity * direction, ForceMode2D.Impulse);
     }
 
-
-
-
-
-
     private float CalculateJumpSpeed(float jumpHeight, float gravity)
     {
         return Mathf.Sqrt(2 * jumpHeight * gravity);
@@ -249,7 +198,6 @@ public class Boss3AI : MonoBehaviour
 
     private void resetVec()
     {
-
         Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(0, 0);
     }
@@ -275,7 +223,6 @@ public class Boss3AI : MonoBehaviour
         summorProjectile(gameObject.transform.position, 15, 1 * 8);
         summorProjectile(gameObject.transform.position, 12, 1 * 5);
         return step; 
-
     }
 
     private int fire2(int step)
@@ -295,21 +242,14 @@ public class Boss3AI : MonoBehaviour
         return step;
     }
 
-
-
     private void summorProjectile(Vector3 firePosition,int up,int right) // -1 right 1 left
     {
         firedProjectile =  Instantiate(Projectile, firePosition, Quaternion.Euler(0, gameObject.transform.rotation.y, 0f));
-
         firedProjectile.GetComponent<Rigidbody2D>().velocity = transform.up * up + transform.right * right * -1 ;
-
-        //Vector3 from = firePosition - new Vector3(0, up,0);
-        //Vector3 to = player.transform.position;
-        //JumpTowardPoint(firedProjectile.GetComponent<Rigidbody2D>(), from, to);
     }
 
 
-
+    // below are genetic boss function 
     private int Dash(Vector3 playerPosition, float speed, int step1, int step2)
     {
         Vector3 dir = playerPosition - transform.position;
@@ -322,14 +262,12 @@ public class Boss3AI : MonoBehaviour
         {
             return step2;
         }
-
         return step1;
     }
 
 
     private void BossTurning(float playerXpos)
-    {
-
+    { 
         if ((playerXpos - transform.position.x) > 0)
         {
             transform.rotation = Quaternion.Euler(0, 180f, 0);
@@ -346,21 +284,10 @@ public class Boss3AI : MonoBehaviour
         }
     }
 
-
-
-
     private bool CooldownReady()
     {
-
-        if (cooldownRemain <= 0)
-        {
-            return true;
-        }
-        else
-        {
-            cooldownRemain -= Time.deltaTime;
-        }
-
+        if (cooldownRemain <= 0) return true;
+        else cooldownRemain -= Time.deltaTime;
         return false;
     }
 
@@ -369,7 +296,6 @@ public class Boss3AI : MonoBehaviour
     {
         cooldownRemain = cooldownTime;
     }
-
 
     private bool wait(float time)
     {

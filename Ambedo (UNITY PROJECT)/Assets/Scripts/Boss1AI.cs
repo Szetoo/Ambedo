@@ -11,8 +11,6 @@ public class Boss1AI : MonoBehaviour
     public GameObject ParabolaRoot;
     public GameObject fireBall;
 
-
-
     // Constant
     private float cooldownTime = 1f;
     private float dashSpeed = 25f;
@@ -32,29 +30,19 @@ public class Boss1AI : MonoBehaviour
     private int Spell2Step = 1;
     private Vector3 firePosition;
 
-
     //Boss attack variable
     public int spellOrder = 1;
     private int round = 0;
     public bool playerOnBoss = false;
-    Vector3 BossMovePos;
     Vector3 BossOriginPos;
     Vector3 BossflytoPos;
-
 
     // player position
     private Transform playerPosition;
 
-
-    // player position
-    private Vector3 playerPos;
-
-
-    // boss current HP
-    private float currentHP;
+    // boss variables
     private float cooldownRemain = 0.4f;
     private int bossDirection = 1; // 1 == left 2 == right
-
 
     // Parabola variable
     protected ParabolaFly parabolaFly;
@@ -68,41 +56,22 @@ public class Boss1AI : MonoBehaviour
     private bool waitstart = true;
     private float timeRemain;
 
-    void Start()
-    {
-     
-    }
-
     // Update is called once per frame
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
-        {
+        { 
             playerPosition = player.transform;
-        }
-
-        currentHP = gameObject.GetComponent<BossHealth>().currentHp;
-        if (player != null)
-        {
             BossTurning(playerPosition.position.x);
         }
         
-
-        if (CooldownReady())
-        {
-          
-            AttackEvent(playerPosition.position, BossOriginPos, BossflytoPos);
-
-        }
+        if (CooldownReady())AttackEvent(playerPosition.position, BossOriginPos, BossflytoPos);
         else
         {
             BossOriginPos = ParabolaRoot.transform.GetChild(2).transform.position;
             BossflytoPos = BossOriginPos + new Vector3(0f, 20f, 0f);
         }
-
-
-
     }
 
     void AttackEvent(Vector3 PlayerPosition, Vector3 BossOriginPosition, Vector3 BossFlyto)
@@ -119,18 +88,20 @@ public class Boss1AI : MonoBehaviour
             case 2:
                 if (Spell2(BossOriginPosition, BossFlyto))
                 {
-                    spellOrder = 1;
+                    spellOrder = 3;
                     ResetCooldown();
                 }
                 break;
-
+            case 3:
+                round++;
+                spellOrder = 1;
+                break;
         }
     }
 
 
     private bool Spell1(Vector3 PlayerPosition)
     {
-
         switch (Spell1Step)
         {
             case 0:
@@ -179,14 +150,10 @@ public class Boss1AI : MonoBehaviour
                 Spell2Step = summorFireball();
                 break;
             case 3:
-                if (wait(1.0f))
-                {
-                    Spell2Step = 4;
-                }
+                if (wait(1.0f))Spell2Step = 4;
                 break;
             case 4:
                 Spell2Step = Dash(BossOriginPosition, 10f, 4, 5);
-                //Spell2Step = summorFireball();
                 break;
             case 5:
                 Spell2Step = 1;
@@ -223,7 +190,22 @@ public class Boss1AI : MonoBehaviour
         return step1;
     }
 
+    private void findCameraPos()
+    {
+        camera = GameObject.FindGameObjectWithTag("MainCamera");
+        camPos = new Vector3(camera.transform.position.x, camera.transform.position.y, 0f) ;
+    }
 
+    private void updatePosition(GameObject ParabolaRoot, int dir, Vector3 PlayerPosition)
+    {
+        // 1 is from right to left, -1 is from left to right
+        ParabolaRoot.transform.GetChild(0).transform.position = camPos + new Vector3(dir * camX, camY, 0f);
+        ParabolaRoot.transform.GetChild(1).transform.position = PlayerPosition;
+        ParabolaRoot.transform.GetChild(2).transform.position = camPos + new Vector3(-1 * dir * camX, camY, 0f);
+
+    }
+
+    // below are genetic boss function
     private int Dash(Vector3 targetPosition, float speed, int step1, int step2)
     {
         Vector3 dir = targetPosition - transform.position;
@@ -241,49 +223,6 @@ public class Boss1AI : MonoBehaviour
     }
 
 
-    private bool move(Vector3 targetPosition, float speed, Transform Origin)
-    {
-        Vector3 dir = targetPosition - Origin.position;
-
-        float distanceThisFrame = speed * Time.deltaTime;
-
-        Origin.Translate(dir.normalized * distanceThisFrame, Space.World);
-
-        if (dir.magnitude <= (distanceThisFrame))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-
-    private void charge(float destoryTime)
-    {
-        ChargeObject = Instantiate(chargeEffect, chargePosition.position, chargePosition.rotation);
-        Destroy(ChargeObject, destoryTime);
-
-    }
-
-
-    private void findCameraPos()
-    {
-        camera = GameObject.FindGameObjectWithTag("MainCamera");
-        camPos = new Vector3(camera.transform.position.x, camera.transform.position.y, 0f) ;
-    }
-
-    private void updatePosition(GameObject ParabolaRoot, int dir, Vector3 PlayerPosition)
-    {
-        // 1 is from right to left
-        // -1 is from left to right
-        ParabolaRoot.transform.GetChild(0).transform.position = camPos + new Vector3(dir * camX, camY, 0f);
-        ParabolaRoot.transform.GetChild(1).transform.position = PlayerPosition;
-        ParabolaRoot.transform.GetChild(2).transform.position = camPos + new Vector3(-1 * dir * camX, camY, 0f);
-
-    }
-
-
-
     private void ResetCooldown()
     {
         cooldownRemain = cooldownTime;
@@ -292,16 +231,8 @@ public class Boss1AI : MonoBehaviour
 
     private bool CooldownReady()
     {
-
-        if (cooldownRemain <= 0)
-        {
-            return true;
-        }
-        else
-        {
-            cooldownRemain -= Time.deltaTime;
-        }
-
+        if (cooldownRemain <= 0) return true;
+        else cooldownRemain -= Time.deltaTime;
         return false;
     }
 
@@ -325,7 +256,6 @@ public class Boss1AI : MonoBehaviour
             bossDirection = 1;
         }
     }
-
 
     private bool wait(float time)
     {
