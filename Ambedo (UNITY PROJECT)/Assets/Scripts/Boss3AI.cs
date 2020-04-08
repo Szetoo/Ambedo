@@ -11,14 +11,15 @@ public class Boss3AI : MonoBehaviour
     // Constant 
     private float cooldownTime = 2.0f;
     private float jumpHeight = 0.2f;
+    private float groundHeight = - 26.7f;
 
     // Spell1 Variable
-    private int Spell1Step = 1;
+    public int Spell1Step = 1;
     private Vector3 groundPos;
     private GameObject firedProjectile;
 
     // Spell2 Variable
-    private int Spell2Step = 1;
+    public int Spell2Step = 1;
 
     //Boss attack variable
     public int spellOrder = 1;
@@ -30,6 +31,8 @@ public class Boss3AI : MonoBehaviour
     // boss variable
     private float cooldownRemain = 3.0f;
     public int bossDirection = 1; // -1 == left 1 == right
+    private bool hitground = false;
+    private CircleCollider2D CircleCollider;
 
     // wait function variable
     private bool waitstart = true;
@@ -40,7 +43,7 @@ public class Boss3AI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerPosition = player.transform;
         BossTurning(playerPosition.position.x); // turning
-
+        CircleCollider = gameObject.GetComponent<CircleCollider2D>() ;
         if (CooldownReady())
             {
                 AttackEvent();
@@ -84,12 +87,12 @@ public class Boss3AI : MonoBehaviour
             case 2:
                 if(wait(1f)) Spell1Step = 3;
                 break;
-            case 3:
+            case 3:   
                 JumpTowardPoint(gameObject.GetComponent<Rigidbody2D>(),gameObject.transform.position, playerPosition);
                 Spell1Step = 4;
                 break;
             case 4:
-                if (gameObject.transform.position.y < -27.5) Spell1Step = 5;
+                if (hitground) Spell1Step = 5;
                 break;
             case 5:
                 resetVec();
@@ -114,7 +117,7 @@ public class Boss3AI : MonoBehaviour
                 Spell1Step = Dash(groundPos, 5, 10, 11);
                 break;
             case 11:
-                gameObject.GetComponent<BoxCollider2D>().enabled = true;
+                gameObject.GetComponent<EdgeCollider2D>().enabled = true;
                 gameObject.GetComponent<Rigidbody2D>().WakeUp();
                 Spell1Step = 12;
                 break;
@@ -143,7 +146,7 @@ public class Boss3AI : MonoBehaviour
                 if (wait(0.5f)) Spell2Step = 3;
                 break;
             case 3:
-                if (gameObject.transform.position.y < -27.5) Spell2Step = 4;
+                if (hitground) Spell2Step = 4;
                 break;
             case 4:
                 resetVec();
@@ -160,7 +163,7 @@ public class Boss3AI : MonoBehaviour
                 if (wait(0.5f)) Spell2Step = 8;
                 break;
             case 8:
-                if (gameObject.transform.position.y < -27.6) Spell2Step = 9;
+                if (hitground) Spell2Step = 9;
                 break;
             case 9:
                 resetVec();
@@ -173,8 +176,21 @@ public class Boss3AI : MonoBehaviour
         return false;
     }
 
+
+    private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
+    {
+        if (collision.tag == "Boss2AndPlayer")
+        {
+            hitground = true;
+        }
+    }
+
+
+    
+
     private int Jump(int step2)
     {
+
         Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
         rb.AddForce(new Vector2(0f,2500f));
         return step2;
@@ -182,6 +198,9 @@ public class Boss3AI : MonoBehaviour
 
     void JumpTowardPoint(Rigidbody2D rb, Vector3 from, Vector3 to)
     {
+        hitground = false;
+        CircleCollider.enabled = true;
+        gameObject.GetComponent<Animator>().SetBool("Moving", true);
         float gravity = Physics.gravity.magnitude;
         float initialVelocity = CalculateJumpSpeed(jumpHeight, gravity);
 
@@ -198,6 +217,9 @@ public class Boss3AI : MonoBehaviour
 
     private void resetVec()
     {
+        hitground = false;
+        CircleCollider.enabled = false;
+        gameObject.GetComponent<Animator>().SetBool("Moving", false);
         Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(0, 0);
     }
@@ -205,7 +227,7 @@ public class Boss3AI : MonoBehaviour
 
     private void GoUnderground()
     {
-        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        gameObject.GetComponent<EdgeCollider2D>().enabled = false;
         gameObject.GetComponent<Rigidbody2D>().Sleep();
         groundPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 2, 0);
 
@@ -252,6 +274,7 @@ public class Boss3AI : MonoBehaviour
     // below are genetic boss function 
     private int Dash(Vector3 playerPosition, float speed, int step1, int step2)
     {
+        gameObject.GetComponent<Animator>().SetBool("Moving", true);
         Vector3 dir = playerPosition - transform.position;
 
         float distanceThisFrame = speed * Time.deltaTime;
@@ -260,6 +283,7 @@ public class Boss3AI : MonoBehaviour
 
         if (dir.magnitude <= (distanceThisFrame))
         {
+            gameObject.GetComponent<Animator>().SetBool("Moving", false);
             return step2;
         }
         return step1;

@@ -135,7 +135,7 @@ public class BossHealth : MonoBehaviour
             }
             else
             {
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x + 100, gameObject.transform.position.y, 0f);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x + 1, gameObject.transform.position.y, 0f);
             }
         }
 
@@ -147,7 +147,7 @@ public class BossHealth : MonoBehaviour
             }
             else
             {
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x - 100, gameObject.transform.position.y, 0f);
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x - 1, gameObject.transform.position.y, 0f);
             }
         }
         //gameObject.GetComponent<Boss1AI>().enabled = true;
