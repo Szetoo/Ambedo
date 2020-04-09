@@ -47,9 +47,7 @@ public class PlayerHealthController : MonoBehaviour
         
         if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
         {
-           // Debug.Log("Reading Save File");
             // 2
-            // player = GameObject.FindGameObjectWithTag("Player");
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
             Save save = (Save)bf.Deserialize(file);

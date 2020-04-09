@@ -19,7 +19,6 @@ public class BossProjectile4 : MonoBehaviour
     private void OnDestroy()
     {
         GameObject impact = Instantiate(ImpactEffect, transform.position, Quaternion.identity);
-        //Destroy(collision.gameObject);
         Destroy(impact, 0.9f);
     }
 

@@ -5,16 +5,14 @@ using UnityEngine;
 public class level3PuzzleCode : MonoBehaviour
 {
     private int[] password;
-    public int BossOrLevel;
+    public int BossOrLevel; // 1 stands for puzzle , 2 stands for boss;
     private int index = 0;
     public GameObject Boss;
     private GameObject Summoner;
     public GameObject position;
 
 
-    private 
-
-    // Start is called before the first frame update
+  
     void Start()
     {
         if (BossOrLevel == 1)  password = new int[] { 2, 1, 3, 1, 3, 2, 2};

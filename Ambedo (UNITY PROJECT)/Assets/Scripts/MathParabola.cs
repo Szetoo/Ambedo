@@ -1,8 +1,10 @@
 using UnityEngine;
 using System;
 
+// ref: https://github.com/nkpark/Unity3D-MathParabola/blob/master/MathParabola.cs
 public class MathParabola
 {
+
 
     public static Vector3 Parabola(Vector3 start, Vector3 end, float height, float t)
     {

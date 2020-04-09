@@ -6,16 +6,12 @@ public class bossRoomLock : MonoBehaviour
 {
     public GameObject doorOpen;
     public GameObject player;
-    public GameObject Boss;
+    public GameObject boss;
     private bool active = false;
     private bool closeDoor = false;
-    
+    private float moveLeftBound = 325.5f;
+    private float moveRightBound = 330.6f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -42,13 +38,13 @@ public class bossRoomLock : MonoBehaviour
 
     public void OpenDoor()
     {
-        if (doorOpen.transform.position.x >= 325.5f) doorOpen.transform.position -= new Vector3(0.1f, 0, 0);
+        if (doorOpen.transform.position.x >= moveLeftBound) doorOpen.transform.position -= new Vector3(0.1f, 0, 0);
     }
 
     public void CloseDoor()
     {
 
-        if (doorOpen.transform.position.x <= 330.6f) doorOpen.transform.position += new Vector3(0.1f, 0, 0);
-        else Boss.SetActive(true);
+        if (doorOpen.transform.position.x <= moveRightBound) doorOpen.transform.position += new Vector3(0.1f, 0, 0);
+        else boss.SetActive(true);
     }
 }

@@ -17,18 +17,6 @@ public class destoryPlat : MonoBehaviour
     private Quaternion rot5;
 
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -39,6 +27,7 @@ public class destoryPlat : MonoBehaviour
 
     void OnDestroy()
     {
+        // if the platform is destory it will fire 5 projectiles  
         rot1 = Quaternion.Euler(0, 0f, 180f);
         rot2 = Quaternion.Euler(0, 0f, 270f);
         rot3 = Quaternion.Euler(0, 0f, 130f);
@@ -50,7 +39,6 @@ public class destoryPlat : MonoBehaviour
         sumorProjectile(rot4);
         sumorProjectile(rot5);
     }
-
 
 
     private void sumorProjectile(Quaternion rotation)

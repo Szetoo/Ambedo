@@ -39,8 +39,6 @@ public class Boss4AI : MonoBehaviour
     //Boss attack variable
     public int spellOrder = 1;
     private int round = 0;
-    Vector3 BossOriginPos;
-    Vector3 BossflytoPos;
 
     // player position
     private Transform playerPosition;
@@ -68,10 +66,10 @@ public class Boss4AI : MonoBehaviour
             BossTurning(playerPosition.position.x);
         }
 
-        if (CooldownReady()) AttackEvent(playerPosition.position, BossOriginPos, BossflytoPos);
+        if (CooldownReady()) AttackEvent(playerPosition.position);
     }
 
-    void AttackEvent(Vector3 PlayerPosition, Vector3 BossOriginPosition, Vector3 BossFlyto)
+    void AttackEvent(Vector3 PlayerPosition)
     {
         switch (spellOrder)
         {

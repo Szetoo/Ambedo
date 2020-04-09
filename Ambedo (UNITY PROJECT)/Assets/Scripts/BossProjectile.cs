@@ -6,7 +6,7 @@ public class BossProjectile : MonoBehaviour
 {
 
     public float projectileSpeed;
-    public GameObject ImpactEffect;
+    public GameObject impactEffect;
     public Rigidbody2D rigidBody;
 
 
@@ -20,8 +20,8 @@ public class BossProjectile : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameObject impact = Instantiate(ImpactEffect, transform.position, Quaternion.identity);
-        //Destroy(collision.gameObject);
+        // impact effect after get destoryed
+        GameObject impact = Instantiate(impactEffect, transform.position, Quaternion.identity);
         Destroy(impact, 0.9f);
     }
 

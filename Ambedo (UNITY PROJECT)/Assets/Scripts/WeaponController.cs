@@ -57,18 +57,4 @@ public class WeaponController : MonoBehaviour {
 			
 	}
 
-//	void UserFunction () {
-//		float TK1;
-//		float TK2;
-//		float TK3;
-//
-//		float[] myArray = { TK1, TK2, TK3 };
-//
-//		for (int i = 0; i < myArray.Length; i++) {
-//			if (myArray [i] < 2.55 || myArray [i] > 2.95)
-//				return 1;
-//			else
-//				return 0;
-//		}
-//	}
 }

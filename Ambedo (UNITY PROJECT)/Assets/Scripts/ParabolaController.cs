@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+// ref : https://github.com/nkpark/Unity3D-MathParabola/blob/master/MathParabola.cs
 public class ParabolaController : MonoBehaviour
 {
     /// <summary>

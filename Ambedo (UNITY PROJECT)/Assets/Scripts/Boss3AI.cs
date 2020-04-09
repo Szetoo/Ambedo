@@ -45,10 +45,12 @@ public class Boss3AI : MonoBehaviour
         CircleCollider = gameObject.GetComponent<CircleCollider2D>() ;
         if (CooldownReady())
             {
-                AttackEvent();
+                AttackEvent(); // it only use 1 spell after cooldown is 0;
             }
     }
 
+
+    
     void AttackEvent()
     {
         switch (spellOrder)
@@ -57,7 +59,7 @@ public class Boss3AI : MonoBehaviour
                 if (Spell1(player.transform.position))
                 {
                     spellOrder = 2;
-                    ResetCooldown();
+                    ResetCooldown(); // reset the cooldown after the spell is done;
                 }
                 break;
             case 2:
@@ -190,7 +192,7 @@ public class Boss3AI : MonoBehaviour
         return nextStep;
     }
 
-    void JumpTowardPoint(Rigidbody2D rb, Vector3 from, Vector3 to)
+    private void JumpTowardPoint(Rigidbody2D rb, Vector3 from, Vector3 to)
     {
         hitground = false;
         CircleCollider.enabled = true;
@@ -230,7 +232,7 @@ public class Boss3AI : MonoBehaviour
         groundPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 3 , 0);
     }
 
-     private int Fire1(int nextStep)
+    private int Fire1(int nextStep)
     {
         SummorProjectile(gameObject.transform.position, 15, 1 * 8);
         SummorProjectile(gameObject.transform.position, 12, 1 * 5);
@@ -254,7 +256,7 @@ public class Boss3AI : MonoBehaviour
         return nextStep;
     }
 
-    private void SummorProjectile(Vector3 firePosition,int up,int right) // -1 right 1 left
+    private void SummorProjectile(Vector3 firePosition,int up,int right) // -1 right, 1 left
     {
         firedProjectile =  Instantiate(Projectile, firePosition, Quaternion.Euler(0, gameObject.transform.rotation.y, 0f));
         firedProjectile.GetComponent<Rigidbody2D>().velocity = transform.up * up + transform.right * right * -1 ;
