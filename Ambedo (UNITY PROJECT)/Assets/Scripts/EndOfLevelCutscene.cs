@@ -6,6 +6,8 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 
+//This script manages which level to load next upon reaching the end of a level
+//This script sets the correct starting point of the next level
 public class EndOfLevelCutscene : MonoBehaviour
 {
     private bool hasBeenTriggered;
@@ -42,10 +44,10 @@ public class EndOfLevelCutscene : MonoBehaviour
         {
             sceneToLoadName = "Orphanage";
         }
-        //sceneToLoad.LoadSceneByName(sceneToLoadName);
+
     }
 
-    // Update is called once per frame
+
     void Update()
     {
 
@@ -65,9 +67,7 @@ public class EndOfLevelCutscene : MonoBehaviour
 private void SaveToGame()
 {
 
-    // Debug.Log("Reading Save File");
-    // 2
-    // player = GameObject.FindGameObjectWithTag("Player");
+
     BinaryFormatter bf = new BinaryFormatter();
     FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
     Save save = (Save)bf.Deserialize(file);
@@ -88,19 +88,16 @@ private void SaveToGame()
 
 
 
-        //Save save2 = save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
 
-
-        //Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
         Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2,enemies3, currentEXP, currentLevel, trigger);
 
-        // 2
+
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
     bf.Serialize(file, save2);
     file.Close();
         Debug.Log(Application.persistentDataPath);
         Debug.Log("Level is now: " + nextLevelNumber);
-    //Unpause();
+
 
 
 }

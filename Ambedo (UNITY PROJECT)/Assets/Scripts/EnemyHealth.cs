@@ -4,6 +4,9 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+//This script manages Enemy Health and upon death, will change the boolean value of the correct enemy
+//in the dictionary to false so the enemy does not spawn again. This contributes to player
+//experience since it solidifies that the player's actions have immediate and lasting effects.
 public class EnemyHealth : MonoBehaviour
 {
 
@@ -44,13 +47,7 @@ public class EnemyHealth : MonoBehaviour
             Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
             Dictionary<string, bool> enemies3 = save.enemiesInLevel3;
             string enemyName = gameObject.name;
-            //Debug.Log(enemyName);
-            //Debug.Log("Here are the enemies in Level 2: ");
-            //Debug.Log(enemies2);
-            foreach(KeyValuePair<string, bool> kvp in enemies2)
-            {
-               // Debug.Log( kvp.Key + kvp.Value);
-            }
+
             if (currentGameLevel == 1) {
                 if (enemies[enemyName] == false)
                 {
@@ -76,14 +73,7 @@ public class EnemyHealth : MonoBehaviour
                 }
             }
 
-            //Dictionary<string, bool> enemies = save.enemiesInLevel1;
-            /*
-            string enemyName = gameObject.name;
-            Debug.Log(enemyName);
-            if (enemies[enemyName] == false)
-            {
-                gameObject.SetActive(false);
-            }*/
+
         }
         else
         {
@@ -198,19 +188,15 @@ public class EnemyHealth : MonoBehaviour
 
 
     }
-
+    //Saving the correct status of the enemy to the save file.
     private void SaveToGame()
     {
         
-            // Debug.Log("Reading Save File");
-            // 2
-            // player = GameObject.FindGameObjectWithTag("Player");
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
             Save save = (Save)bf.Deserialize(file);
             file.Close();
 
-        // 3
        
         
             int gameLevel = save.saveFileLevel;
@@ -241,35 +227,16 @@ public class EnemyHealth : MonoBehaviour
         }
         
 
-
-           
-            //gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
-            Debug.Log("Game Loaded");
-
         Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, enemies3, currentEXP, currentLevel, trigger);
 
-        // 2
+
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
         bf.Serialize(file, save2);
         file.Close();
 
-        //Unpause();
+
 
 
     }
-    /*private Save CreateSaveGameObject(int level, float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, Dictionary<string, bool> enemies2, float currentEXP, int currentLevel)
-    {
-        Save save = new Save();
-        //player = GameObject.FindGameObjectWithTag("Player");
-        save.saveFileLevel = level;
-        save.xSpawnPosition = xPosition;
-        save.ySpawnPosition = yPosition;
-        save.isWielding = isWielding;
-        save.enemiesInLevel1 = enemies;
-        save.enemiesInLevel2 = enemies2;
-        save.currentEXP = currentEXP;
-        save.currentLevel = currentLevel;
 
-        return save;
-    }*/
 }

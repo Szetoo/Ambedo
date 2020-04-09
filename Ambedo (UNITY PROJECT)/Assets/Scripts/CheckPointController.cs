@@ -6,6 +6,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.UI;
 
+//This script saves the position of the checkpoint to the save file so that the player will
+//spawn at the most recent checkpoint.
 public class CheckPointController : MonoBehaviour { 
 
     public bool enabled;
@@ -13,7 +15,6 @@ public class CheckPointController : MonoBehaviour {
     private float yCheckPointPosition;
     private GameObject player;
 
-    // Start is called before the first frame update
     void Start()
     {
         enabled = true;
@@ -22,7 +23,6 @@ public class CheckPointController : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -33,15 +33,11 @@ public class CheckPointController : MonoBehaviour {
     {
     if (other.gameObject.tag == "Player" & enabled == true)
     {
-
+            //Saving checkpoint position to save file
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
             Save save = (Save)bf.Deserialize(file);
             file.Close();
-
-            // 3
-
-
             int gameLevel = save.saveFileLevel;
             Dictionary<string, bool> enemies = save.enemiesInLevel1;
             Dictionary<string, bool> enemies2 = save.enemiesInLevel2;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This script changes enemy behaviour depending on if the player is close enough to the enemy.
 public class EnemyAggroZone : MonoBehaviour {
 
     public bool playerNearby;

@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.UI;
 using UnityEngine.Playables;
 
+//This script manages all player health related behaviours such as Level, HP, MaxHP, Current Level, EXP and death.
 public class PlayerHealthController : MonoBehaviour
 {
 
@@ -81,22 +82,20 @@ public class PlayerHealthController : MonoBehaviour
     }
     void Start()
     {
-       // currentEXP = 0;
+
         maxEXP = 100;
-       // currentHP = maxHP;
-        //invincible = false;
+
         CalculateHPCanvas();
         CalculateEXPCanvas();
-        //currentLevel = 1;
-       // isLevelingUp = false;
+
  
     }
 
 
-    // Update is called once per frame
+
     void Update()
     {
-        //Debug.Log(currentEXP);
+
         if (currentHP < maxHP & canHealTime < Time.time)
         {
             healPlayer(healAmount);
@@ -122,7 +121,7 @@ public class PlayerHealthController : MonoBehaviour
 
     private void CalculateHPCanvas()
     {
-        //gameObject.GetComponent<SpriteRenderer>().sprite = transformations[currentLevel - 1];
+
         for (int i = 0; i < hearts.Length; i++)
         {
             if (i < currentHP / 100)

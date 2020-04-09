@@ -6,6 +6,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.UI;
 using UnityEngine.Playables;
 
+//This script determines which Final Cutscene gets player depending on the player's level.
+//This script controls the behaviour to show the player the weight of their decisions at the end of the game.
 public class FinalCutsceneController : MonoBehaviour
 {
     

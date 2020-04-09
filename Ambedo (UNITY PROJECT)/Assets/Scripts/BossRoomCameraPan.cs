@@ -6,10 +6,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.UI;
 using System.IO;
 
+//This script is used for the camera pan in the first level
+//This script highlights the player's available choices which is extremely important for our game experience.
 public class BossRoomCameraPan : MonoBehaviour
 {
-
-
 
     GameObject player;
     public bool hasBeenTriggered;
@@ -18,27 +18,17 @@ public class BossRoomCameraPan : MonoBehaviour
     {
         if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
         {
-            //Debug.Log("Reading Save File");
-            // 2
-            // player = GameObject.FindGameObjectWithTag("Player");
+ 
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
             Save save = (Save)bf.Deserialize(file);
             file.Close();
-
-            // 3
-            //Debug.Log(save.cameraPanHasBeenActivated);
-
             hasBeenTriggered = save.cameraPanHasBeenActivated;
             if (hasBeenTriggered == true)
             {
                 Destroy(gameObject);
             }
             
-
-
-
-            //Unpause();
         }
         else
         {
@@ -51,8 +41,6 @@ public class BossRoomCameraPan : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        //hasBeenTriggered = false;
-
     }
 
     // Update is called once per frame
@@ -67,27 +55,20 @@ public class BossRoomCameraPan : MonoBehaviour
             hasBeenTriggered = true;
             StartCoroutine(SaveToGame(true));
             hasBeenTriggered = true;
-            //SaveToGame(true);
-            //gameObject.GetComponent<PlayableDirector>().Play();
-            //gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            //hasBeenTriggered = true;
-            //SaveToGame(hasBeenTriggered);
 
         }
     }
 
+    //Saving to the file if it has been triggered before so that the player will not trigger it again.
     private IEnumerator SaveToGame(bool trigger)
     {
 
-        // Debug.Log("Reading Save File");
-        // 2
-        // player = GameObject.FindGameObjectWithTag("Player");
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
         Save save = (Save)bf.Deserialize(file);
         file.Close();
 
-        // 3
+
         int gameLevel = save.saveFileLevel;
         float xPosition = save.xSpawnPosition;
         float yPosition = save.ySpawnPosition;
@@ -97,18 +78,11 @@ public class BossRoomCameraPan : MonoBehaviour
         Dictionary<string, bool> enemies3 = save.enemiesInLevel3;
         float curEXP = save.currentEXP;
         int curLevel = save.currentLevel;
-        //bool cameraPanBool = trigger;
-        //Debug.Log("camera pan value");
-       // Debug.Log(trigger);
-
-
-
-
 
 
         Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, enemies3, curEXP, curLevel, true);
 
-        // 2
+
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
         bf.Serialize(file, save2);
         file.Close();
@@ -116,10 +90,10 @@ public class BossRoomCameraPan : MonoBehaviour
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
 
 
-        //Unpause();
+
         yield return null;
 
-        //Destroy(gameObject);
+
     }
 
     

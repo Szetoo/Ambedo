@@ -5,6 +5,9 @@ using UnityEngine.Playables;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+//This script manages the behaviour for when the player first collects the sword.
+//The player will ALWAYS have the sword after this point and isWielding is always true now
+//so that the player always has the sword. This gets saved to the save file.
 public class SwordCutscene : MonoBehaviour { 
 
     GameObject player;
@@ -48,41 +51,20 @@ public class SwordCutscene : MonoBehaviour {
             gameObject.GetComponent<PlayableDirector>().Play();
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             player.GetComponent<PlayerMovementController>().isWielding = true;
-            //player.GetComponent<PlayerMovementController>().horizontalMovement(other.GetComponent<Rigidbody2D>(), 2);
+
             SaveToGame();
 
-            /*
-            Save save = CreateSaveGameObject();
-
-            // 2
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");
-            bf.Serialize(file, save);
-            file.Close();
-            */
+         
             hasBeenTriggered = true;
 
         }
     }
-    /*
-    private Save CreateSaveGameObject()
-    {
-        Save save = new Save();
-        //player = GameObject.FindGameObjectWithTag("Player");
-
-        save.xSpawnPosition = xCheckPointPosition;
-        save.ySpawnPosition = yCheckPointPosition;
-        save.isWielding = true;
-
-        return save;
-    }*/
+    
 
     private void SaveToGame()
     {
 
-        // Debug.Log("Reading Save File");
-        // 2
-        // player = GameObject.FindGameObjectWithTag("Player");
+
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
         Save save = (Save)bf.Deserialize(file);
@@ -105,7 +87,6 @@ public class SwordCutscene : MonoBehaviour {
 
 
 
-        //Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
         Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, enemies3, currentEXP, currentLevel, trigger);
 
         // 2
@@ -113,7 +94,6 @@ public class SwordCutscene : MonoBehaviour {
         bf.Serialize(file, save2);
         file.Close();
 
-        //Unpause();
 
 
     }

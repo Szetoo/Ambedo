@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+//This controller controls the movement of the EXP orbs when they are spawned.
+//Upon contact with the player, they will increase the player's EXP and save to the save file.
 public class OrbController : MonoBehaviour
 
 {

@@ -65,7 +65,6 @@ public class BossHealth : MonoBehaviour
         {
             StartCoroutine(SpawnOrbs());
             StartCoroutine(killBoss());
-           // StartCoroutine(SpawnOrbs());
         }
 
     }
@@ -86,20 +85,7 @@ public class BossHealth : MonoBehaviour
             invincibilityExpiry = Time.time + invincibilityTime;
             canHealTime = invincibilityExpiry + 6;
         }
-        /*if (other.gameObject.tag == "PlayerAttackHitbox" & invincible == false)
-        {
-
-
-            knockBack(gameObject);
-
-
-            currentHp = currentHp - 100;
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
-            // Debug.Log(currentHp);
-            invincible = true;
-            invincibilityExpiry = Time.time + invincibilityTime;
-            canHealTime = invincibilityExpiry + 6;
-        }*/
+      
     }
 
     public IEnumerator SpawnOrbs()
@@ -111,21 +97,13 @@ public class BossHealth : MonoBehaviour
             Instantiate(orb, new Vector3(gameObject.transform.position.x + Random.Range(0, 1), gameObject.transform.position.y, 0), Quaternion.identity);
         }
 
-        //float step = 2 * Time.deltaTime;
-
         yield return null;
-
-
 
     }
 
 
-
     public void knockBack(Collider2D other)
     {
-        //gameObject.GetComponent<Boss1AI>().enabled = false;
-        //gameObject.GetComponent<ParabolaController>().enabled = false;
-
 
         if (gameObject.transform.position.x > other.gameObject.transform.position.x)
         {
@@ -150,14 +128,15 @@ public class BossHealth : MonoBehaviour
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x - 1, gameObject.transform.position.y, 0f);
             }
         }
-        //gameObject.GetComponent<Boss1AI>().enabled = true;
-       // gameObject.GetComponent<ParabolaController>().enabled = true;
+
         
 
 
 
     }
 
+
+    //Different boss death behaviours for different bosses
     public IEnumerator killBoss()
     {
         gameObject.GetComponent<Animator>().SetBool("Alive", false);
@@ -177,32 +156,7 @@ public class BossHealth : MonoBehaviour
 
         }
         else { yield return new WaitForSeconds(1); }
-        //BoxCollider2D[] colliders = gameObject.GetComponents<BoxCollider2D>();
-        //EdgeCollider2D collider2 = gameObject.GetComponent<EdgeCollider2D>();
-        //yield return new WaitForSeconds(3);
-
-        //  Debug.Log("Play Boss Death and Player Transformation Cutscene");
-        // cutscene = GameObject.FindGameObjectWithTag("BossDeathCutscene");
-       // for (int i = 0; i < colliders.Length; i++)
-        //{
-         //   colliders[i].enabled = false;
-        //}
-        // Destroy(gameObject);
-
-        //collider2.enabled = false;
-        //yield return new WaitForSeconds(3);
-        //yield return new WaitForSeconds(5);
-
-
-        
-        //player = GameObject.FindGameObjectWithTag("Player");
-        //cam.GetComponent<CustomCamera.CameraMovement>().lowerDeadBound = 5f;
-        //cam.transform.localPosition = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
-        //cutscene.GetComponent<PlayableDirector>().Play();
-      
-        
-        //room.GetComponent<AudioSource>().enabled = false;
-        //cam.GetComponent<AudioSource>().enabled = true;
+  
         
         Destroy(gameObject);
     }

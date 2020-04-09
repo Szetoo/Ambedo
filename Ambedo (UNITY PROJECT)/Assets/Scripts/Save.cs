@@ -4,10 +4,11 @@ using UnityEngine;
 
 [System.Serializable]
 
+
+//Save file for the game and has all the important values for each player's save file. 
+//Also has a function that can be used to save the information to the save file.
 public class Save
 {
-    // public List<(int,int)> livingTargetPositions = new List<(int,int)>();
-    // public List<int> livingTargetsTypes = new List<int>();
 
 
     public int saveFileLevel;
