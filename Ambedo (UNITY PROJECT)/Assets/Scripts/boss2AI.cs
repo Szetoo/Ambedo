@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class boss2AI : MonoBehaviour
 {
-
+    // public object
     GameObject player;
+    public bool playerOnBoss = false;
 
     // Constant 
     private float cooldownTime = 2.0f;
     private float dashSpeed = 10f;
-    private float turnSpeed = 90f;
     private float stepBackSpeed = 20f;
 
-
     // Spell1 Variable
-    private int Spell1Step = 1;
+    private int spell1Step = 1;
     private Vector3 spell1Pos;
-    private Vector3 t;
+    private Vector3 bound;
 
     // Spell2 Variable
     float turntime = 1f;
     float timeRemain = 1f;
-    private int Spell2Step = 1;
+    private int spell2Step = 1;
 
     // stepBack Varible
     Vector3 stepBackPos2;
@@ -30,18 +29,15 @@ public class boss2AI : MonoBehaviour
     // Spell2 Variable
     public GameObject destoryPlat;
     private GameObject destoryPlatform;
-    private Vector3 PopUppos;
+    private Vector3 popUpPos;
     private Vector3 destoryPlatPos;
     private Vector3 destoryPlatpos;
-    private Vector3 MarkPos;
-
+    private Vector3 markPos;
 
     //Boss attack variable
-    public int spellOrder = 1;
+    private int spellOrder = 1;
     private int round = 0;
-    public bool playerOnBoss = false;
-    Vector3 BossMovePos;
-
+    Vector3 bossMovePos;
 
     // player position
     private Vector3 playerPosition;
@@ -78,9 +74,9 @@ public class boss2AI : MonoBehaviour
         {
             playerPosition = player.transform.position;
             float step = 10 * Time.deltaTime;
-            BossMovePos = new Vector3(playerPosition.x, transform.position.y, 0f);
+            bossMovePos = new Vector3(playerPosition.x, transform.position.y, 0f);
             BossTurning(playerPosition.x);
-            transform.position =  Vector3.MoveTowards(transform.position, BossMovePos, step);
+            transform.position =  Vector3.MoveTowards(transform.position, bossMovePos, step);
         }
     }
 
@@ -123,20 +119,20 @@ public class boss2AI : MonoBehaviour
 
     private bool Spell1(Vector3 playerPosition)
     {
-        switch (Spell1Step)
+        switch (spell1Step)
         {
             case 1:
-                t = Setbound(playerPosition);
-                Spell1Step = Dash(t, dashSpeed,1,2);
+                bound = Setbound(playerPosition);
+                spell1Step = Dash(bound, dashSpeed,1,2);
                 break;   
             case 2:
-                Spell1Step = TailChange();
+                spell1Step = TailChange();
                 break;
             case 3:
-                 Spell1Step = Dash(stepBackPos2, stepBackSpeed, 3, 4);
+                 spell1Step = Dash(stepBackPos2, stepBackSpeed, 3, 4);
                 break;
             case 4:
-                Spell1Step = 1;
+                spell1Step = 1;
                 return true;
         }
         return false;
@@ -146,33 +142,33 @@ public class boss2AI : MonoBehaviour
 
     private bool Spell2(Vector3 playerPosition)
     {
-        switch (Spell2Step)
+        switch (spell2Step)
         {
             case 1:
-                summorExclamation(playerPosition);
-                Spell2Step = 2;
+                SummorExclamation(playerPosition);
+                spell2Step = 2;
                 break;
             case 2:
-                if (wait(1.75f))Spell2Step = 3;
+                if (Wait(1.75f))spell2Step = 3;
                 break;
             case 3:
                 CreateThePlat(playerPosition);
-                Spell2Step = 4;
+                spell2Step = 4;
                 break;
             case 4:
-                Spell2Step = MoveUpPlatform();
+                spell2Step = MoveUpPlatform();
                 break;
             case 5:
                 destoryPlatPos = destoryPlatPos + new Vector3(bossDirection * 4 , 0, 0);
                 Debug.Log(destoryPlatPos.x);
-                Spell2Step = 6;
+                spell2Step = 6;
                 break;
             case 6:
-                Spell2Step = Dash(destoryPlatPos, dashSpeed, 6, 7);
+                spell2Step = Dash(destoryPlatPos, dashSpeed, 6, 7);
                 break;  
             case 7:
                 Destroy(destoryPlatform);
-                Spell2Step = 1;
+                spell2Step = 1;
                 return true;
         }
         return false;
@@ -189,39 +185,22 @@ public class boss2AI : MonoBehaviour
         return result;
     }
 
-
-    private bool Checkbound(Vector3 targetPosition)
-    {
-        bool result = false;
-
-        if (targetPosition.x > 391) return true;
-        else if (targetPosition.x < 364) return true;
-
-        return result;
-    }
-
-
     private int TailChange()
     {
-        //transform.Find("tailCollider").transform.rotation = Quaternion.Euler(0, 180f, 0);
 
         timeRemain -= Time.deltaTime;
 
         if (timeRemain <= 0)
         {
-           // transform.Find("tailCollider").transform.rotation = Quaternion.Euler(0, 0f, 0);
             timeRemain = turntime;
             FindStepPos();
             return 3;
-
         }
-     
         return 2;
     }
 
     private void FindStepPos()
     {
-        // stepBackPos1 = new Vector3(4f, 1f, 0.0f) + transform.position;
         stepBackPos2 = new Vector3(bossDirection * 8f + transform.position.x, transform.position.y, transform.position.z);
     }
 
@@ -229,29 +208,24 @@ public class boss2AI : MonoBehaviour
     {
         destoryPlatform = Instantiate(destoryPlat, destoryPlatpos, Quaternion.Euler(0, 0f, 0f));
         Destroy(destoryPlatform, 4f);
-        PopUppos = destoryPlatform.transform.position + new Vector3(0, 3.2f, 0);
-
+        popUpPos = destoryPlatform.transform.position + new Vector3(0, 3.2f, 0);
     }
-
-
 
     private int MoveUpPlatform()
     {
-
-        if (Move(destoryPlatform.transform, PopUppos, 20))
+        if (Move(destoryPlatform.transform, popUpPos, 20))
         {
             destoryPlatPos = new Vector3(destoryPlatform.transform.position.x, transform.position.y, 0f);
             return 5;
         }
-
         return 4;
     }
 
-    private void summorExclamation(Vector3 playerPosition)
+    private void SummorExclamation(Vector3 playerPosition)
     {
         destoryPlatpos = new Vector3(Random.Range(-1, 2) + playerPosition.x, -68f, 0);
-        MarkPos = destoryPlatpos - new Vector3(1f, 11f, 0f);
-        exclamationMark = Instantiate(exclamation, MarkPos, Quaternion.Euler(0, 0f, 0f));
+        markPos = destoryPlatpos - new Vector3(1f, 11f, 0f);
+        exclamationMark = Instantiate(exclamation, markPos, Quaternion.Euler(0, 0f, 0f));
         Destroy(exclamationMark, 2f);
     }
 
@@ -326,7 +300,7 @@ public class boss2AI : MonoBehaviour
     }
 
 
-    private bool wait(float time)
+    private bool Wait(float time)
     {
         gameObject.GetComponent<Animator>().SetBool("Moving", false);
 
