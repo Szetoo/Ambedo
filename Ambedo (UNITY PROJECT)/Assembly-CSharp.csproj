@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\BossHealth.cs" />
     <Compile Include="Assets\Scripts\BossProjectile.cs" />
     <Compile Include="Assets\Scripts\BossRoomCameraPan.cs" />
+    <Compile Include="Assets\Scripts\bossRoomLock.cs" />
     <Compile Include="Assets\Scripts\BossRoomZone.cs" />
     <Compile Include="Assets\Scripts\Brightness.cs" />
     <Compile Include="Assets\Scripts\BurningProperties.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\Scripts\EnemyAggroZone.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\EnemyHealth.cs" />
+    <Compile Include="Assets\Scripts\EnemySummoner.cs" />
     <Compile Include="Assets\Scripts\ExitLevel.cs" />
     <Compile Include="Assets\Scripts\FireController.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
@@ -97,6 +99,10 @@
     <Compile Include="Assets\Scripts\IntroductionToLevel1.cs" />
     <Compile Include="Assets\Scripts\LetterTrigger.cs" />
     <Compile Include="Assets\Scripts\Level2Exit.cs" />
+    <Compile Include="Assets\Scripts\Level3Lock.cs" />
+    <Compile Include="Assets\Scripts\Level3Puzzle2.cs" />
+    <Compile Include="Assets\Scripts\Level3Puzzle2SecondPart.cs" />
+    <Compile Include="Assets\Scripts\level3PuzzleCode.cs" />
     <Compile Include="Assets\Scripts\LightController.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\MathParabola.cs" />
