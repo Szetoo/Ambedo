@@ -42,13 +42,13 @@ public class bossRoomLock : MonoBehaviour
 
     public void OpenDoor()
     {
-        if (doorOpen.transform.position.x >= 320.9f) doorOpen.transform.position -= new Vector3(0.1f, 0, 0);
+        if (doorOpen.transform.position.x >= 325.5f) doorOpen.transform.position -= new Vector3(0.1f, 0, 0);
     }
 
     public void CloseDoor()
     {
 
-        if (doorOpen.transform.position.x <= 325.7f) doorOpen.transform.position += new Vector3(0.1f, 0, 0);
+        if (doorOpen.transform.position.x <= 330.6f) doorOpen.transform.position += new Vector3(0.1f, 0, 0);
         else Boss.SetActive(true);
     }
 }

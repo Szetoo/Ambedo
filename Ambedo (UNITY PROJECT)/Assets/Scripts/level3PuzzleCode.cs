@@ -8,7 +8,11 @@ public class level3PuzzleCode : MonoBehaviour
     public int BossOrLevel;
     private int index = 0;
     public GameObject Boss;
+    private GameObject Summoner;
+    public GameObject position;
 
+
+    private 
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +29,15 @@ public class level3PuzzleCode : MonoBehaviour
 
     public void CheckPassword(int code )
     {
-        if (password[index] != code) index = 0;
+        if (password[index] != code)
+        {
+            index = 0;
+            if (BossOrLevel == 1)
+            {
+                Summoner = Instantiate(Boss, position.transform.position, Quaternion.Euler(0, 0f, 0f));
+                Destroy(Summoner, 5f);
+            }
+        }
         else
         {
             index++;
