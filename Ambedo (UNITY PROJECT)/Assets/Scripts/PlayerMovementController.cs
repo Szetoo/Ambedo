@@ -31,7 +31,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Awake()
     {
-        /*
+        
         if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
         {
             // Debug.Log("Reading Save File");
@@ -64,7 +64,7 @@ public class PlayerMovementController : MonoBehaviour
         if (isWielding)
         {
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
-        }*/
+        }
 
     }
 

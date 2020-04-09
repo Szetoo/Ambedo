@@ -47,7 +47,7 @@ public class PlayerHealthController : MonoBehaviour
         
         if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
         {
-            Debug.Log("Reading Save File");
+           // Debug.Log("Reading Save File");
             // 2
             // player = GameObject.FindGameObjectWithTag("Player");
             BinaryFormatter bf = new BinaryFormatter();
@@ -360,6 +360,7 @@ public class PlayerHealthController : MonoBehaviour
         bool isWielding = save.isWielding;
         Dictionary<string, bool> enemies = save.enemiesInLevel1;
         Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
+        Dictionary<string, bool> enemies3 = save.enemiesInLevel3;
         float curEXP = currentEXP;
         int curLevel = currentLevel;
         bool trigger = save.cameraPanHasBeenActivated;
@@ -370,7 +371,7 @@ public class PlayerHealthController : MonoBehaviour
 
 
         //Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, curEXP, curLevel);
-        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, curEXP, curLevel, trigger);
+        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, enemies3, curEXP, curLevel, trigger);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);

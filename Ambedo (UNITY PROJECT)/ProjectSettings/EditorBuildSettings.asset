@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level-alex-tim.unity
     guid: 4a5d5688f33484c06abe84259c24c79c
+  - enabled: 1
+    path: Assets/Scenes/level 2.unity
+    guid: 750c4c620753e834ba7312b34c9f0e46
+  - enabled: 1
+    path: Assets/Scenes/level 3.unity
+    guid: 9d13e62b9669f824ab6637745a709013
+  - enabled: 1
+    path: Assets/Scenes/Orphanage.unity
+    guid: 853c9b567da0e7249be76b6c2dfa6980
   m_configObjects: {}

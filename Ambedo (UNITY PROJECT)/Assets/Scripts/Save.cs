@@ -32,13 +32,21 @@ public class Save
                                                 {"Statue", true}
                                             };
 
+    public Dictionary<string, bool> enemiesInLevel3 = new Dictionary<string, bool>(){
+                                                {"Child Ghost (Enemy)", true},
+                                                {"Octopus", true},
+                                                {"Spider", true},
+                                                {"SwampMonster", true},
+                                                {"Flyer", true}
+                                            };
+
 
     public bool cameraPanHasBeenActivated;
     
     
 
 
-    public static Save CreateSaveObject(int gameLevel, float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, Dictionary<string, bool> enemies2, float currentEXP, int currentLevel, bool trigger)
+    public static Save CreateSaveObject(int gameLevel, float xPosition, float yPosition, bool isWielding, Dictionary<string, bool> enemies, Dictionary<string, bool> enemies2, Dictionary<string, bool> enemies3, float currentEXP, int currentLevel, bool trigger)
     {
         Save save = new Save();
         //player = GameObject.FindGameObjectWithTag("Player");
@@ -48,6 +56,7 @@ public class Save
         save.isWielding = isWielding;
         save.enemiesInLevel1 = enemies;
         save.enemiesInLevel2 = enemies2;
+        save.enemiesInLevel3 = enemies3;
         save.currentEXP = currentEXP;
         save.currentLevel = currentLevel;
         save.cameraPanHasBeenActivated = trigger;

@@ -20,7 +20,7 @@ public class DeathZoneController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerHealthController>().damagePlayer(300);
+            other.gameObject.GetComponent<PlayerHealthController>().damagePlayer(1100);
         }
             
     }

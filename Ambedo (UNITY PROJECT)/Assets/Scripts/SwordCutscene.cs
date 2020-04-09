@@ -95,6 +95,7 @@ public class SwordCutscene : MonoBehaviour {
         bool isWielding = true;
         Dictionary<string, bool> enemies = save.enemiesInLevel1;
         Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
+        Dictionary<string, bool> enemies3 = save.enemiesInLevel3;
         float currentEXP = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>().currentEXP;
         int currentLevel = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>().currentLevel;
         bool trigger = save.cameraPanHasBeenActivated;
@@ -105,7 +106,7 @@ public class SwordCutscene : MonoBehaviour {
 
 
         //Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
-        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, currentEXP, currentLevel, trigger);
+        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, enemies3, currentEXP, currentLevel, trigger);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);

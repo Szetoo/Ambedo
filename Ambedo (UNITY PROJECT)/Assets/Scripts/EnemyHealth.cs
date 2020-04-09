@@ -39,16 +39,17 @@ public class EnemyHealth : MonoBehaviour
 
             // 3
             currentGameLevel = save.saveFileLevel;
-            Debug.Log(currentGameLevel);
+            //Debug.Log(currentGameLevel);
             Dictionary<string, bool> enemies = save.enemiesInLevel1;
             Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
+            Dictionary<string, bool> enemies3 = save.enemiesInLevel3;
             string enemyName = gameObject.name;
-            Debug.Log(enemyName);
-            Debug.Log("Here are the enemies in Level 2: ");
+            //Debug.Log(enemyName);
+            //Debug.Log("Here are the enemies in Level 2: ");
             //Debug.Log(enemies2);
             foreach(KeyValuePair<string, bool> kvp in enemies2)
             {
-                Debug.Log( kvp.Key + kvp.Value);
+               // Debug.Log( kvp.Key + kvp.Value);
             }
             if (currentGameLevel == 1) {
                 if (enemies[enemyName] == false)
@@ -58,9 +59,18 @@ public class EnemyHealth : MonoBehaviour
             }
             else if(currentGameLevel == 2)
             {
-                Debug.Log("We are in level two and we are checking for:" + enemyName);
+                //Debug.Log("We are in level two and we are checking for:" + enemyName);
                
                 if (enemies2[enemyName] == false)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
+            else if (currentGameLevel == 3)
+            {
+               // Debug.Log("We are in level two and we are checking for:" + enemyName);
+
+                if (enemies3[enemyName] == false)
                 {
                     gameObject.SetActive(false);
                 }
@@ -207,6 +217,7 @@ public class EnemyHealth : MonoBehaviour
             bool isWielding = save.isWielding;
             Dictionary<string, bool> enemies = save.enemiesInLevel1;
             Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
+            Dictionary<string, bool> enemies3 = save.enemiesInLevel3;
             float currentEXP = save.currentEXP;
             int currentLevel = save.currentLevel;
             bool trigger = save.cameraPanHasBeenActivated; 
@@ -221,6 +232,11 @@ public class EnemyHealth : MonoBehaviour
             string enemyName = gameObject.name;
             enemies2[enemyName] = false;
         }
+        else if(currentGameLevel == 3)
+        {
+            string enemyName = gameObject.name;
+            enemies3[enemyName] = false;
+        }
         
 
 
@@ -228,7 +244,7 @@ public class EnemyHealth : MonoBehaviour
             //gameObject.GetComponent<Transform>().position = new Vector3(xPosition, yPosition, 0);
             Debug.Log("Game Loaded");
 
-        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, currentEXP, currentLevel, trigger);
+        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, enemies3, currentEXP, currentLevel, trigger);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);

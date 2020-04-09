@@ -2027,7 +2027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &311939113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2037,9 +2037,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 311939112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 499a33ee8686f4246b430ab0abfd3f3d, type: 3}
+  m_Script: {fileID: 11500000, guid: e5415965a8c3e9a4c960151030a5ec26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  badCutscene: {fileID: 912201214}
+  goodCutscene: {fileID: 1670329647}
+  transformations:
+  - {fileID: 21300000, guid: 8a6bca2c0603ffb48ba35626243cff9e, type: 3}
+  - {fileID: 21300000, guid: 44d7bf33626eaaa4b8d3f8be96265c95, type: 3}
+  - {fileID: 21300000, guid: bcc8be2747559aa44a51a8670c8ba441, type: 3}
+  - {fileID: 21300000, guid: 53e129c960b2e5a42af9215b29f49c30, type: 3}
+  - {fileID: 21300000, guid: 10ee0939f4c4f204293a36855f08d4bf, type: 3}
+  - {fileID: 21300000, guid: f8bea7afd5a854e33bfa4823db09681f, type: 3}
 --- !u!4 &311939114
 Transform:
   m_ObjectHideFlags: 0
@@ -6095,7 +6104,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 797e4ddf0d2664d44946ece4c1a2cc98, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -9810,6 +9819,11 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.40241724
       objectReference: {fileID: 0}
+    - target: {fileID: 4531184265981533037, guid: f869af00fa0823145b0dffb8c5b1fb46,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4531184265981533032, guid: f869af00fa0823145b0dffb8c5b1fb46,
         type: 3}
       propertyPath: m_Offset.y
@@ -9819,6 +9833,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 0.40255094
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531184265981533032, guid: f869af00fa0823145b0dffb8c5b1fb46,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5278715150182161686, guid: f869af00fa0823145b0dffb8c5b1fb46,
         type: 3}
@@ -9835,7 +9854,24 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4531184265981533042, guid: f869af00fa0823145b0dffb8c5b1fb46,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5278715150182161672, guid: f869af00fa0823145b0dffb8c5b1fb46,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5278715150182161672, guid: f869af00fa0823145b0dffb8c5b1fb46,
+        type: 3}
+      propertyPath: damage
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5278715150182161686, guid: f869af00fa0823145b0dffb8c5b1fb46, type: 3}
+    - {fileID: 5278715150182161672, guid: f869af00fa0823145b0dffb8c5b1fb46, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f869af00fa0823145b0dffb8c5b1fb46, type: 3}
 --- !u!1 &1498027644 stripped
 GameObject:
@@ -10230,10 +10266,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6443889382cf3414698674764dd2627a, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -10839,7 +10875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!320 &1670329648
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -10847,7 +10883,7 @@ PlayableDirector:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670329647}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 2fb57236a4d19ee479cb684c68c98f45, type: 2}
   m_InitialState: 0

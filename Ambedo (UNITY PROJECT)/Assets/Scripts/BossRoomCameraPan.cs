@@ -18,7 +18,7 @@ public class BossRoomCameraPan : MonoBehaviour
     {
         if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
         {
-            Debug.Log("Reading Save File");
+            //Debug.Log("Reading Save File");
             // 2
             // player = GameObject.FindGameObjectWithTag("Player");
             BinaryFormatter bf = new BinaryFormatter();
@@ -27,7 +27,7 @@ public class BossRoomCameraPan : MonoBehaviour
             file.Close();
 
             // 3
-            Debug.Log(save.cameraPanHasBeenActivated);
+            //Debug.Log(save.cameraPanHasBeenActivated);
 
             hasBeenTriggered = save.cameraPanHasBeenActivated;
             if (hasBeenTriggered == true)
@@ -94,6 +94,7 @@ public class BossRoomCameraPan : MonoBehaviour
         bool isWielding = save.isWielding;
         Dictionary<string, bool> enemies = save.enemiesInLevel1;
         Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
+        Dictionary<string, bool> enemies3 = save.enemiesInLevel3;
         float curEXP = save.currentEXP;
         int curLevel = save.currentLevel;
         //bool cameraPanBool = trigger;
@@ -105,7 +106,7 @@ public class BossRoomCameraPan : MonoBehaviour
 
 
 
-        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, curEXP, curLevel, true);
+        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, enemies3, curEXP, curLevel, true);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);

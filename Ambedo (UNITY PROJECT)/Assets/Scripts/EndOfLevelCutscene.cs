@@ -11,6 +11,9 @@ public class EndOfLevelCutscene : MonoBehaviour
     private bool hasBeenTriggered;
     public int nextLevelNumber;
     private string sceneToLoadName;
+
+    private float newStartingX;
+    private float newStartingY;
     LoadScene sceneToLoad = new LoadScene();
     // Start is called before the first frame update
     void Start()
@@ -19,11 +22,25 @@ public class EndOfLevelCutscene : MonoBehaviour
         //LoadScene sceneToLoad = new LoadScene();
         if (nextLevelNumber == 2)
         {
-            sceneToLoadName = "Level 2";
+            Debug.Log("Player will now spawn at: ");
+            sceneToLoadName = "level 2";
+            newStartingX = 128.5f;
+            newStartingY = 34.1f;
+            Debug.Log("X: " + newStartingX);
+            Debug.Log("Y: " + newStartingY);
         }
         else if (nextLevelNumber == 3)
         {
-            sceneToLoadName = "Level 3";
+            Debug.Log("Player will now spawn at: ");
+            sceneToLoadName = "level 3";
+            newStartingX = 150.32f;
+            newStartingY = -26.01f;
+            Debug.Log("X: " + newStartingX);
+            Debug.Log("Y: " + newStartingY);
+        }
+        else if(nextLevelNumber == 4)
+        {
+            sceneToLoadName = "Orphanage";
         }
         //sceneToLoad.LoadSceneByName(sceneToLoadName);
     }
@@ -59,12 +76,13 @@ private void SaveToGame()
         // 3
 
         int gameLevel = nextLevelNumber;
-    float xPosition = save.xSpawnPosition;
-    float yPosition = save.ySpawnPosition;
+        float xPosition = newStartingX;
+        float yPosition = newStartingY;
     bool isWielding = save.isWielding;
     Dictionary<string, bool> enemies = save.enemiesInLevel1;
        Dictionary<string, bool> enemies2 = save.enemiesInLevel2;
-    float currentEXP = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>().currentEXP;
+        Dictionary<string, bool> enemies3 = save.enemiesInLevel3;
+        float currentEXP = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>().currentEXP;
     int currentLevel = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealthController>().currentLevel;
     bool trigger = save.cameraPanHasBeenActivated;
 
@@ -74,7 +92,7 @@ private void SaveToGame()
 
 
         //Save save2 = CreateSaveGameObject(gameLevel, xPosition, yPosition, isWielding, enemies, currentEXP, currentLevel, trigger);
-        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2, currentEXP, currentLevel, trigger);
+        Save save2 = Save.CreateSaveObject(gameLevel, xPosition, yPosition, isWielding, enemies, enemies2,enemies3, currentEXP, currentLevel, trigger);
 
         // 2
         file = File.Open(Application.persistentDataPath + "/gamesave.save", FileMode.Open);
