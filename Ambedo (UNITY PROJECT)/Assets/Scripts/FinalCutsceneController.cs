@@ -42,7 +42,7 @@ public class FinalCutsceneController : MonoBehaviour
            
             player.GetComponent<SpriteRenderer>().sprite = transformations[currentLevel];
 
-            if (currentLevel > 3)
+            if (currentLevel > 2)
             {
                 badCutscene.SetActive(true);
                 badCutscene.GetComponent<PlayableDirector>().Play();

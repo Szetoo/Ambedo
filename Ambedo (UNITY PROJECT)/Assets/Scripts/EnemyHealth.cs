@@ -104,6 +104,7 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(gameObject.name + currentHP.ToString());
         //StartCoroutine(SpawnOrbs());
         if (currentHP < maxHP & canHealTime < Time.time)
         {
@@ -147,6 +148,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void damageEnemy(float amount)
     {
+        
         currentHP -= amount;
         if (currentHP <= 0)
         {

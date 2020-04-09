@@ -1484,22 +1484,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 165456191148948962, guid: c3e60e2937a3e454c955453c5006f0f6,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7213500509081671336, guid: c3e60e2937a3e454c955453c5006f0f6,
-        type: 3}
-      propertyPath: orb
-      value: 
-      objectReference: {fileID: 4078487342204485565, guid: 52821e8a924f0864f887ddbd7f7c2dd0,
-        type: 3}
-    - target: {fileID: 7213500509081671336, guid: c3e60e2937a3e454c955453c5006f0f6,
-        type: 3}
-      propertyPath: numberOfOrbs
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3e60e2937a3e454c955453c5006f0f6, type: 3}
 --- !u!1 &686774955
@@ -2250,47 +2234,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4549163120065025312, guid: fdf1fbff8202ddd459e3ec8304c296d9,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6445088915756121706, guid: fdf1fbff8202ddd459e3ec8304c296d9,
-        type: 3}
-      propertyPath: orb
-      value: 
-      objectReference: {fileID: 4078487342204485565, guid: 52821e8a924f0864f887ddbd7f7c2dd0,
-        type: 3}
-    - target: {fileID: 6445088915756121706, guid: fdf1fbff8202ddd459e3ec8304c296d9,
-        type: 3}
-      propertyPath: numberOfOrbs
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6445088915756121706, guid: fdf1fbff8202ddd459e3ec8304c296d9,
-        type: 3}
-      propertyPath: maxHP
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 6445088915756121706, guid: fdf1fbff8202ddd459e3ec8304c296d9,
-        type: 3}
-      propertyPath: enemyDamageFromPlayer
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6445088915756121706, guid: fdf1fbff8202ddd459e3ec8304c296d9,
-        type: 3}
-      propertyPath: healAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6445088915756121706, guid: fdf1fbff8202ddd459e3ec8304c296d9,
-        type: 3}
-      propertyPath: invDuration
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6445088915756121706, guid: fdf1fbff8202ddd459e3ec8304c296d9,
-        type: 3}
-      propertyPath: timeUntilHeal
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdf1fbff8202ddd459e3ec8304c296d9, type: 3}
@@ -10449,47 +10392,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4339526543263263343, guid: 6c779bf8fcd2fa54d9c88c3bab0610dd,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6514819286524887333, guid: 6c779bf8fcd2fa54d9c88c3bab0610dd,
-        type: 3}
-      propertyPath: orb
-      value: 
-      objectReference: {fileID: 4078487342204485565, guid: 52821e8a924f0864f887ddbd7f7c2dd0,
-        type: 3}
-    - target: {fileID: 6514819286524887333, guid: 6c779bf8fcd2fa54d9c88c3bab0610dd,
-        type: 3}
-      propertyPath: numberOfOrbs
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6514819286524887333, guid: 6c779bf8fcd2fa54d9c88c3bab0610dd,
-        type: 3}
-      propertyPath: maxHP
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 6514819286524887333, guid: 6c779bf8fcd2fa54d9c88c3bab0610dd,
-        type: 3}
-      propertyPath: enemyDamageFromPlayer
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6514819286524887333, guid: 6c779bf8fcd2fa54d9c88c3bab0610dd,
-        type: 3}
-      propertyPath: invDuration
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6514819286524887333, guid: 6c779bf8fcd2fa54d9c88c3bab0610dd,
-        type: 3}
-      propertyPath: timeUntilHeal
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6514819286524887333, guid: 6c779bf8fcd2fa54d9c88c3bab0610dd,
-        type: 3}
-      propertyPath: healAmount
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c779bf8fcd2fa54d9c88c3bab0610dd, type: 3}
 --- !u!1 &1290709883
@@ -10630,22 +10532,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6670221324870106430, guid: 6db4258c4090f44409d9c1130ac8525e,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4233721258311014004, guid: 6db4258c4090f44409d9c1130ac8525e,
-        type: 3}
-      propertyPath: orb
-      value: 
-      objectReference: {fileID: 4078487342204485565, guid: 52821e8a924f0864f887ddbd7f7c2dd0,
-        type: 3}
-    - target: {fileID: 4233721258311014004, guid: 6db4258c4090f44409d9c1130ac8525e,
-        type: 3}
-      propertyPath: numberOfOrbs
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db4258c4090f44409d9c1130ac8525e, type: 3}
@@ -105215,7 +105101,7 @@ PrefabInstance:
     - target: {fileID: 8710873581423546069, guid: f3c8da3d3cfb8e14cbee774e4f27d88b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -41
+      value: -24.65
       objectReference: {fileID: 0}
     - target: {fileID: 8710873581423546069, guid: f3c8da3d3cfb8e14cbee774e4f27d88b,
         type: 3}
